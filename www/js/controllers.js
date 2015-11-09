@@ -43,6 +43,9 @@ angular.module('controllers', [])
 })
 
 .controller('FavoritesCtrl', function($scope) {
+
+  // Replace this with a favorites collection stored with localForage
+
   $scope.books = [
     { title: 'Favoritt 1', id: 1 },
     { title: 'Favoritt 2', id: 2 },
@@ -51,8 +54,28 @@ angular.module('controllers', [])
   ];
 })
 
-.controller('SearchCtrl', function($scope, $stateParams) {
+.controller('SearchCtrl', function($scope, $stateParams, $http) {
+
+  $scope.searchQuery = '';
+
+  $scope.search = function() {
+    console.log('Query: ' + this.searchQuery);
+
+    $http.get('url' + $scope.searchQuery, {
+      // functionality from app-gammel/REalfagsbibl../assets/www/bibsearch.js getSearchResults
+    })
+    .then(function success() {
+      console.log('success in fetch results')
+    }, function error() {
+      console.log('failed fetching results');
+    });
+
+  };
+
 })
 
 .controller('BookCtrl', function($scope, $stateParams) {
+
+  // Implement bookinfo view
+
 });
