@@ -1,0 +1,774 @@
+
+{"result": {
+  "documents": [
+    {
+      "recordId": "082142009",
+      "title": "An exposition vpon the Epistle of S. Paule the Apostle to the Ephesians: by S. Iohn Chrysostome, Archbishop of Constantinople. Truely and faithfully translated out of Greeke. Perused, and auctorized, according to an order appointed in hir Maiesties iniunctions",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "",
+          "lastName": "John Chrysostom",
+          "normalizedName": "John Chrysostom",
+          "presentableName": "John Chrysostom"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2415",
+      "publicationName": "Printed by Henry Binneman and Ralph Newberie. Cum priuilegio Regiæ Maiestatis",
+      "publicationPlace": "At London",
+      "isbn": [
+      ],
+      "issn": [
+      ],
+      "pages": "[10], 341, [39] s.",
+      "edition": "",
+      "series": [
+      ],
+      "note": "A translation of: Expositio super Epistolam Sancti Pauli ad Epheseos., Includes index., In this issue the imprint date is in a compartment in the woodcut title page border., Reproduction of the original in the Henry E. Huntington Library and Art Gallery.",
+      "keywords": [
+      ],
+      "allClassification": [
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=An+exposition+vpon+the+Epistle+of+S.+Paule+the+Apostle+to+the+Ephesians%3A+by+S.+Iohn+Chrysostome%2C+Archbishop+of+Constantinople.+Truely+and+faithfully+translated+out+of+Greeke.+Perused%2C+and+auctorized%2C+according+to+an+order+appointed+in+hir+Maiesties+iniunctions&rft.author=John+Chrysostom&rft.date=2415&pid=notrbib:082142009",
+      "content": "",
+      "language": "eng",
+      "material": "book_electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 5,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "recordId": "082024936",
+      "title": "An homelie of Saint John Chrysostom vpon that saiyng of Saint Paul, Brethren, I wold not haue you ignorant, what is to becom of those that slepe, to the end ye lament not, &c : with also a discourse vpon Job, and Abraham",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "",
+          "lastName": "John Chrysostom",
+          "normalizedName": "John Chrysostom",
+          "presentableName": "John Chrysostom"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "John",
+          "lastName": "Cheke",
+          "normalizedName": "Cheke, John",
+          "presentableName": "John Cheke"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Thomas",
+          "lastName": "Chaloner",
+          "normalizedName": "Chaloner, Thomas",
+          "presentableName": "Thomas Chaloner"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2424",
+      "publicationName": "In officina Thomæ Bertheleti",
+      "publicationPlace": "Londini",
+      "isbn": [
+      ],
+      "issn": [
+      ],
+      "pages": "[40] s.",
+      "edition": "",
+      "series": [
+      ],
+      "note": "Translation of author's De dormientibus nolo vos ignorare fratres--Cf. NUC pre-1956 imprints., Running title: Sermon of Chry., Imprint from colophon., Title within ornamental border., Signatures: A-B⁸ C⁴., Reproduction of original in the Henry E. Huntington Library and Art Gallery.",
+      "keywords": [
+      ],
+      "allClassification": [
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=An+homelie+of+Saint+John+Chrysostom+vpon+that+saiyng+of+Saint+Paul%2C+Brethren%2C+I+wold+not+haue+you+ignorant%2C+what+is+to+becom+of+those+that+slepe%2C+to+the+end+ye+lament+not%2C+%26c+%3A+with+also+a+discourse+vpon+Job%2C+and+Abraham&rft.author=John+Chrysostom&rft.date=2424&pid=notrbib:082024936",
+      "content": "",
+      "language": "eng",
+      "material": "book_electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 5,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "recordId": "151852227",
+      "title": "Skriftrommet : postmoderne trekk i Jon Fosse sin forfattarskap",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Bjarne",
+          "lastName": "Bjørnevik",
+          "normalizedName": "Bjørnevik, Bjarne",
+          "presentableName": "Bjarne Bjørnevik"
+        },
+        {
+          "relatorcode": "dgg",
+          "firstName": "",
+          "lastName": "Høgskolen i Oslo og Akershus",
+          "normalizedName": "Høgskolen i Oslo og Akershus",
+          "presentableName": "Høgskolen i Oslo og Akershus"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2015",
+      "publicationName": "Høgskolen i Oslo og Akershus",
+      "publicationPlace": "Oslo",
+      "isbn": [
+      ],
+      "issn": [
+      ],
+      "pages": "37 s.",
+      "edition": "",
+      "series": [
+      ],
+      "note": "Bacheloroppgave i bibliotek- og informasjonsvitenskap - Høgskolen i Oslo og Akershus, Institutt for arkiv-, bibliotek- og informasjonsfag, 2015",
+      "keywords": [
+        "norsk",
+        "samtidslitteratur",
+        "postmodernisme",
+        "forfattere",
+        "dramatikere"
+      ],
+      "allClassification": [
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=Skriftrommet+%3A+postmoderne+trekk+i+Jon+Fosse+sin+forfattarskap&rft.author=Bj%C3%B8rnevik%2C+Bjarne&rft.date=2015&pid=notrbib:151852227",
+      "content": "",
+      "language": "nno",
+      "material": "electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+        [
+          "http://fagarkivet.hioa.no/jspui/handle/123456789/585",
+          "Gratis"
+        ]
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v",
+        "s"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 1,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "recordId": "15156129x",
+      "title": "On the role of transfer of function in the understanding of preferences",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Jon Magnus",
+          "lastName": "Eilertsen",
+          "normalizedName": "Eilertsen, Jon Magnus",
+          "presentableName": "Jon Magnus Eilertsen"
+        },
+        {
+          "relatorcode": "dgg",
+          "firstName": "",
+          "lastName": "Høgskolen i Oslo og Akershus",
+          "normalizedName": "Høgskolen i Oslo og Akershus",
+          "presentableName": "Høgskolen i Oslo og Akershus"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2015",
+      "publicationName": "Høgskolen i Oslo og Akershus",
+      "publicationPlace": "Oslo",
+      "isbn": [
+      ],
+      "issn": [
+      ],
+      "pages": "1 b.",
+      "edition": "",
+      "series": [
+      ],
+      "note": "Masteroppgave i læring i komplekse systemer - Høgskolen i Oslo og Akershus, Institutt for atferdsvitenskap, 2015, Oppgaven er klausulert fram til 1.8.2018",
+      "keywords": [
+        "atferdsvitenskap",
+        "forbrukeratferd",
+        "stimulus"
+      ],
+      "allClassification": [
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=On+the+role+of+transfer+of+function+in+the+understanding+of+preferences&rft.author=Eilertsen%2C+Jon+Magnus&rft.date=2015&pid=notrbib:15156129x",
+      "content": "",
+      "language": "eng",
+      "material": "electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+        [
+          "http://hdl.handle.net/10642/2644",
+          "Gratis"
+        ]
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v",
+        "h"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 1,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "recordId": "15155613x",
+      "title": "Pattern formation in granular fluids",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Jon Alm",
+          "lastName": "Eriksen",
+          "normalizedName": "Eriksen, Jon Alm",
+          "presentableName": "Jon Alm Eriksen"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2015",
+      "publicationName": "Department of Physics, Faculty of Mathematics and Natural Sciences, University of Oslo",
+      "publicationPlace": "Oslo",
+      "isbn": [
+      ],
+      "issn": [
+      ],
+      "pages": "1 b. (flere pag.), ill.",
+      "edition": "",
+      "series": [
+        {
+          "title": "Series of dissertations submitted to the Faculty of Mathematics and Natural Sciences, University of Oslo",
+          "volume": "No. 1661",
+          "seriesrecordcontrolnumber": "99160007x",
+          "sortingvolume": "                1661"
+        }
+      ],
+      "note": "Delvis opptrykk av artikler., Avhandling (PhD) - Universitetet i Oslo, 2015",
+      "keywords": [
+      ],
+      "allClassification": [
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=Pattern+formation+in+granular+fluids&rft.author=Eriksen%2C+Jon+Alm&rft.date=2015&pid=notrbib:15155613x",
+      "content": "",
+      "language": "eng",
+      "material": "book_print",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+      ],
+      "items": [
+      ],
+      "physicalform": "p",
+      "typeofcontent": [
+        "v",
+        "d"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 1,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "recordId": "151361738",
+      "title": "Butikkstrategi : konkurransefortrinn og potensielle strategiske valg for dagligvarebutikker",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Jon-Vegar",
+          "lastName": "Nilsen",
+          "normalizedName": "Nilsen, Jon-Vegar",
+          "presentableName": "Jon-Vegar Nilsen"
+        },
+        {
+          "relatorcode": "dgg",
+          "firstName": "",
+          "lastName": "UiT Norges arktiske universitet",
+          "normalizedName": "UiT Norges arktiske universitet",
+          "presentableName": "UiT Norges arktiske universitet"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2015",
+      "publicationName": "UiT Norges arktiske universitet",
+      "publicationPlace": "Tromsø",
+      "isbn": [
+      ],
+      "issn": [
+      ],
+      "pages": "",
+      "edition": "",
+      "series": [
+      ],
+      "note": "Masteroppgave i ledelse, innovasjon og marked - UiT Norges arktiske universitet, 2015",
+      "keywords": [
+        "bedriftsøkonomi"
+      ],
+      "allClassification": [
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=Butikkstrategi+%3A+konkurransefortrinn+og+potensielle+strategiske+valg+for+dagligvarebutikker&rft.author=Nilsen%2C+Jon-Vegar&rft.date=2015&pid=notrbib:151361738",
+      "content": "",
+      "language": "nob",
+      "material": "electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+        [
+          "http://hdl.handle.net/10037/7829",
+          "Gratis"
+        ]
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v",
+        "h"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 1,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "recordId": "151308144",
+      "title": "30-dagers reinnleggelse av eldre 2011-2013 : resultater for sykehus og kommuner",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Anja Schou",
+          "lastName": "Lindman",
+          "normalizedName": "Lindman, Anja Schou",
+          "presentableName": "Anja Schou Lindman"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Doris Tove",
+          "lastName": "Kristoffersen",
+          "normalizedName": "Kristoffersen, Doris Tove",
+          "presentableName": "Doris Tove Kristoffersen"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Sahar",
+          "lastName": "Hassani",
+          "normalizedName": "Hassani, Sahar",
+          "presentableName": "Sahar Hassani"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Oliver",
+          "lastName": "Tomic",
+          "normalizedName": "Tomic, Oliver",
+          "presentableName": "Oliver Tomic"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Jon",
+          "lastName": "Helgeland",
+          "normalizedName": "Helgeland, Jon",
+          "presentableName": "Jon Helgeland"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "",
+          "lastName": "Nasjonalt kunnskapssenter for helsetjenesten",
+          "normalizedName": "Nasjonalt kunnskapssenter for helsetjenesten",
+          "presentableName": "Nasjonalt kunnskapssenter for helsetjenesten"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2015",
+      "publicationName": "Nasjonalt kunnskapssenter for helsetjenesten",
+      "publicationPlace": "Oslo",
+      "isbn": [
+        "978-82-8121-950-2"
+      ],
+      "issn": [
+      ],
+      "pages": "58 s. ; digital PDF-fil",
+      "edition": "",
+      "series": [
+      ],
+      "note": "Oppdragsgiver: Helsedirektoratet",
+      "keywords": [
+      ],
+      "allClassification": [
+        [
+          "MESH",
+          [
+            "Patient Readmission",
+            "Quality Indicators, Health Care",
+            "Hospitals",
+            "Norway"
+          ]
+        ],
+        [
+          "Dewey",
+          [
+            "362.11"
+          ]
+        ]
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=30-dagers+reinnleggelse+av+eldre+2011-2013+%3A+resultater+for+sykehus+og+kommuner&rft.author=Lindman%2C+Anja+Schou&rft.isbn=978-82-8121-950-2&rft.date=2015&pid=notrbib:151308144",
+      "content": "",
+      "language": "nob",
+      "material": "book_electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+        [
+          "http://www.kunnskapssenteret.no/publikasjoner/_attachment/194972?_ts=14d2ddf21a7&download=false",
+          "Gratis"
+        ]
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 1,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "recordId": "151709432",
+      "title": "Nedvandringsveier og effekter av vannslipp på vinterstøing og smolt av Hunderørret forbi Hunderfossen kraftverk i Gudbrandsdalslågen. Telemetristudier høsten 2014 og våren 2015",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Morten",
+          "lastName": "Kraabøl",
+          "normalizedName": "Kraabøl, Morten",
+          "presentableName": "Morten Kraabøl"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Børre K.",
+          "lastName": "Dervo",
+          "normalizedName": "Dervo, Børre K.",
+          "presentableName": "Børre K. Dervo"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Jon",
+          "lastName": "Museth",
+          "normalizedName": "Museth, Jon",
+          "presentableName": "Jon Museth"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2015",
+      "publicationName": "Norsk institutt for naturforskning",
+      "publicationPlace": "Lillehammer",
+      "isbn": [
+        "978-82-426-2815-2"
+      ],
+      "issn": [
+      ],
+      "pages": "36 s. + vedlegg, ill.",
+      "edition": "",
+      "series": [
+        {
+          "title": "NINA rapport",
+          "volume": "1187",
+          "seriesrecordcontrolnumber": "05083617x",
+          "sortingvolume": "                1187"
+        }
+      ],
+      "note": "",
+      "keywords": [
+        "oppland",
+        "fylke",
+        "gudbrandsdalslågen",
+        "hunderfossen",
+        "kraftverk",
+        "storørre",
+        "t",
+        "hunderørret",
+        "gyteregistrering",
+        "vinterstøing",
+        "smolt",
+        "vandringsproblemer",
+        "tu",
+        "rbinpassasje",
+        "lukemanøvrering",
+        "lokkeflom",
+        "telemetristudier",
+        "county",
+        "river",
+        "powerplant",
+        "hunder",
+        "trout",
+        "spawning",
+        "sites",
+        "kelt",
+        "migration",
+        "problems",
+        "turbine",
+        "passage",
+        "operation",
+        "of",
+        "spill",
+        "gates",
+        "telemetry",
+        "studies"
+      ],
+      "allClassification": [
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=Nedvandringsveier+og+effekter+av+vannslipp+p%C3%A5+vinterst%C3%B8ing+og+smolt+av+Hunder%C3%B8rret+forbi+Hunderfossen+kraftverk+i+Gudbrandsdalsl%C3%A5gen.+Telemetristudier+h%C3%B8sten+2014+og+v%C3%A5ren+2015&rft.author=Kraab%C3%B8l%2C+Morten&rft.isbn=978-82-426-2815-2&rft.date=2015&pid=notrbib:151709432",
+      "content": "",
+      "language": "nob",
+      "material": "book_electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 1,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "recordId": "151111154",
+      "title": "Nasjonalt handlingsprogram med retningslinjer for diagnostikk, behandling og oppfølging av pasienter med pancreaskreft",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "",
+          "lastName": "Helsedirektoratet",
+          "normalizedName": "Helsedirektoratet",
+          "presentableName": "Helsedirektoratet"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Jon Arne",
+          "lastName": "Søreide",
+          "normalizedName": "Søreide, Jon Arne",
+          "presentableName": "Jon Arne Søreide"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2015",
+      "publicationName": "Helsedirektoratet",
+      "publicationPlace": "Oslo",
+      "isbn": [
+        "978-82-8081-366-4"
+      ],
+      "issn": [
+      ],
+      "pages": "90 s. ; digital PDF-fil",
+      "edition": "3. utg.",
+      "series": [
+      ],
+      "note": "",
+      "keywords": [
+      ],
+      "allClassification": [
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=Nasjonalt+handlingsprogram+med+retningslinjer+for+diagnostikk%2C+behandling+og+oppf%C3%B8lging+av+pasienter+med+pancreaskreft&rft.author=Helsedirektoratet&rft.isbn=978-82-8081-366-4&rft.date=2015&pid=notrbib:151111154",
+      "content": "",
+      "language": "nob",
+      "material": "book_electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+        [
+          "https://helsedirektoratet.no/Lists/Publikasjoner/Attachments/880/IS%202274%20Handlingsprogram%20pancreaskreft.pdf",
+          "Gratis"
+        ]
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 1,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "recordId": "151100470",
+      "title": "Learning Java by building Android games : get ready for a fun-filled experience of learning Java by developing games for the Android platform",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "John",
+          "lastName": "Horton",
+          "normalizedName": "Horton, John",
+          "presentableName": "John Horton"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2015",
+      "publicationName": "Packt Publishing",
+      "publicationPlace": "Birmingham, UK",
+      "isbn": [
+      ],
+      "issn": [
+      ],
+      "pages": "1 online resource (1 volume), illustrations",
+      "edition": "",
+      "series": [
+      ],
+      "note": "Includes index., Description based on online resource; title from cover (Safari, viewed February 19, 2015).",
+      "keywords": [
+      ],
+      "allClassification": [
+        [
+          "LC",
+          [
+            "Mobile games",
+            "Application software"
+          ]
+        ]
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=Learning+Java+by+building+Android+games+%3A+get+ready+for+a+fun-filled+experience+of+learning+Java+by+developing+games+for+the+Android+platform&rft.author=Horton%2C+John&rft.date=2015&pid=notrbib:151100470",
+      "content": "",
+      "language": "eng",
+      "material": "electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "e",
+        "v"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 3,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    }
+  ],
+  "totalHits": 4159,
+  "responseTime": 1290
+}}

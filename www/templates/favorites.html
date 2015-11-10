@@ -1,7 +1,7 @@
 <ion-view view-title="Favorites">
   <ion-content>
     <ion-list>
-      <ion-item ng-repeat="book in books" href="#/app/view/{{book.id}}">
+      <ion-item ng-repeat="book in vm.books" href="#/app/view/{{book.id}}">
         {{book.title}}
       </ion-item>
     </ion-list>

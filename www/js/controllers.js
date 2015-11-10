@@ -1,81 +1,102 @@
-angular.module('controllers', [])
+// To avoid polluting the global scope with our function declarations, we wrap
+// everything inside an IIFE
+(function() {
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+    // define the module that will hold all the controllers we're gonna use
+    angular.module('controllers', []);
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+    // ------------------------------------------------------------------------
 
-  // // Form data for the login modal
-  // $scope.loginData = {};
+    function AppCtrl($scope, $ionicModal, $timeout) {
+      var vm = this;
+    }
 
-  // // Create the login modal that we will use later
-  // $ionicModal.fromTemplateUrl('templates/login.html', {
-  //   scope: $scope
-  // }).then(function(modal) {
-  //   $scope.modal = modal;
-  // });
+    // add it to our controllers module
+    angular
+      .module('controllers')
+      .controller('AppCtrl', AppCtrl);
 
-  // // Triggered in the login modal to close itl
-  // $scope.closeLogin = function() {
-  //   $scope.modal.hide();
-  // };
+    // ------------------------------------------------------------------------
 
-  // // Open the login modal
-  // $scope.login = function() {
-  //   $scope.modal.show();
-  // };
+    function FavoritesCtrl() {
+      var vm = this;
 
-  // // Perform the login action when the user submits the login form
-  // $scope.doLogin = function() {
-  //   console.log('Doing login', $scope.loginData);
+      vm.books = [
+        { title: 'Favoritt 1', id: 1 },
+        { title: 'Favoritt 2', id: 2 },
+        { title: 'Favoritt 3', id: 3 },
+        { title: 'Favoritt 4', id: 4 }
+      ];
 
-  //   // Simulate a login delay. Remove this and replace with your login
-  //   // code if using a login system
-  //   $timeout(function() {
-  //     $scope.closeLogin();
-  //   }, 1000);
-  // };
-  
-})
+    }
 
-.controller('FavoritesCtrl', function($scope) {
+    // add it to our controllers module
+    angular
+      .module('controllers')
+      .controller('FavoritesCtrl', FavoritesCtrl);
 
-  // Replace this with a favorites collection stored with localForage
+    // ------------------------------------------------------------------------
 
-  $scope.books = [
-    { title: 'Favoritt 1', id: 1 },
-    { title: 'Favoritt 2', id: 2 },
-    { title: 'Favoritt 3', id: 3 },
-    { title: 'Favoritt 4', id: 4 }
-  ];
-})
+    function SearchCtrl($stateParams, $http, SearchFactory) {
+      var vm = this;
 
-.controller('SearchCtrl', function($scope, $stateParams, $http) {
+      vm.searchQuery = '';
+      vm.results = {};
+      vm.search = search;
 
-  $scope.searchQuery = '';
+      /////
 
-  $scope.search = function() {
-    console.log('Query: ' + this.searchQuery);
+      function search() {
 
-    $http.get('url' + $scope.searchQuery, {
-      // functionality from app-gammel/REalfagsbibl../assets/www/bibsearch.js getSearchResults
-    })
-    .then(function success() {
-      console.log('success in fetch results')
-    }, function error() {
-      console.log('failed fetching results');
-    });
+        var query = vm.searchQuery;
 
-  };
+        console.log('Query: ' + query);
 
-})
+        if (!query || 0 === query.length) return;
+          
+        SearchFactory.search(query)
+        .then(function success(data) {
+          console.log('success in fetch results');
+          // console.log(data);
+          vm.results = data;
+        }, function error() {
+          console.log('failed fetching results');
+          // fetch test data - REMOVE ME
+          $http({
+            url: 'testdata.json',
+            method: 'GET'
+          }).then(function success(data) {
+            vm.results = data.data.result.documents;
+            console.log('testdata:')
+            console.log(vm.results);
+          });
+          // end fetch test data
+        });
 
-.controller('BookCtrl', function($scope, $stateParams) {
+      };
 
-  // Implement bookinfo view
+    }
 
-});
+    // add it to our controllers module
+    angular
+      .module('controllers')
+      .controller('SearchCtrl', SearchCtrl);
+
+    // ------------------------------------------------------------------------
+
+    function BookCtrl($stateParams) {
+      var vm = this;
+
+      vm.bookId = $stateParams.bookId;
+      console.log('fetch bookID=' + vm.bookId + ' and show information');
+
+    }
+
+    // add it to our controllers module
+    angular
+      .module('controllers')
+      .controller('BookCtrl', BookCtrl);
+
+    // ------------------------------------------------------------------------
+
+})();
