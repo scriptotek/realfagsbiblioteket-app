@@ -26,8 +26,9 @@
 
       /////
 
-      // search api
       function search(query, ebook, start, appversion) {
+        // Fetches results from the API given the parameters.
+
         // return $http({
         //   url: 'http://linode.biblionaut.net/app/',
         //   method: 'GET',
@@ -60,6 +61,8 @@
       }
 
       function loadFavorites() {
+        // Load stored favorites from localForage.
+
         return $localForage.getItem('favorites')
         .then(function(data) {
           if (data) {
@@ -74,64 +77,59 @@
       }
 
       function toggleFavorite(book) {
-        console.log(book);
+        // Add book if not already favorite, remove if already favorite.
+
         if (book.isFavorite) {
           // remove book from here
           factory.favorites.splice(factory.favorites.indexOf(book),1);
-          // console.log('book removed. favorites are now:');
-          // console.log(factory.favorites);
         }else{
           // add book
           factory.favorites.push(book);
-          // console.log('book added. favorites are now:');
-          // console.log(factory.favorites);
         }
         // update storage
         $localForage.setItem('favorites', factory.favorites);
       }
 
       function getBook(id) {
+        // Find and return the book with the given id, either from searchResults or from stored favorites.
+
         // Is the book in searchResults?
         var found;
         if (factory.searchResults.length) {
           found = $filter('filter')(factory.searchResults, {id: id}, true);
           if (found.length) {
-             // console.log(found[0]);
+             console.log('found book in searchResults: '+found[0]);
              return found[0];
-          } else {
-             console.log('book not found in searchResults in SearchFactory.getBook');
           }
         }
         // Is the book in favorites?
         if (factory.favorites.length){
           found = $filter('filter')(factory.favorites, {id: id}, true);
           if (found.length) {
-             // console.log(found[0]);
+             console.log('found book in favorites: '+found[0]);
              return found[0];
-          } else {
-             console.log('book not found in favorites in SearchFactory.getBook');
           }
         }
 
-        console.log('no books found in SearchFactory.getBook');
+        // The book was not found
         return null;
       }
 
       function isBookInFavorites(id) {
-        // console.log('trying to figure out if id='+id+' is a favorite. favorites are:');
-        // console.log(factory.favorites);
+        // Determine whether the bookId is a book we can find in the stored favorites.
+
         if (factory.favorites.length){
-          found = $filter('filter')(factory.favorites, {id: id}, true);
-          // console.log('book id='+id+' is a favorite from localForage');
-          return true;
+          var found = $filter('filter')(factory.favorites, {id: id}, true);
+          if (found.length) return true;
         }
-        // console.log('book id='+id+' is NOT favorite from localForage');
+
+        // The book was not found
         return false;
       }
 
     }
 
-    // add it to our appFactories module
+    // add it to our factories module
     angular
       .module('factories')
       .factory('SearchFactory', SearchFactory);
