@@ -18,15 +18,12 @@
 
     // ------------------------------------------------------------------------
 
-    function FavoritesCtrl() {
+    function FavoritesCtrl(SearchFactory) {
       var vm = this;
 
-      vm.books = [
-        { title: 'Favoritt 1', id: 1 },
-        { title: 'Favoritt 2', id: 2 },
-        { title: 'Favoritt 3', id: 3 },
-        { title: 'Favoritt 4', id: 4 }
-      ];
+      // NOTE: duplicate code in favorites.html and in search.html
+      // you must make a new template or something.
+      vm.results = SearchFactory.favorites;
 
     }
 
