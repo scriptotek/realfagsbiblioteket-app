@@ -39,7 +39,6 @@
         //     appversion: appversion
         //   }
         // }).success(function(data) {
-        //   console.log('fetched test data');
         //   factory.searchResults = data.result.documents;
         // }).error(function(err) {
         //   console.log('error in search: ' + err);
@@ -51,9 +50,7 @@
           url: 'testdata.json',
           method: 'GET'
         }).success(function(data) {
-          // console.log('fetched test data');
           factory.searchResults = data.result.documents;
-          // console.log(factory.searchResults);
         }).error(function(err) {
           console.log('error in search: ' + err);
           factory.searchResults = [];
@@ -65,12 +62,7 @@
 
         return $localForage.getItem('favorites')
         .then(function(data) {
-          if (data) {
-            // console.log('got favorites:' + data);
-            factory.favorites = data;
-          }else{
-            // console.log('no favorites to retrieve');
-          }
+          if (data) factory.favorites = data;
         }, function() {
           console.log('error in loadFavorites');
         });
@@ -98,7 +90,6 @@
         if (factory.searchResults.length) {
           found = $filter('filter')(factory.searchResults, {id: id}, true);
           if (found.length) {
-             console.log('found book in searchResults: '+found[0]);
              return found[0];
           }
         }
@@ -106,7 +97,6 @@
         if (factory.favorites.length){
           found = $filter('filter')(factory.favorites, {id: id}, true);
           if (found.length) {
-             console.log('found book in favorites: '+found[0]);
              return found[0];
           }
         }

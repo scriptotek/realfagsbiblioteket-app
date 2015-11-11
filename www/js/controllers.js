@@ -50,8 +50,6 @@
 
         var query = vm.searchQuery;
 
-        // console.log('Query: ' + query);
-
         if (!query || 0 === query.length) return;
           
         SearchFactory.search(query)
@@ -80,12 +78,8 @@
         vm.book.isFavorite = SearchFactory.isBookInFavorites(vm.book.id);
       }
 
-
       vm.toggleFavorite = function() {
-        console.log('toggle favorite. isFavorite='+vm.book.isFavorite);
         SearchFactory.toggleFavorite(vm.book);
-        if (vm.book.isFavorite===true) vm.book.isFavorite = false;
-        else vm.book.isFavorite = true;
       };
     }
 
