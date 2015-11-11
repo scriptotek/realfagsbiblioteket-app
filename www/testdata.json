@@ -1,9 +1,8 @@
-
 {"result": {
   "documents": [
     {
-      "recordId": "082142009",
-      "title": "An exposition vpon the Epistle of S. Paule the Apostle to the Ephesians: by S. Iohn Chrysostome, Archbishop of Constantinople. Truely and faithfully translated out of Greeke. Perused, and auctorized, according to an order appointed in hir Maiesties iniunctions",
+      "id": "082142009",
+      "title": "An exposition upon..",
       "creators": [
         {
           "relatorcode": "",
@@ -59,8 +58,8 @@
       "itemAvailable": "AVAILABLE"
     },
     {
-      "recordId": "082024936",
-      "title": "An homelie of Saint John Chrysostom vpon that saiyng of Saint Paul, Brethren, I wold not haue you ignorant, what is to becom of those that slepe, to the end ye lament not, &c : with also a discourse vpon Job, and Abraham",
+      "id": "082024936",
+      "title": "An homelie of Saint John ..",
       "creators": [
         {
           "relatorcode": "",
@@ -130,8 +129,8 @@
       "itemAvailable": "AVAILABLE"
     },
     {
-      "recordId": "151852227",
-      "title": "Skriftrommet : postmoderne trekk i Jon Fosse sin forfattarskap",
+      "id": "151852227",
+      "title": "Skriftrommet : postmoderne trekk..",
       "creators": [
         {
           "relatorcode": "",
@@ -204,8 +203,8 @@
       "itemAvailable": "AVAILABLE"
     },
     {
-      "recordId": "15156129x",
-      "title": "On the role of transfer of function in the understanding of preferences",
+      "id": "15156129x",
+      "title": "On the role of transfer..",
       "creators": [
         {
           "relatorcode": "",
@@ -276,7 +275,7 @@
       "itemAvailable": "AVAILABLE"
     },
     {
-      "recordId": "15155613x",
+      "id": "15155613x",
       "title": "Pattern formation in granular fluids",
       "creators": [
         {
@@ -340,8 +339,8 @@
       "itemAvailable": "AVAILABLE"
     },
     {
-      "recordId": "151361738",
-      "title": "Butikkstrategi : konkurransefortrinn og potensielle strategiske valg for dagligvarebutikker",
+      "id": "151361738",
+      "title": "Butikkstrategi : konkurransefortrinn..",
       "creators": [
         {
           "relatorcode": "",
@@ -410,8 +409,8 @@
       "itemAvailable": "AVAILABLE"
     },
     {
-      "recordId": "151308144",
-      "title": "30-dagers reinnleggelse av eldre 2011-2013 : resultater for sykehus og kommuner",
+      "id": "151308144",
+      "title": "30-dagers reinnleggelse..",
       "creators": [
         {
           "relatorcode": "",
@@ -522,8 +521,8 @@
       "itemAvailable": "AVAILABLE"
     },
     {
-      "recordId": "151709432",
-      "title": "Nedvandringsveier og effekter av vannslipp på vinterstøing og smolt av Hunderørret forbi Hunderfossen kraftverk i Gudbrandsdalslågen. Telemetristudier høsten 2014 og våren 2015",
+      "id": "151709432",
+      "title": "Nedvandringsveier og effekter..",
       "creators": [
         {
           "relatorcode": "",
@@ -635,8 +634,8 @@
       "itemAvailable": "AVAILABLE"
     },
     {
-      "recordId": "151111154",
-      "title": "Nasjonalt handlingsprogram med retningslinjer for diagnostikk, behandling og oppfølging av pasienter med pancreaskreft",
+      "id": "151111154",
+      "title": "Nasjonalt handlingsprogram..",
       "creators": [
         {
           "relatorcode": "",
@@ -704,8 +703,8 @@
       "itemAvailable": "AVAILABLE"
     },
     {
-      "recordId": "151100470",
-      "title": "Learning Java by building Android games : get ready for a fun-filled experience of learning Java by developing games for the Android platform",
+      "id": "151100470",
+      "title": "Learning Java by building..",
       "creators": [
         {
           "relatorcode": "",

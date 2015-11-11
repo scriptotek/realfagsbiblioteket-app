@@ -7,8 +7,11 @@
 
     // ------------------------------------------------------------------------
 
-    function AppCtrl($scope, $ionicModal, $timeout) {
+    function AppCtrl(SearchFactory) {
       var vm = this;
+
+      // load any favorites stored
+      SearchFactory.loadFavorites();
     }
 
     // add it to our controllers module
@@ -75,8 +78,17 @@
 
       vm.book = SearchFactory.getBook($stateParams.id);
 
+      if (vm.book!==null){
+        // The book might be a favorite saved from earlier. If it is then set isFavorite to true
+        vm.book.isFavorite = SearchFactory.isBookInFavorites(vm.book.id);
+      }
+
+
       vm.toggleFavorite = function() {
-        console.log('toggle favorite');
+        console.log('toggle favorite. isFavorite='+vm.book.isFavorite);
+        SearchFactory.toggleFavorite(vm.book);
+        if (vm.book.isFavorite===true) vm.book.isFavorite = false;
+        else vm.book.isFavorite = true;
       };
     }
 

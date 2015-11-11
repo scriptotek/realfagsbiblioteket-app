@@ -9,8 +9,8 @@
 
     function SearchFactory($http, $filter, $localForage) {
 
-      var searchResults = {};
-      var favorites = {};
+      var searchResults = [];
+      var favorites = [];
 
       var factory = {
         search: search,
@@ -18,7 +18,8 @@
         favorites: favorites,
         getBook: getBook,
         loadFavorites: loadFavorites,
-        toggleFavorite: toggleFavorite
+        toggleFavorite: toggleFavorite,
+        isBookInFavorites: isBookInFavorites
       };
 
       return factory;
@@ -41,7 +42,7 @@
         //   factory.searchResults = data.result.documents;
         // }).error(function(err) {
         //   console.log('error in search: ' + err);
-        //   factory.searchResults = {};
+        //   factory.searchResults = [];
         // });
 
         // fetch test data - REMOVE ME
@@ -54,22 +55,46 @@
           // console.log(factory.searchResults);
         }).error(function(err) {
           console.log('error in search: ' + err);
-          factory.searchResults = {};
+          factory.searchResults = [];
         });
       }
 
       function loadFavorites() {
-        // implement loading from localforage
+        $localForage.getItem('favorites')
+        .then(function(data) {
+          if (data) {
+            console.log('got favorites:' + data);
+            factory.favorites = data;
+          }else{
+            console.log('no favorites to retrieve');
+          }
+        }, function() {
+          console.log('error in loadFavorites');
+        });
       }
-      function toggleFavorite(id) {
-        // saves or removes book
+      
+      function toggleFavorite(book) {
+        console.log(book);
+        if (book.isFavorite) {
+          // remove book from here
+          factory.favorites.splice(factory.favorites.indexOf(book),1);
+          console.log('book removed. favorites are now:');
+          console.log(factory.favorites);
+        }else{
+          // add book
+          factory.favorites.push(book);
+          console.log('book added. favorites are now:');
+          console.log(factory.favorites);
+        }
+        // update storage
+        $localForage.setItem('favorites', factory.favorites);
       }
 
       function getBook(id) {
         // Is the book in searchResults?
         var found;
         if (factory.searchResults.length) {
-          found = $filter('filter')(factory.searchResults, {recordId: id}, true);
+          found = $filter('filter')(factory.searchResults, {id: id}, true);
           if (found.length) {
              // console.log(found[0]);
              return found[0];
@@ -79,7 +104,7 @@
         }
         // Is the book in favorites?
         if (factory.favorites.length){
-          found = $filter('filter')(factory.favorites, {recordId: id}, true);
+          found = $filter('filter')(factory.favorites, {id: id}, true);
           if (found.length) {
              // console.log(found[0]);
              return found[0];
@@ -90,6 +115,18 @@
 
         console.log('no books found in SearchFactory.getBook');
         return null;
+      }
+
+      function isBookInFavorites(id) {
+        console.log('trying to figure out if id='+id+' is a favorite. favorites are:');
+        console.log(factory.favorites);
+        if (factory.favorites.length){
+          found = $filter('filter')(factory.favorites, {id: id}, true);
+          console.log('book id='+id+' is a favorite from localForage');
+          return true;
+        }
+        console.log('book id='+id+' is NOT favorite from localForage');
+        return false;
       }
 
     }

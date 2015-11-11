@@ -2,8 +2,8 @@
   <ion-content ng-show="vm.book">
     <h1>{{vm.book.title}}</h1>
     <a ng-click="vm.toggleFavorite()">
-      <i ng-hide="vm.book.isFavorite" class="ion-ios-star-outline"></i>
-      <i ng-show="vm.book.isFavorite" class="ion-ios-star"></i>
+      <i ng-hide="vm.book.isFavorite" class="ion-ios-star-outline">is not favorite</i>
+      <i ng-show="vm.book.isFavorite" class="ion-ios-star">is favorite</i>
     </a>
     <p>Tilgjengelig? {{vm.book.itemAvailable}}</p>
     <p>Lokasjon? {{vm.book.itemLocation}}</p>
