@@ -50,7 +50,7 @@
 
         var query = vm.searchQuery;
 
-        console.log('Query: ' + query);
+        // console.log('Query: ' + query);
 
         if (!query || 0 === query.length) return;
           
@@ -74,6 +74,10 @@
       var vm = this;
 
       vm.book = SearchFactory.getBook($stateParams.id);
+
+      vm.toggleFavorite = function() {
+        console.log('toggle favorite');
+      };
     }
 
     // add it to our controllers module

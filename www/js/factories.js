@@ -7,14 +7,18 @@
 
     // ------------------------------------------------------------------------
 
-    function SearchFactory($http, $filter) {
+    function SearchFactory($http, $filter, $localForage) {
 
       var searchResults = {};
+      var favorites = {};
 
       var factory = {
         search: search,
         searchResults: searchResults,
-        getBook: getBook
+        favorites: favorites,
+        getBook: getBook,
+        loadFavorites: loadFavorites,
+        toggleFavorite: toggleFavorite
       };
 
       return factory;
@@ -45,28 +49,46 @@
           url: 'testdata.json',
           method: 'GET'
         }).success(function(data) {
-          console.log('fetched test data');
+          // console.log('fetched test data');
           factory.searchResults = data.result.documents;
-          console.log(factory.searchResults);
+          // console.log(factory.searchResults);
         }).error(function(err) {
           console.log('error in search: ' + err);
           factory.searchResults = {};
         });
       }
 
+      function loadFavorites() {
+        // implement loading from localforage
+      }
+      function toggleFavorite(id) {
+        // saves or removes book
+      }
+
       function getBook(id) {
-        // We should have the book in factory.searchResults at this point. Find it
+        // Is the book in searchResults?
+        var found;
         if (factory.searchResults.length) {
-          var found = $filter('filter')(factory.searchResults, {recordId: id}, true);
+          found = $filter('filter')(factory.searchResults, {recordId: id}, true);
           if (found.length) {
-             console.log(found[0]);
+             // console.log(found[0]);
              return found[0];
           } else {
-             console.log('book not found in SearchFactory.getBook');
+             console.log('book not found in searchResults in SearchFactory.getBook');
           }
-        }else{
-          console.log('no books found in SearchFactory.getBook');
         }
+        // Is the book in favorites?
+        if (factory.favorites.length){
+          found = $filter('filter')(factory.favorites, {recordId: id}, true);
+          if (found.length) {
+             // console.log(found[0]);
+             return found[0];
+          } else {
+             console.log('book not found in favorites in SearchFactory.getBook');
+          }
+        }
+
+        console.log('no books found in SearchFactory.getBook');
         return null;
       }
 
