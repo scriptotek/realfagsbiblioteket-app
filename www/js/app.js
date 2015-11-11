@@ -66,7 +66,7 @@
         }
       })
       .state('app.single', {
-        url: '/view/:bookId',
+        url: '/view/:id',
         views: {
           'menuContent': {
             templateUrl: 'templates/book.html',

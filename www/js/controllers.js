@@ -55,25 +55,11 @@
         if (!query || 0 === query.length) return;
           
         SearchFactory.search(query)
-        .then(function success(data) {
-          console.log('success in fetch results');
-          // console.log(data);
-          vm.results = data;
-        }, function error() {
-          console.log('failed fetching results');
-          // fetch test data - REMOVE ME
-          $http({
-            url: 'testdata.json',
-            method: 'GET'
-          }).then(function success(data) {
-            vm.results = data.data.result.documents;
-            console.log('testdata:')
-            console.log(vm.results);
-          });
-          // end fetch test data
+        .then(function() {
+          vm.results = SearchFactory.searchResults;
         });
 
-      };
+      }
 
     }
 
@@ -87,8 +73,8 @@
     function BookCtrl($stateParams) {
       var vm = this;
 
-      vm.bookId = $stateParams.bookId;
-      console.log('fetch bookID=' + vm.bookId + ' and show information');
+      vm.id = $stateParams.id;
+      console.log('fetch id=' + vm.id + ' and show information');
 
     }
 

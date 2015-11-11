@@ -9,7 +9,7 @@
       </form>
     </div>
     <ion-list>
-      <ion-item ng-repeat="book in vm.results" ui-sref="#/app/view/{{book.id}}">
+      <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.recordId}}">
         <div class="row">
           <div class="col-70">
             <span style="font-weight:bold">{{book.title}}</span>

@@ -20,19 +20,37 @@
 
       /////
 
-      // fetch results
+      // search api
       function search(query, ebook, start, appversion) {
+        // return $http({
+        //   url: 'http://linode.biblionaut.net/app/',
+        //   method: 'GET',
+        //   params: {
+        //     query: query,
+        //     ebook: ebook,
+        //     start: start,
+        //     appversion: appversion
+        //   }
+        // }).success(function(data) {
+        //   console.log('fetched test data');
+        //   factory.searchResults = data.result.documents;
+        // }).error(function(err) {
+        //   console.log('error in search: ' + err);
+        //   factory.searchResults = {};
+        // });
+
+        // fetch test data - REMOVE ME
         return $http({
-          url: 'http://linode.biblionaut.net/app/',
-          method: 'GET',
-          params: {
-            query: query,
-            ebook: ebook,
-            start: start,
-            appversion: appversion
-          }
+          url: 'testdata.json',
+          method: 'GET'
+        }).success(function(data) {
+          console.log('fetched test data');
+          factory.searchResults = data.result.documents;
+        }).error(function(err) {
+          console.log('error in search: ' + err);
+          factory.searchResults = {};
         });
-      };
+      }
 
     }
 
