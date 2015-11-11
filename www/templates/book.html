@@ -1,6 +1,10 @@
 <ion-view view-title="Book">
-  <ion-content>
-    <h1>bookinfo</h1>
-    <p>{{vm.id}}</p>
+  <ion-content ng-show="vm.book">
+    <h1>{{vm.book.title}}</h1>
+    <p>Tilgjengelig? {{vm.book.itemAvailable}}</p>
+    <p>Lokasjon? {{vm.book.itemLocation}}</p>
+  </ion-content>
+  <ion-content ng-hide="vm.book">
+    <p>No book found.</p>
   </ion-content>
 </ion-view>

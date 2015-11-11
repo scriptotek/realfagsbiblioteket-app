@@ -7,13 +7,14 @@
 
     // ------------------------------------------------------------------------
 
-    function SearchFactory($http) {
+    function SearchFactory($http, $filter) {
 
       var searchResults = {};
 
       var factory = {
         search: search,
-        searchResults: searchResults
+        searchResults: searchResults,
+        getBook: getBook
       };
 
       return factory;
@@ -46,10 +47,27 @@
         }).success(function(data) {
           console.log('fetched test data');
           factory.searchResults = data.result.documents;
+          console.log(factory.searchResults);
         }).error(function(err) {
           console.log('error in search: ' + err);
           factory.searchResults = {};
         });
+      }
+
+      function getBook(id) {
+        // We should have the book in factory.searchResults at this point. Find it
+        if (factory.searchResults.length) {
+          var found = $filter('filter')(factory.searchResults, {recordId: id}, true);
+          if (found.length) {
+             console.log(found[0]);
+             return found[0];
+          } else {
+             console.log('book not found in SearchFactory.getBook');
+          }
+        }else{
+          console.log('no books found in SearchFactory.getBook');
+        }
+        return null;
       }
 
     }

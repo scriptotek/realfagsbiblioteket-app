@@ -37,7 +37,7 @@
 
     // ------------------------------------------------------------------------
 
-    function SearchCtrl($stateParams, $http, SearchFactory) {
+    function SearchCtrl(SearchFactory) {
       var vm = this;
 
       vm.searchQuery = '';
@@ -70,12 +70,10 @@
 
     // ------------------------------------------------------------------------
 
-    function BookCtrl($stateParams) {
+    function BookCtrl($stateParams, SearchFactory) {
       var vm = this;
 
-      vm.id = $stateParams.id;
-      console.log('fetch id=' + vm.id + ' and show information');
-
+      vm.book = SearchFactory.getBook($stateParams.id);
     }
 
     // add it to our controllers module
