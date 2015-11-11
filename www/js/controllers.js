@@ -7,11 +7,8 @@
 
     // ------------------------------------------------------------------------
 
-    function AppCtrl(SearchFactory) {
+    function AppCtrl() {
       var vm = this;
-
-      // load any favorites stored
-      SearchFactory.loadFavorites();
     }
 
     // add it to our controllers module
@@ -76,6 +73,7 @@
     function BookCtrl($stateParams, SearchFactory) {
       var vm = this;
 
+      // I want this to run only after loading of favorites is done................................
       vm.book = SearchFactory.getBook($stateParams.id);
 
       if (vm.book!==null){

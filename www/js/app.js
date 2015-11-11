@@ -35,7 +35,13 @@
         abstract: true,
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          loadFavorites: function(SearchFactory) {
+              // load any favorites stored
+              return SearchFactory.loadFavorites();
+          }
+        }
       })
       .state('app.home', {
           url: '/home',

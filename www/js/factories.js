@@ -60,31 +60,31 @@
       }
 
       function loadFavorites() {
-        $localForage.getItem('favorites')
+        return $localForage.getItem('favorites')
         .then(function(data) {
           if (data) {
-            console.log('got favorites:' + data);
+            // console.log('got favorites:' + data);
             factory.favorites = data;
           }else{
-            console.log('no favorites to retrieve');
+            // console.log('no favorites to retrieve');
           }
         }, function() {
           console.log('error in loadFavorites');
         });
       }
-      
+
       function toggleFavorite(book) {
         console.log(book);
         if (book.isFavorite) {
           // remove book from here
           factory.favorites.splice(factory.favorites.indexOf(book),1);
-          console.log('book removed. favorites are now:');
-          console.log(factory.favorites);
+          // console.log('book removed. favorites are now:');
+          // console.log(factory.favorites);
         }else{
           // add book
           factory.favorites.push(book);
-          console.log('book added. favorites are now:');
-          console.log(factory.favorites);
+          // console.log('book added. favorites are now:');
+          // console.log(factory.favorites);
         }
         // update storage
         $localForage.setItem('favorites', factory.favorites);
@@ -118,14 +118,14 @@
       }
 
       function isBookInFavorites(id) {
-        console.log('trying to figure out if id='+id+' is a favorite. favorites are:');
-        console.log(factory.favorites);
+        // console.log('trying to figure out if id='+id+' is a favorite. favorites are:');
+        // console.log(factory.favorites);
         if (factory.favorites.length){
           found = $filter('filter')(factory.favorites, {id: id}, true);
-          console.log('book id='+id+' is a favorite from localForage');
+          // console.log('book id='+id+' is a favorite from localForage');
           return true;
         }
-        console.log('book id='+id+' is NOT favorite from localForage');
+        // console.log('book id='+id+' is NOT favorite from localForage');
         return false;
       }
 
