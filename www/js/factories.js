@@ -59,8 +59,9 @@
             }).join(", ");
             // Create a display-friendly format variable
             if (book.material=="book_electronic") book.format = "Electronic book";
-            if (book.material=="journal_electronic") book.format = "Electronic journal";
-            if (book.material=="electronic") book.format = "Electronic resource";
+            else if (book.material=="journal_electronic") book.format = "Electronic journal";
+            else if (book.material=="electronic") book.format = "Electronic resource";
+            else book.format = "Printed";
           });
         }).error(function(err) {
           console.log('error in search: ' + err);
