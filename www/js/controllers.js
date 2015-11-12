@@ -76,7 +76,11 @@
       }
 
       vm.toggleFavorite = function() {
+        // Update in localForage
         SearchFactory.toggleFavorite(vm.book);
+        // Update in view
+        if (vm.book.isFavorite) vm.book.isFavorite = false;
+        else vm.book.isFavorite = true;
       };
     }
 
