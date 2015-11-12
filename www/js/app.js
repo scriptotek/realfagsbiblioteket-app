@@ -51,6 +51,14 @@
             }
           }
       })
+      .state('app.information', {
+          url: '/information',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/information.html'
+            }
+          }
+      })
       .state('app.search', {
         url: '/search',
         views: {
