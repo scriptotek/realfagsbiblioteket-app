@@ -52,11 +52,15 @@
         }).success(function(data) {
           factory.searchResults = data.result.documents;
 
-          // Create a display-friendly authors-variable
           angular.forEach(factory.searchResults, function(book) {
+            // Create a display-friendly authors-variable
             book.authors = book.creators.map(function (creator) {
               return creator.presentableName;
             }).join(", ");
+            // Create a display-friendly format variable
+            if (book.material=="book_electronic") book.format = "Electronic book";
+            if (book.material=="journal_electronic") book.format = "Electronic journal";
+            if (book.material=="electronic") book.format = "Electronic resource";
           });
         }).error(function(err) {
           console.log('error in search: ' + err);

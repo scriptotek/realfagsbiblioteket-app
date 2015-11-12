@@ -1,12 +1,34 @@
 <ion-view view-title="Book">
   <ion-content padding="true" ng-show="vm.book">
-    <h1>{{vm.book.title}}</h1>
-    <a ng-click="vm.toggleFavorite()">
-      <i ng-hide="vm.book.isFavorite" class="ion-ios-star-outline">is not favorite</i>
-      <i ng-show="vm.book.isFavorite" class="ion-ios-star">is favorite</i>
-    </a>
-    <p>Tilgjengelig? {{vm.book.itemAvailable}}</p>
-    <p>Lokasjon? {{vm.book.itemLocation}}</p>
+    <div class="row">
+      <div class="col-80">
+        <h1>{{vm.book.title}}</h1>
+      </div>
+      <div class="col-20">
+        <a ng-click="vm.toggleFavorite()">
+          <i ng-hide="vm.book.isFavorite" class="ion-ios-star-outline" style="font-size:4em"></i>
+          <i ng-show="vm.book.isFavorite" class="ion-ios-star" style="font-size:4em"></i>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <p>by {{vm.book.authors}}</p>
+    </div>
+    <div class="row">
+      <div class="col-100"><p>{{vm.book.note}}</p></div>
+    </div>
+    <div class="row">
+      <div class="col-20">Year</div>
+      <div class="col">{{vm.book.year}}</div>
+    </div>
+    <div class="row" ng-show="vm.book.isbn.length">
+      <div class="col-20">ISBN</div>
+      <div class="col">{{vm.book.isbn}}</div>
+    </div>
+    <div class="row">
+      <div class="col-20">Format</div>
+      <div class="col">{{vm.book.format}}</div>
+    </div>
   </ion-content>
   <ion-content padding="true" ng-hide="vm.book">
     <p>No book found.</p>
