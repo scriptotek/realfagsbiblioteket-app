@@ -34,10 +34,27 @@
       <div class="col">{{vm.book.format}}</div>
     </div>
     <div class="row">
+      <div class="col-20">Floor</div>
+      <div class="col">{{vm.book.floorText}}</div>
+    </div>
+    <div class="row">
+      <div class="col-20">Collection</div>
+      <div class="col">{{vm.book.collection}}</div>
+    </div>
+    <div class="row">
+      <div class="col-20">Code</div>
+      <div class="col">{{vm.book.callnumber}}</div>
+    </div>
+    <div class="row">
       <div class="col-100">
         <p ng-show="vm.book.itemAvailable=='AVAILABLE'"><img src="img/available.png" width="35px"/> Available</p>
         <p ng-show="vm.book.itemAvailable=='UNAVAILABLE'"><img src="img/unavailable.png" width="35px"/> Unavailable</p>
         <p ng-show="vm.book.itemAvailable=='ONORDER'"><img src="img/unavailable.png" width="35px"/> On order</p>
+      </div>
+    </div>
+    <div class="row" ng-show="vm.book.mapUrlImage!=''">
+      <div class="col-100">
+        <img ng-src="{{vm.book.mapUrlImage}}" alt="">
       </div>
     </div>
   </ion-content>
