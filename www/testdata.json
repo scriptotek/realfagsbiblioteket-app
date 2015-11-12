@@ -79,6 +79,83 @@
       "itemAvailable": "AVAILABLE"
     },
     {
+      "id": "141256583",
+      "title": "Biomeasurement : a student's guide to biological statistics",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Dawn",
+          "lastName": "Hawkins",
+          "normalizedName": "Hawkins, Dawn",
+          "presentableName": "Dawn Hawkins"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2014",
+      "publicationName": "Oxford University Press",
+      "publicationPlace": "Oxford",
+      "isbn": [
+        "978-0199650446"
+      ],
+      "issn": [
+      ],
+      "pages": "XXVIII, 333 s., ill.",
+      "edition": "3nd ed.",
+      "series": [
+      ],
+      "note": "",
+      "keywords": [
+        "statistiske",
+        "metoder",
+        "biostatistikk",
+        "statistikk",
+        "databehandling",
+        "biologi"
+      ],
+      "allClassification": [
+        [
+          "Dewey",
+          [
+            "570.1",
+            "570.15195"
+          ]
+        ],
+        [
+          "UDK",
+          [
+            "57.087.1"
+          ]
+        ]
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=Biomeasurement+%3A+a+student%27s+guide+to+biological+statistics&rft.author=Hawkins%2C+Dawn&rft.isbn=978-0199650446&rft.date=2014&pid=notrbib:141256583",
+      "content": "",
+      "language": "eng",
+      "material": "book_print",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+      ],
+      "items": [
+      ],
+      "physicalform": "p",
+      "typeofcontent": [
+        "v"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 3,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
       "id": "151549117",
       "title": "Test av mulige K2IS-løsninger for håndtering av medisinsk dokumentasjon",
       "creators": [
