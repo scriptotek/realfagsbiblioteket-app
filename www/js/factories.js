@@ -97,24 +97,25 @@
       function getBook(id) {
         // Find and return the book with the given id, either from searchResults or from stored favorites.
 
-        // Is the book in searchResults?
         var found;
+        var book = null;
+
+        // Is the book in searchResults?
         if (factory.searchResults.length) {
           found = $filter('filter')(factory.searchResults, {id: id}, true);
           if (found.length) {
-             return found[0];
+             book = found[0];
           }
         }
         // Is the book in favorites?
-        if (factory.favorites.length){
+        if (book!==null && factory.favorites.length){
           found = $filter('filter')(factory.favorites, {id: id}, true);
           if (found.length) {
-             return found[0];
+             book = found[0];
           }
         }
 
-        // The book was not found
-        return null;
+        return book;
       }
 
       function isBookInFavorites(id) {
