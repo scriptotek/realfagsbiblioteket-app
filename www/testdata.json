@@ -1,317 +1,58 @@
+
 {"result": {
   "documents": [
     {
-      "id": "082142009",
-      "title": "An exposition upon..",
+      "id": "151241929",
+      "title": "Quantitative chemical analysis",
       "creators": [
         {
           "relatorcode": "",
-          "firstName": "",
-          "lastName": "John Chrysostom",
-          "normalizedName": "John Chrysostom",
-          "presentableName": "John Chrysostom"
+          "firstName": "Daniel C.",
+          "lastName": "Harris",
+          "normalizedName": "Harris, Daniel C.",
+          "presentableName": "Daniel C. Harris"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Charles A.",
+          "lastName": "Lucy",
+          "normalizedName": "Lucy, Charles A.",
+          "presentableName": "Charles A. Lucy"
         }
       ],
       "corporation": "",
       "conference": "",
-      "year": "2415",
-      "publicationName": "Printed by Henry Binneman and Ralph Newberie. Cum priuilegio Regiæ Maiestatis",
-      "publicationPlace": "At London",
+      "year": "2016",
+      "publicationName": "Freeman",
+      "publicationPlace": "New York",
       "isbn": [
+        "978-1-4641-3538-5"
       ],
       "issn": [
       ],
-      "pages": "[10], 341, [39] s.",
-      "edition": "",
+      "pages": "",
+      "edition": "9th ed.",
       "series": [
       ],
-      "note": "A translation of: Expositio super Epistolam Sancti Pauli ad Epheseos., Includes index., In this issue the imprint date is in a compartment in the woodcut title page border., Reproduction of the original in the Henry E. Huntington Library and Art Gallery.",
+      "note": "",
       "keywords": [
+        "kjemi",
+        "lærebøker",
+        "kvantitativ",
+        "analyse",
+        "analytisk"
       ],
       "allClassification": [
-      ],
-      "coverImage": "",
-      "openurlRepresentation": "rft.title=An+exposition+vpon+the+Epistle+of+S.+Paule+the+Apostle+to+the+Ephesians%3A+by+S.+Iohn+Chrysostome%2C+Archbishop+of+Constantinople.+Truely+and+faithfully+translated+out+of+Greeke.+Perused%2C+and+auctorized%2C+according+to+an+order+appointed+in+hir+Maiesties+iniunctions&rft.author=John+Chrysostom&rft.date=2415&pid=notrbib:082142009",
-      "content": "",
-      "language": "eng",
-      "material": "book",
-      "typeofrecord": "",
-      "bibliolevel": "",
-      "resources": [
-      ],
-      "items": [
-      ],
-      "physicalform": "n",
-      "typeofcontent": [
-        "v"
-      ],
-      "articleVolume": "",
-      "articleIssue": "",
-      "articleStartPage": "",
-      "articleEndPage": "",
-      "articleNumberOfPages": "",
-      "articleDate": "",
-      "journalTitle": "",
-      "numberOfItems": 5,
-      "bibliography": "",
-      "itemLocation": "REMOTE",
-      "itemAvailable": "AVAILABLE"
-    },
-    {
-      "id": "082024936",
-      "title": "An homelie of Saint John ..",
-      "creators": [
-        {
-          "relatorcode": "",
-          "firstName": "",
-          "lastName": "John Chrysostom",
-          "normalizedName": "John Chrysostom",
-          "presentableName": "John Chrysostom"
-        },
-        {
-          "relatorcode": "",
-          "firstName": "John",
-          "lastName": "Cheke",
-          "normalizedName": "Cheke, John",
-          "presentableName": "John Cheke"
-        },
-        {
-          "relatorcode": "",
-          "firstName": "Thomas",
-          "lastName": "Chaloner",
-          "normalizedName": "Chaloner, Thomas",
-          "presentableName": "Thomas Chaloner"
-        }
-      ],
-      "corporation": "",
-      "conference": "",
-      "year": "2424",
-      "publicationName": "In officina Thomæ Bertheleti",
-      "publicationPlace": "Londini",
-      "isbn": [
-      ],
-      "issn": [
-      ],
-      "pages": "[40] s.",
-      "edition": "",
-      "series": [
-      ],
-      "note": "Translation of author's De dormientibus nolo vos ignorare fratres--Cf. NUC pre-1956 imprints., Running title: Sermon of Chry., Imprint from colophon., Title within ornamental border., Signatures: A-B⁸ C⁴., Reproduction of original in the Henry E. Huntington Library and Art Gallery.",
-      "keywords": [
-      ],
-      "allClassification": [
-      ],
-      "coverImage": "",
-      "openurlRepresentation": "rft.title=An+homelie+of+Saint+John+Chrysostom+vpon+that+saiyng+of+Saint+Paul%2C+Brethren%2C+I+wold+not+haue+you+ignorant%2C+what+is+to+becom+of+those+that+slepe%2C+to+the+end+ye+lament+not%2C+%26c+%3A+with+also+a+discourse+vpon+Job%2C+and+Abraham&rft.author=John+Chrysostom&rft.date=2424&pid=notrbib:082024936",
-      "content": "",
-      "language": "eng",
-      "material": "book_electronic",
-      "typeofrecord": "",
-      "bibliolevel": "",
-      "resources": [
-      ],
-      "items": [
-      ],
-      "physicalform": "n",
-      "typeofcontent": [
-        "v"
-      ],
-      "articleVolume": "",
-      "articleIssue": "",
-      "articleStartPage": "",
-      "articleEndPage": "",
-      "articleNumberOfPages": "",
-      "articleDate": "",
-      "journalTitle": "",
-      "numberOfItems": 5,
-      "bibliography": "",
-      "itemLocation": "REMOTE",
-      "itemAvailable": "AVAILABLE"
-    },
-    {
-      "id": "151852227",
-      "title": "Skriftrommet : postmoderne trekk..",
-      "creators": [
-        {
-          "relatorcode": "",
-          "firstName": "Bjarne",
-          "lastName": "Bjørnevik",
-          "normalizedName": "Bjørnevik, Bjarne",
-          "presentableName": "Bjarne Bjørnevik"
-        },
-        {
-          "relatorcode": "dgg",
-          "firstName": "",
-          "lastName": "Høgskolen i Oslo og Akershus",
-          "normalizedName": "Høgskolen i Oslo og Akershus",
-          "presentableName": "Høgskolen i Oslo og Akershus"
-        }
-      ],
-      "corporation": "",
-      "conference": "",
-      "year": "2015",
-      "publicationName": "Høgskolen i Oslo og Akershus",
-      "publicationPlace": "Oslo",
-      "isbn": [
-      ],
-      "issn": [
-      ],
-      "pages": "37 s.",
-      "edition": "",
-      "series": [
-      ],
-      "note": "Bacheloroppgave i bibliotek- og informasjonsvitenskap - Høgskolen i Oslo og Akershus, Institutt for arkiv-, bibliotek- og informasjonsfag, 2015",
-      "keywords": [
-        "norsk",
-        "samtidslitteratur",
-        "postmodernisme",
-        "forfattere",
-        "dramatikere"
-      ],
-      "allClassification": [
-      ],
-      "coverImage": "",
-      "openurlRepresentation": "rft.title=Skriftrommet+%3A+postmoderne+trekk+i+Jon+Fosse+sin+forfattarskap&rft.author=Bj%C3%B8rnevik%2C+Bjarne&rft.date=2015&pid=notrbib:151852227",
-      "content": "",
-      "language": "nno",
-      "material": "electronic",
-      "typeofrecord": "",
-      "bibliolevel": "",
-      "resources": [
         [
-          "http://fagarkivet.hioa.no/jspui/handle/123456789/585",
-          "Gratis"
+          "Dewey",
+          [
+            "543",
+            "543"
+          ]
         ]
       ],
-      "items": [
-      ],
-      "physicalform": "n",
-      "typeofcontent": [
-        "v",
-        "s"
-      ],
-      "articleVolume": "",
-      "articleIssue": "",
-      "articleStartPage": "",
-      "articleEndPage": "",
-      "articleNumberOfPages": "",
-      "articleDate": "",
-      "journalTitle": "",
-      "numberOfItems": 1,
-      "bibliography": "",
-      "itemLocation": "REMOTE",
-      "itemAvailable": "AVAILABLE"
-    },
-    {
-      "id": "15156129x",
-      "title": "On the role of transfer..",
-      "creators": [
-        {
-          "relatorcode": "",
-          "firstName": "Jon Magnus",
-          "lastName": "Eilertsen",
-          "normalizedName": "Eilertsen, Jon Magnus",
-          "presentableName": "Jon Magnus Eilertsen"
-        },
-        {
-          "relatorcode": "dgg",
-          "firstName": "",
-          "lastName": "Høgskolen i Oslo og Akershus",
-          "normalizedName": "Høgskolen i Oslo og Akershus",
-          "presentableName": "Høgskolen i Oslo og Akershus"
-        }
-      ],
-      "corporation": "",
-      "conference": "",
-      "year": "2015",
-      "publicationName": "Høgskolen i Oslo og Akershus",
-      "publicationPlace": "Oslo",
-      "isbn": [
-      ],
-      "issn": [
-      ],
-      "pages": "1 b.",
-      "edition": "",
-      "series": [
-      ],
-      "note": "Masteroppgave i læring i komplekse systemer - Høgskolen i Oslo og Akershus, Institutt for atferdsvitenskap, 2015, Oppgaven er klausulert fram til 1.8.2018",
-      "keywords": [
-        "atferdsvitenskap",
-        "forbrukeratferd",
-        "stimulus"
-      ],
-      "allClassification": [
-      ],
       "coverImage": "",
-      "openurlRepresentation": "rft.title=On+the+role+of+transfer+of+function+in+the+understanding+of+preferences&rft.author=Eilertsen%2C+Jon+Magnus&rft.date=2015&pid=notrbib:15156129x",
-      "content": "",
-      "language": "eng",
-      "material": "electronic",
-      "typeofrecord": "",
-      "bibliolevel": "",
-      "resources": [
-        [
-          "http://hdl.handle.net/10642/2644",
-          "Gratis"
-        ]
-      ],
-      "items": [
-      ],
-      "physicalform": "n",
-      "typeofcontent": [
-        "v",
-        "h"
-      ],
-      "articleVolume": "",
-      "articleIssue": "",
-      "articleStartPage": "",
-      "articleEndPage": "",
-      "articleNumberOfPages": "",
-      "articleDate": "",
-      "journalTitle": "",
-      "numberOfItems": 1,
-      "bibliography": "",
-      "itemLocation": "REMOTE",
-      "itemAvailable": "AVAILABLE"
-    },
-    {
-      "id": "15155613x",
-      "title": "Pattern formation in granular fluids",
-      "creators": [
-        {
-          "relatorcode": "",
-          "firstName": "Jon Alm",
-          "lastName": "Eriksen",
-          "normalizedName": "Eriksen, Jon Alm",
-          "presentableName": "Jon Alm Eriksen"
-        }
-      ],
-      "corporation": "",
-      "conference": "",
-      "year": "2015",
-      "publicationName": "Department of Physics, Faculty of Mathematics and Natural Sciences, University of Oslo",
-      "publicationPlace": "Oslo",
-      "isbn": [
-      ],
-      "issn": [
-      ],
-      "pages": "1 b. (flere pag.), ill.",
-      "edition": "",
-      "series": [
-        {
-          "title": "Series of dissertations submitted to the Faculty of Mathematics and Natural Sciences, University of Oslo",
-          "volume": "No. 1661",
-          "seriesrecordcontrolnumber": "99160007x",
-          "sortingvolume": "                1661"
-        }
-      ],
-      "note": "Delvis opptrykk av artikler., Avhandling (PhD) - Universitetet i Oslo, 2015",
-      "keywords": [
-      ],
-      "allClassification": [
-      ],
-      "coverImage": "",
-      "openurlRepresentation": "rft.title=Pattern+formation+in+granular+fluids&rft.author=Eriksen%2C+Jon+Alm&rft.date=2015&pid=notrbib:15155613x",
+      "openurlRepresentation": "rft.title=Quantitative+chemical+analysis&rft.author=Harris%2C+Daniel+C.&rft.isbn=978-1-4641-3538-5&rft.date=2016&pid=notrbib:151241929",
       "content": "",
       "language": "eng",
       "material": "book_print",
@@ -323,8 +64,7 @@
       ],
       "physicalform": "p",
       "typeofcontent": [
-        "v",
-        "d"
+        "v"
       ],
       "articleVolume": "",
       "articleIssue": "",
@@ -333,21 +73,153 @@
       "articleNumberOfPages": "",
       "articleDate": "",
       "journalTitle": "",
-      "numberOfItems": 1,
+      "numberOfItems": 6,
       "bibliography": "",
       "itemLocation": "REMOTE",
       "itemAvailable": "AVAILABLE"
     },
     {
-      "id": "151361738",
-      "title": "Butikkstrategi : konkurransefortrinn..",
+      "id": "151549117",
+      "title": "Test av mulige K2IS-løsninger for håndtering av medisinsk dokumentasjon",
       "creators": [
         {
           "relatorcode": "",
-          "firstName": "Jon-Vegar",
-          "lastName": "Nilsen",
-          "normalizedName": "Nilsen, Jon-Vegar",
-          "presentableName": "Jon-Vegar Nilsen"
+          "firstName": "Pål",
+          "lastName": "Aas",
+          "normalizedName": "Aas, Pål",
+          "presentableName": "Pål Aas"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Håkon Kløvstad",
+          "lastName": "Olafsen",
+          "normalizedName": "Olafsen, Håkon Kløvstad",
+          "presentableName": "Håkon Kløvstad Olafsen"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Trond",
+          "lastName": "Sjaaeng",
+          "normalizedName": "Sjaaeng, Trond",
+          "presentableName": "Trond Sjaaeng"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Espen",
+          "lastName": "Fossen",
+          "normalizedName": "Fossen, Espen",
+          "presentableName": "Espen Fossen"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Erlend",
+          "lastName": "Grytten",
+          "normalizedName": "Grytten, Erlend",
+          "presentableName": "Erlend Grytten"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Erik",
+          "lastName": "Sørensen",
+          "normalizedName": "Sørensen, Erik",
+          "presentableName": "Erik Sørensen"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Ola P.",
+          "lastName": "Odden",
+          "normalizedName": "Odden, Ola P.",
+          "presentableName": "Ola P. Odden"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Terje",
+          "lastName": "Sagen",
+          "normalizedName": "Sagen, Terje",
+          "presentableName": "Terje Sagen"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Bjørnar",
+          "lastName": "Getz",
+          "normalizedName": "Getz, Bjørnar",
+          "presentableName": "Bjørnar Getz"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Dag E.",
+          "lastName": "Johnson",
+          "normalizedName": "Johnson, Dag E.",
+          "presentableName": "Dag E. Johnson"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "",
+          "lastName": "Forsvarets forskningsinstitutt",
+          "normalizedName": "Forsvarets forskningsinstitutt",
+          "presentableName": "Forsvarets forskningsinstitutt"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2015",
+      "publicationName": "Forsvarets forskningsinstitutt (FFI)",
+      "publicationPlace": "Kjeller",
+      "isbn": [
+        "978-82-464-2567-2"
+      ],
+      "issn": [
+      ],
+      "pages": "30 cm, 46 s., ill.",
+      "edition": "",
+      "series": [
+      ],
+      "note": "Sammendrag på engelsk",
+      "keywords": [
+      ],
+      "allClassification": [
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=Test+av+mulige+K2IS-l%C3%B8sninger+for+h%C3%A5ndtering+av+medisinsk+dokumentasjon&rft.author=Aas%2C+P%C3%A5l&rft.isbn=978-82-464-2567-2&rft.date=2015&pid=notrbib:151549117",
+      "content": "",
+      "language": "nob",
+      "material": "book_electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+        [
+          "http://rapporter.ffi.no/rapporter/2015/00187.pdf",
+          "Gratis"
+        ]
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 0,
+      "bibliography": "",
+      "itemLocation": "NONE",
+      "itemAvailable": "UNAVAILABLE"
+    },
+    {
+      "id": "151400687",
+      "title": "Hvilken test er \"best\"? : hvordan samsvarte resultatene av standardiserte tester med endelig utfall ved førerkortutredningene ved Geriatrisk poliklinikk UNN i perioden 2011 - 2013",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Else Kristin",
+          "lastName": "Jensen",
+          "normalizedName": "Jensen, Else Kristin",
+          "presentableName": "Else Kristin Jensen"
         },
         {
           "relatorcode": "dgg",
@@ -370,14 +242,14 @@
       "edition": "",
       "series": [
       ],
-      "note": "Masteroppgave i ledelse, innovasjon og marked - UiT Norges arktiske universitet, 2015",
+      "note": "Masteroppgave i helsefag - UiT Norges arktiske universitet, 2015",
       "keywords": [
-        "bedriftsøkonomi"
+        "helsefag"
       ],
       "allClassification": [
       ],
       "coverImage": "",
-      "openurlRepresentation": "rft.title=Butikkstrategi+%3A+konkurransefortrinn+og+potensielle+strategiske+valg+for+dagligvarebutikker&rft.author=Nilsen%2C+Jon-Vegar&rft.date=2015&pid=notrbib:151361738",
+      "openurlRepresentation": "rft.title=Hvilken+test+er+%22best%22%3F+%3A+hvordan+samsvarte+resultatene+av+standardiserte+tester+med+endelig+utfall+ved+f%C3%B8rerkortutredningene+ved+Geriatrisk+poliklinikk+UNN+i+perioden+2011+-+2013&rft.author=Jensen%2C+Else+Kristin&rft.date=2015&pid=notrbib:151400687",
       "content": "",
       "language": "nob",
       "material": "electronic",
@@ -385,7 +257,7 @@
       "bibliolevel": "",
       "resources": [
         [
-          "http://hdl.handle.net/10037/7829",
+          "http://hdl.handle.net/10037/7860",
           "Gratis"
         ]
       ],
@@ -409,338 +281,99 @@
       "itemAvailable": "AVAILABLE"
     },
     {
-      "id": "151308144",
-      "title": "30-dagers reinnleggelse..",
+      "id": "150782845",
+      "title": "Place and Health as Complex Systems : A Case Study and Empirical Test",
       "creators": [
         {
           "relatorcode": "",
-          "firstName": "Anja Schou",
-          "lastName": "Lindman",
-          "normalizedName": "Lindman, Anja Schou",
-          "presentableName": "Anja Schou Lindman"
+          "firstName": "Brian",
+          "lastName": "Castellani",
+          "normalizedName": "Castellani, Brian",
+          "presentableName": "Brian Castellani"
         },
         {
           "relatorcode": "",
-          "firstName": "Doris Tove",
-          "lastName": "Kristoffersen",
-          "normalizedName": "Kristoffersen, Doris Tove",
-          "presentableName": "Doris Tove Kristoffersen"
+          "firstName": "Rajeev",
+          "lastName": "Rajaram",
+          "normalizedName": "Rajaram, Rajeev",
+          "presentableName": "Rajeev Rajaram"
         },
         {
           "relatorcode": "",
-          "firstName": "Sahar",
-          "lastName": "Hassani",
-          "normalizedName": "Hassani, Sahar",
-          "presentableName": "Sahar Hassani"
+          "firstName": "J. Galen",
+          "lastName": "Buckwalter",
+          "normalizedName": "Buckwalter, J. Galen",
+          "presentableName": "J. Galen Buckwalter"
         },
         {
           "relatorcode": "",
-          "firstName": "Oliver",
-          "lastName": "Tomic",
-          "normalizedName": "Tomic, Oliver",
-          "presentableName": "Oliver Tomic"
+          "firstName": "Michael",
+          "lastName": "Ball",
+          "normalizedName": "Ball, Michael",
+          "presentableName": "Michael Ball"
         },
         {
           "relatorcode": "",
-          "firstName": "Jon",
-          "lastName": "Helgeland",
-          "normalizedName": "Helgeland, Jon",
-          "presentableName": "Jon Helgeland"
+          "firstName": "Frederic",
+          "lastName": "Hafferty",
+          "normalizedName": "Hafferty, Frederic",
+          "presentableName": "Frederic Hafferty"
         },
         {
           "relatorcode": "",
           "firstName": "",
-          "lastName": "Nasjonalt kunnskapssenter for helsetjenesten",
-          "normalizedName": "Nasjonalt kunnskapssenter for helsetjenesten",
-          "presentableName": "Nasjonalt kunnskapssenter for helsetjenesten"
+          "lastName": "SpringerLink (Online service)",
+          "normalizedName": "SpringerLink (Online service)",
+          "presentableName": "SpringerLink (Online service)"
         }
       ],
       "corporation": "",
       "conference": "",
       "year": "2015",
-      "publicationName": "Nasjonalt kunnskapssenter for helsetjenesten",
-      "publicationPlace": "Oslo",
+      "publicationName": "Springer International Publishing",
+      "publicationPlace": "Cham",
       "isbn": [
-        "978-82-8121-950-2"
       ],
       "issn": [
       ],
-      "pages": "58 s. ; digital PDF-fil",
+      "pages": "XI, 82 s. 8 illus., online resource",
       "edition": "",
       "series": [
       ],
-      "note": "Oppdragsgiver: Helsedirektoratet",
+      "note": "",
       "keywords": [
       ],
       "allClassification": [
         [
-          "MESH",
+          "Dewey shared",
           [
-            "Patient Readmission",
-            "Quality Indicators, Health Care",
-            "Hospitals",
-            "Norway"
+            "613",
+            "614"
           ]
         ],
         [
-          "Dewey",
-          [
-            "362.11"
-          ]
-        ]
-      ],
-      "coverImage": "",
-      "openurlRepresentation": "rft.title=30-dagers+reinnleggelse+av+eldre+2011-2013+%3A+resultater+for+sykehus+og+kommuner&rft.author=Lindman%2C+Anja+Schou&rft.isbn=978-82-8121-950-2&rft.date=2015&pid=notrbib:151308144",
-      "content": "",
-      "language": "nob",
-      "material": "book_electronic",
-      "typeofrecord": "",
-      "bibliolevel": "",
-      "resources": [
-        [
-          "http://www.kunnskapssenteret.no/publikasjoner/_attachment/194972?_ts=14d2ddf21a7&download=false",
-          "Gratis"
-        ]
-      ],
-      "items": [
-      ],
-      "physicalform": "n",
-      "typeofcontent": [
-        "v"
-      ],
-      "articleVolume": "",
-      "articleIssue": "",
-      "articleStartPage": "",
-      "articleEndPage": "",
-      "articleNumberOfPages": "",
-      "articleDate": "",
-      "journalTitle": "",
-      "numberOfItems": 1,
-      "bibliography": "",
-      "itemLocation": "REMOTE",
-      "itemAvailable": "AVAILABLE"
-    },
-    {
-      "id": "151709432",
-      "title": "Nedvandringsveier og effekter..",
-      "creators": [
-        {
-          "relatorcode": "",
-          "firstName": "Morten",
-          "lastName": "Kraabøl",
-          "normalizedName": "Kraabøl, Morten",
-          "presentableName": "Morten Kraabøl"
-        },
-        {
-          "relatorcode": "",
-          "firstName": "Børre K.",
-          "lastName": "Dervo",
-          "normalizedName": "Dervo, Børre K.",
-          "presentableName": "Børre K. Dervo"
-        },
-        {
-          "relatorcode": "",
-          "firstName": "Jon",
-          "lastName": "Museth",
-          "normalizedName": "Museth, Jon",
-          "presentableName": "Jon Museth"
-        }
-      ],
-      "corporation": "",
-      "conference": "",
-      "year": "2015",
-      "publicationName": "Norsk institutt for naturforskning",
-      "publicationPlace": "Lillehammer",
-      "isbn": [
-        "978-82-426-2815-2"
-      ],
-      "issn": [
-      ],
-      "pages": "36 s. + vedlegg, ill.",
-      "edition": "",
-      "series": [
-        {
-          "title": "NINA rapport",
-          "volume": "1187",
-          "seriesrecordcontrolnumber": "05083617x",
-          "sortingvolume": "                1187"
-        }
-      ],
-      "note": "",
-      "keywords": [
-        "oppland",
-        "fylke",
-        "gudbrandsdalslågen",
-        "hunderfossen",
-        "kraftverk",
-        "storørre",
-        "t",
-        "hunderørret",
-        "gyteregistrering",
-        "vinterstøing",
-        "smolt",
-        "vandringsproblemer",
-        "tu",
-        "rbinpassasje",
-        "lukemanøvrering",
-        "lokkeflom",
-        "telemetristudier",
-        "county",
-        "river",
-        "powerplant",
-        "hunder",
-        "trout",
-        "spawning",
-        "sites",
-        "kelt",
-        "migration",
-        "problems",
-        "turbine",
-        "passage",
-        "operation",
-        "of",
-        "spill",
-        "gates",
-        "telemetry",
-        "studies"
-      ],
-      "allClassification": [
-      ],
-      "coverImage": "",
-      "openurlRepresentation": "rft.title=Nedvandringsveier+og+effekter+av+vannslipp+p%C3%A5+vinterst%C3%B8ing+og+smolt+av+Hunder%C3%B8rret+forbi+Hunderfossen+kraftverk+i+Gudbrandsdalsl%C3%A5gen.+Telemetristudier+h%C3%B8sten+2014+og+v%C3%A5ren+2015&rft.author=Kraab%C3%B8l%2C+Morten&rft.isbn=978-82-426-2815-2&rft.date=2015&pid=notrbib:151709432",
-      "content": "",
-      "language": "nob",
-      "material": "book_electronic",
-      "typeofrecord": "",
-      "bibliolevel": "",
-      "resources": [
-      ],
-      "items": [
-      ],
-      "physicalform": "n",
-      "typeofcontent": [
-        "v"
-      ],
-      "articleVolume": "",
-      "articleIssue": "",
-      "articleStartPage": "",
-      "articleEndPage": "",
-      "articleNumberOfPages": "",
-      "articleDate": "",
-      "journalTitle": "",
-      "numberOfItems": 1,
-      "bibliography": "",
-      "itemLocation": "REMOTE",
-      "itemAvailable": "AVAILABLE"
-    },
-    {
-      "id": "151111154",
-      "title": "Nasjonalt handlingsprogram..",
-      "creators": [
-        {
-          "relatorcode": "",
-          "firstName": "",
-          "lastName": "Helsedirektoratet",
-          "normalizedName": "Helsedirektoratet",
-          "presentableName": "Helsedirektoratet"
-        },
-        {
-          "relatorcode": "",
-          "firstName": "Jon Arne",
-          "lastName": "Søreide",
-          "normalizedName": "Søreide, Jon Arne",
-          "presentableName": "Jon Arne Søreide"
-        }
-      ],
-      "corporation": "",
-      "conference": "",
-      "year": "2015",
-      "publicationName": "Helsedirektoratet",
-      "publicationPlace": "Oslo",
-      "isbn": [
-        "978-82-8081-366-4"
-      ],
-      "issn": [
-      ],
-      "pages": "90 s. ; digital PDF-fil",
-      "edition": "3. utg.",
-      "series": [
-      ],
-      "note": "",
-      "keywords": [
-      ],
-      "allClassification": [
-      ],
-      "coverImage": "",
-      "openurlRepresentation": "rft.title=Nasjonalt+handlingsprogram+med+retningslinjer+for+diagnostikk%2C+behandling+og+oppf%C3%B8lging+av+pasienter+med+pancreaskreft&rft.author=Helsedirektoratet&rft.isbn=978-82-8081-366-4&rft.date=2015&pid=notrbib:151111154",
-      "content": "",
-      "language": "nob",
-      "material": "book_electronic",
-      "typeofrecord": "",
-      "bibliolevel": "",
-      "resources": [
-        [
-          "https://helsedirektoratet.no/Lists/Publikasjoner/Attachments/880/IS%202274%20Handlingsprogram%20pancreaskreft.pdf",
-          "Gratis"
-        ]
-      ],
-      "items": [
-      ],
-      "physicalform": "n",
-      "typeofcontent": [
-        "v"
-      ],
-      "articleVolume": "",
-      "articleIssue": "",
-      "articleStartPage": "",
-      "articleEndPage": "",
-      "articleNumberOfPages": "",
-      "articleDate": "",
-      "journalTitle": "",
-      "numberOfItems": 1,
-      "bibliography": "",
-      "itemLocation": "REMOTE",
-      "itemAvailable": "AVAILABLE"
-    },
-    {
-      "id": "151100470",
-      "title": "Learning Java by building..",
-      "creators": [
-        {
-          "relatorcode": "",
-          "firstName": "John",
-          "lastName": "Horton",
-          "normalizedName": "Horton, John",
-          "presentableName": "John Horton"
-        }
-      ],
-      "corporation": "",
-      "conference": "",
-      "year": "2015",
-      "publicationName": "Packt Publishing",
-      "publicationPlace": "Birmingham, UK",
-      "isbn": [
-      ],
-      "issn": [
-      ],
-      "pages": "1 online resource (1 volume), illustrations",
-      "edition": "",
-      "series": [
-      ],
-      "note": "Includes index., Description based on online resource; title from cover (Safari, viewed February 19, 2015).",
-      "keywords": [
-      ],
-      "allClassification": [
-        [
           "LC",
           [
-            "Mobile games",
-            "Application software"
+            "Medicine",
+            "Public health",
+            "Physics",
+            "Engineering",
+            "Human Geography"
+          ]
+        ],
+        [
+          "MESH",
+          [
+            "Medicine & Public Health",
+            "Public Health",
+            "Complexity",
+            "Statistical Physics, Dynamical Systems and Complexity",
+            "Human Geography"
           ]
         ]
       ],
       "coverImage": "",
-      "openurlRepresentation": "rft.title=Learning+Java+by+building+Android+games+%3A+get+ready+for+a+fun-filled+experience+of+learning+Java+by+developing+games+for+the+Android+platform&rft.author=Horton%2C+John&rft.date=2015&pid=notrbib:151100470",
+      "openurlRepresentation": "rft.title=Place+and+Health+as+Complex+Systems+%3A+A+Case+Study+and+Empirical+Test&rft.author=Castellani%2C+Brian&rft.date=2015&pid=notrbib:150782845",
       "content": "",
       "language": "eng",
       "material": "electronic",
@@ -762,12 +395,464 @@
       "articleNumberOfPages": "",
       "articleDate": "",
       "journalTitle": "",
-      "numberOfItems": 3,
+      "numberOfItems": 8,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "id": "14338080x",
+      "title": "RILEM Technical Committee 195-DTD Recommendation for Test Methods for AD and TD of Early Age Concrete : Round Robin Documentation Report: Program, Test Results and Statistical Evaluation",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Øyvind",
+          "lastName": "Bjøntegaard",
+          "normalizedName": "Bjøntegaard, Øyvind",
+          "presentableName": "Øyvind Bjøntegaard"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2015",
+      "publicationName": "Springer",
+      "publicationPlace": "Netherlands",
+      "isbn": [
+        "978-94-017-9266-0"
+      ],
+      "issn": [
+      ],
+      "pages": "93 s.",
+      "edition": "",
+      "series": [
+      ],
+      "note": "",
+      "keywords": [
+      ],
+      "allClassification": [
+        [
+          "LC",
+          [
+            "Engineering",
+            "Mechanics, applied",
+            "Building construction",
+            "Materials",
+            "Concrete"
+          ]
+        ],
+        [
+          "MESH",
+          [
+            "Engineering",
+            "Building Materials",
+            "Structural Materials",
+            "Theoretical and Applied Mechanics",
+            "TECHNOLOGY & ENGINEERING / Reference",
+            "TECHNOLOGY & ENGINEERING / Engineering (General)",
+            "Concrete"
+          ]
+        ]
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=RILEM+Technical+Committee+195-DTD+Recommendation+for+Test+Methods+for+AD+and+TD+of+Early+Age+Concrete+%3A+Round+Robin+Documentation+Report%3A+Program%2C+Test+Results+and+Statistical+Evaluation&rft.author=Bj%C3%B8ntegaard%2C+%C3%98yvind&rft.isbn=978-94-017-9266-0&rft.date=2015&pid=notrbib:14338080x",
+      "content": "",
+      "language": "eng",
+      "material": "book_electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 14,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "id": "151569851",
+      "title": "Knowledge, attitude, and practice regarding Pap smear test among women in ward no. 14, Dharan",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Priyanka",
+          "lastName": "Shrestha",
+          "normalizedName": "Shrestha, Priyanka",
+          "presentableName": "Priyanka Shrestha"
+        },
+        {
+          "relatorcode": "dgg",
+          "firstName": "",
+          "lastName": "UiT Norges arktiske universitet",
+          "normalizedName": "UiT Norges arktiske universitet",
+          "presentableName": "UiT Norges arktiske universitet"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2014",
+      "publicationName": "UiT The Arctic University of Norway",
+      "publicationPlace": "Tromsø",
+      "isbn": [
+      ],
+      "issn": [
+      ],
+      "pages": "",
+      "edition": "",
+      "series": [
+      ],
+      "note": "Master's thesis in public health - UiT Norges arktiske universitet, 2014",
+      "keywords": [
+        "public",
+        "health"
+      ],
+      "allClassification": [
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=Knowledge%2C+attitude%2C+and+practice+regarding+Pap+smear+test+among+women+in+ward+no.+14%2C+Dharan&rft.author=Shrestha%2C+Priyanka&rft.date=2014&pid=notrbib:151569851",
+      "content": "",
+      "language": "eng",
+      "material": "electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+        [
+          "http://hdl.handle.net/10037/7995",
+          "Gratis"
+        ]
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v",
+        "h"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 1,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "id": "151159688",
+      "title": "Triage of women with ASC-US/LSIL cytology : the added value of implementing an HPV-test",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Mbachi Ruth",
+          "lastName": "Msomphora",
+          "normalizedName": "Msomphora, Mbachi Ruth",
+          "presentableName": "Mbachi Ruth Msomphora"
+        },
+        {
+          "relatorcode": "dgg",
+          "firstName": "",
+          "lastName": "UiT Norges arktiske universitet",
+          "normalizedName": "UiT Norges arktiske universitet",
+          "presentableName": "UiT Norges arktiske universitet"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2014",
+      "publicationName": "UiT Norges arktiske universitet",
+      "publicationPlace": "Tromsø",
+      "isbn": [
+      ],
+      "issn": [
+      ],
+      "pages": "",
+      "edition": "",
+      "series": [
+      ],
+      "note": "Master's thesis in public health - UiT Norges arktiske universitet, 2014",
+      "keywords": [
+        "helsefag",
+        "medisinsk",
+        "epidemiologi",
+        "health",
+        "science",
+        "medical",
+        "epidemiology"
+      ],
+      "allClassification": [
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=Triage+of+women+with+ASC-US%2FLSIL+cytology+%3A+the+added+value+of+implementing+an+HPV-test&rft.author=Msomphora%2C+Mbachi+Ruth&rft.date=2014&pid=notrbib:151159688",
+      "content": "",
+      "language": "eng",
+      "material": "electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+        [
+          "http://hdl.handle.net/10037/7716",
+          "Gratis"
+        ]
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v",
+        "h"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 1,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "id": "150319851",
+      "title": "The ACTA and the Plurilateral Enforcement Agenda : Genesis and Aftermath",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Pedro",
+          "lastName": "Roffe",
+          "normalizedName": "Roffe, Pedro",
+          "presentableName": "Pedro Roffe"
+        },
+        {
+          "relatorcode": "",
+          "firstName": "Xavier",
+          "lastName": "Seuba",
+          "normalizedName": "Seuba, Xavier",
+          "presentableName": "Xavier Seuba"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2014",
+      "publicationName": "Cambridge University Press",
+      "publicationPlace": "Cambridge",
+      "isbn": [
+        "9781107707207"
+      ],
+      "issn": [
+      ],
+      "pages": "1 online resource (472 s.), digital, PDF file(s)",
+      "edition": "",
+      "series": [
+      ],
+      "note": "Title from publisher's bibliographic system (viewed on 21 Jan 2015).",
+      "keywords": [
+      ],
+      "allClassification": [
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=The+ACTA+and+the+Plurilateral+Enforcement+Agenda+%3A+Genesis+and+Aftermath&rft.author=Roffe%2C+Pedro&rft.isbn=9781107707207&rft.date=2014&pid=notrbib:150319851",
+      "content": "",
+      "language": "eng",
+      "material": "electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "e",
+        "v"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 2,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "id": "144487381",
+      "title": "Motivasjon, målrettethet, prestasjon og engasjement i jobbsammenheng : gjennomgang av teori på området og analyse av The High Performance Cycle i barneverninstitusjoner, Bufetat region Nord",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Rita",
+          "lastName": "Kylling",
+          "normalizedName": "Kylling, Rita",
+          "presentableName": "Rita Kylling"
+        },
+        {
+          "relatorcode": "dgg",
+          "firstName": "",
+          "lastName": "Høgskolen i Oslo og Akershus",
+          "normalizedName": "Høgskolen i Oslo og Akershus",
+          "presentableName": "Høgskolen i Oslo og Akershus"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2014",
+      "publicationName": "Høgskolen i Oslo og Akershus",
+      "publicationPlace": "",
+      "isbn": [
+      ],
+      "issn": [
+      ],
+      "pages": "96 s.",
+      "edition": "",
+      "series": [
+      ],
+      "note": "Masteroppgave i læring i komplekse systemer - Høgskolen i Oslo og Akershus, Institutt for atferdsvitenskap, 2014, Innhold: Artikkel 1: Hva motiverer til prestasjon i jobbsammenheng?: en gjennomgang av motivasjonsteorier med fokus på målsettingsteori, metateorien \"The high permformance cycle\" og jobbengasjement ; Artikkel 2:  En kvantitativ analyse av High Performance Cycle og en test av jobbengasjement som et supplement til modellen, i barnevernsinstitusjoner ved Region-Nord",
+      "keywords": [
+        "læring",
+        "i",
+        "komplekse",
+        "systemer",
+        "motivasjon",
+        "målsetting",
+        "jobbengasjement",
+        "jobber",
+        "engasjement",
+        "prestasjon",
+        "arbeidsglede",
+        "arbeidstakere",
+        "tilfredshet",
+        "jobbtilfredsstillelse"
+      ],
+      "allClassification": [
+        [
+          "Dewey",
+          [
+            "150.194"
+          ]
+        ]
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=Motivasjon%2C+m%C3%A5lrettethet%2C+prestasjon+og+engasjement+i+jobbsammenheng+%3A+gjennomgang+av+teori+p%C3%A5+omr%C3%A5det+og+analyse+av+The+High+Performance+Cycle+i+barneverninstitusjoner%2C+Bufetat+region+Nord&rft.author=Kylling%2C+Rita&rft.date=2014&pid=notrbib:144487381",
+      "content": "",
+      "language": "nob",
+      "material": "electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+        [
+          "http://hdl.handle.net/10642/2174",
+          "Gratis"
+        ]
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v",
+        "h"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 1,
+      "bibliography": "",
+      "itemLocation": "REMOTE",
+      "itemAvailable": "AVAILABLE"
+    },
+    {
+      "id": "144322579",
+      "title": "Inter-rater reliability of the Norwegian translation of the Wolf Motor Function Test",
+      "creators": [
+        {
+          "relatorcode": "",
+          "firstName": "Martin",
+          "lastName": "Vatshaug",
+          "normalizedName": "Vatshaug, Martin",
+          "presentableName": "Martin Vatshaug"
+        },
+        {
+          "relatorcode": "dgg",
+          "firstName": "",
+          "lastName": "UiT Norges arktiske universitet",
+          "normalizedName": "UiT Norges arktiske universitet",
+          "presentableName": "UiT Norges arktiske universitet"
+        }
+      ],
+      "corporation": "",
+      "conference": "",
+      "year": "2014",
+      "publicationName": "UiT The Arctic University of Norway",
+      "publicationPlace": "Tromsø",
+      "isbn": [
+      ],
+      "issn": [
+      ],
+      "pages": "",
+      "edition": "",
+      "series": [
+      ],
+      "note": "Masteroppgave i helsefag - UiT Norges arktiske universitet, 2014",
+      "keywords": [
+        "helsefag"
+      ],
+      "allClassification": [
+      ],
+      "coverImage": "",
+      "openurlRepresentation": "rft.title=Inter-rater+reliability+of+the+Norwegian+translation+of+the+Wolf+Motor+Function+Test&rft.author=Vatshaug%2C+Martin&rft.date=2014&pid=notrbib:144322579",
+      "content": "",
+      "language": "eng",
+      "material": "electronic",
+      "typeofrecord": "",
+      "bibliolevel": "",
+      "resources": [
+        [
+          "http://hdl.handle.net/10037/6834",
+          "Gratis"
+        ]
+      ],
+      "items": [
+      ],
+      "physicalform": "n",
+      "typeofcontent": [
+        "v",
+        "h"
+      ],
+      "articleVolume": "",
+      "articleIssue": "",
+      "articleStartPage": "",
+      "articleEndPage": "",
+      "articleNumberOfPages": "",
+      "articleDate": "",
+      "journalTitle": "",
+      "numberOfItems": 1,
       "bibliography": "",
       "itemLocation": "REMOTE",
       "itemAvailable": "AVAILABLE"
     }
   ],
-  "totalHits": 4159,
-  "responseTime": 1290
+  "totalHits": 1356,
+  "responseTime": 1009
 }}
