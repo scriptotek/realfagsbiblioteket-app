@@ -23,11 +23,18 @@
     </div>
     <div class="row" ng-show="vm.book.isbn.length">
       <div class="col-20">ISBN</div>
-      <div class="col">{{vm.book.isbn}}</div>
+      <div class="col">{{vm.book.isbn[0]}}</div>
     </div>
     <div class="row">
       <div class="col-20">Format</div>
       <div class="col">{{vm.book.format}}</div>
+    </div>
+    <div class="row">
+      <div class="col-100">
+        <p ng-show="vm.book.itemAvailable=='AVAILABLE'"><img src="img/available.png" width="35px"/> Available</p>
+        <p ng-show="vm.book.itemAvailable=='UNAVAILABLE'"><img src="img/unavailable.png" width="35px"/> Unavailable</p>
+        <p ng-show="vm.book.itemAvailable=='ONORDER'"><img src="img/unavailable.png" width="35px"/> On order</p>
+      </div>
     </div>
   </ion-content>
   <ion-content padding="true" ng-hide="vm.book">
