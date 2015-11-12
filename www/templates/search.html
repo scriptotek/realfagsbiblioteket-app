@@ -10,13 +10,16 @@
     </div>
     <ion-list>
       <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}">
-        <div class="row">
-          <div class="col-70">
-            <span style="font-weight:bold">{{book.title}}</span>
+        <div class="row item-icon-right">
+          <div class="col-80">
+            <h3>{{book.title}}</h3>
+            <p>{{book.authors}}</p>
           </div>
           <div class="col-20 col-offset-10">
-            test
+            <p>{{book.year}}</p>
+            <p ng-show"book.ebook"><img src="img/ebook-icon.png" width="35px"/></p>
           </div>
+          <i class="icon ion-ios-arrow-right"></i>
         </div>
       </ion-item>
     </ion-list>
