@@ -25,6 +25,10 @@
       <div class="col-20">ISBN</div>
       <div class="col">{{vm.book.isbn[0]}}</div>
     </div>
+    <div class="row" ng-show="vm.book.isbn.length">
+      <div class="col-20">Edition</div>
+      <div class="col">{{vm.book.edition}}</div>
+    </div>
     <div class="row">
       <div class="col-20">Format</div>
       <div class="col">{{vm.book.format}}</div>
