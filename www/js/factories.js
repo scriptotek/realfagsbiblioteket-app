@@ -51,6 +51,14 @@
           method: 'GET'
         }).success(function(data) {
           factory.searchResults = data.result.documents;
+          
+          // Create a display-friendly authors-variable
+          angular.forEach(factory.searchResults, function(book) {
+            book.authors = book.creators.map(function (creator) {
+              return creator.presentableName;
+            }).join(", ");
+            console.log(book);
+          });
         }).error(function(err) {
           console.log('error in search: ' + err);
           factory.searchResults = [];
