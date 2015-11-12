@@ -1,0 +1,13 @@
+<div class="row item-icon-right">
+  <div class="col-80">
+    <h3>{{book.title}}</h3>
+    <p>{{book.authors}}</p>
+  </div>
+  <div class="col-20 col-offset-10">
+    <p>{{book.year}}</p>
+    <p ng-show="book.material.indexOf('electronic') != -1">
+      <img src="img/ebook-icon.png" width="35px"/>
+    </p>
+  </div>
+  <i class="icon ion-ios-arrow-right"></i>
+</div>

@@ -2,17 +2,7 @@
   <ion-content>
     <ion-list>
       <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}">
-        <div class="row item-icon-right">
-          <div class="col-80">
-            <h3>{{book.title}}</h3>
-            <p>{{book.authors}}</p>
-          </div>
-          <div class="col-20 col-offset-10">
-            <p>{{book.year}}</p>
-            <p ng-show"book.ebook"><img src="img/ebook-icon.png" width="35px"/></p>
-          </div>
-          <i class="icon ion-ios-arrow-right"></i>
-        </div>
+        <div ng-include src="'templates/listResults.html'"></div>
       </ion-item>
     </ion-list>
   </ion-content>
