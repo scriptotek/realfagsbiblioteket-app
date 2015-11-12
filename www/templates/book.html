@@ -1,5 +1,5 @@
 <ion-view view-title="Book">
-  <ion-content ng-show="vm.book">
+  <ion-content padding="true" ng-show="vm.book">
     <h1>{{vm.book.title}}</h1>
     <a ng-click="vm.toggleFavorite()">
       <i ng-hide="vm.book.isFavorite" class="ion-ios-star-outline">is not favorite</i>
@@ -8,7 +8,7 @@
     <p>Tilgjengelig? {{vm.book.itemAvailable}}</p>
     <p>Lokasjon? {{vm.book.itemLocation}}</p>
   </ion-content>
-  <ion-content ng-hide="vm.book">
+  <ion-content padding="true" ng-hide="vm.book">
     <p>No book found.</p>
   </ion-content>
 </ion-view>
