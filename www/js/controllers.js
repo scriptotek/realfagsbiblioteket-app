@@ -73,8 +73,6 @@
       if (vm.book!==null){
         // The book might be a favorite saved from earlier. If it is then set isFavorite to true
         vm.book.isFavorite = SearchFactory.isBookInFavorites(vm.book.id);
-
-        console.log(vm.book);
       }
 
       vm.toggleFavorite = function() {
