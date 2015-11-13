@@ -1,8 +1,8 @@
 <ion-view view-title="Search">
   <ion-content>
+    <ion-list>
 
-    <div class="list">
-
+      <!-- Form needed to search on enter keypress -->
       <form ng-submit="vm.search()">
         <label class="item item-input">
           <i class="icon ion-search placeholder-icon"></i>
@@ -13,15 +13,12 @@
       <div class="item item-input">
          <button ng-click="vm.search()" class="button button-small">Search</button>
          <button ng-click="vm.scanBarcode()" class="button button-small">Scan barcode</button>
-       </div>
+      </div>
 
-    </div>
-
-    <ion-list>
       <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}">
         <div ng-include src="'templates/listResults.html'"></div>
       </ion-item>
-    </ion-list>
 
+    </ion-list>
   </ion-content>
 </ion-view>
