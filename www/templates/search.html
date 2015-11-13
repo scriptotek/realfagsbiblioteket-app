@@ -4,15 +4,39 @@
 
       <!-- Form needed to search on enter keypress -->
       <form ng-submit="vm.search()">
-        <label class="item item-input">
+        <label class="item item-input item-button-right">
           <i class="icon ion-search placeholder-icon"></i>
           <input type="text" placeholder="Search" ng-model="vm.searchQuery">
         </label>
       </form>
 
-      <div class="item item-input">
-         <button ng-click="vm.search()" class="button button-small">Search</button>
-         <button ng-click="vm.scanBarcode()" class="button button-small">Scan barcode</button>
+      <!-- <div class="item text-right">
+        <div class="buttons">
+          <button ng-click="vm.search()" class="button button-positive">
+            Search
+          </button>
+          <span ng-click="vm.scanBarcode()" class="button button-positive">
+            Scan barcode
+          </span>
+        </div>
+      </div> -->
+
+      <div class="item no-padding">
+        <div class="row no-padding">
+          <div class="col">
+            <button ng-click="vm.search()" class="button button-full button-positive">Search</button>
+          </div>
+          <div class="col">
+            <button ng-click="vm.scanBarcode()" class="button button-full button-positive">
+              Scan barcode
+              <i class="icon ion-ios-barcode-outline"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="vm.results.length" class="item item-divider">
+        Results
       </div>
 
       <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}">
