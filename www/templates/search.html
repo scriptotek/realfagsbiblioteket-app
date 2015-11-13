@@ -10,17 +10,6 @@
         </label>
       </form>
 
-      <!-- <div class="item text-right">
-        <div class="buttons">
-          <button ng-click="vm.search()" class="button button-positive">
-            Search
-          </button>
-          <span ng-click="vm.scanBarcode()" class="button button-positive">
-            Scan barcode
-          </span>
-        </div>
-      </div> -->
-
       <div class="item no-padding">
         <div class="row no-padding">
           <div class="col">
@@ -37,6 +26,15 @@
 
       <div ng-show="vm.results.length" class="item item-divider">
         Results
+        <div class="text-right" style="float:right">
+          Show E-books
+          <label class="toggle toggle-assertive">
+            <input ng-model="vm.showEbooks" type="checkbox">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </div>
       </div>
 
       <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}">

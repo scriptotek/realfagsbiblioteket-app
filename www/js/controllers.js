@@ -37,6 +37,7 @@
       vm.results = {};
       vm.search = search;
       vm.scanBarcode = scanBarcode;
+      vm.showEbooks = true;
 
       /////
 
