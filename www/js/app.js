@@ -6,7 +6,8 @@
     'ionic',
     'factories',
     'controllers',
-    'LocalForageModule'])
+    'LocalForageModule',
+    'ngCordova'])
 
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {

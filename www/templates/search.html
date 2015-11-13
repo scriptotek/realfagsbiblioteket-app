@@ -1,17 +1,27 @@
 <ion-view view-title="Search">
   <ion-content>
-    <div class="list list-inset">
+
+    <div class="list">
+
       <form ng-submit="vm.search()">
         <label class="item item-input">
           <i class="icon ion-search placeholder-icon"></i>
           <input type="text" placeholder="Search" ng-model="vm.searchQuery">
         </label>
       </form>
+
+      <div class="item item-input">
+         <button ng-click="vm.search()" class="button button-small">Search</button>
+         <button ng-click="vm.scanBarcode()" class="button button-small">Scan barcode</button>
+       </div>
+
     </div>
+
     <ion-list>
       <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}">
         <div ng-include src="'templates/listResults.html'"></div>
       </ion-item>
     </ion-list>
+
   </ion-content>
 </ion-view>

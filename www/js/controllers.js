@@ -30,12 +30,13 @@
 
     // ------------------------------------------------------------------------
 
-    function SearchCtrl(SearchFactory) {
+    function SearchCtrl(SearchFactory, $cordovaBarcodeScanner) {
       var vm = this;
 
       vm.searchQuery = '';
       vm.results = {};
       vm.search = search;
+      vm.scanBarcode = scanBarcode;
 
       /////
 
@@ -45,6 +46,21 @@
         SearchFactory.search(vm.searchQuery)
         .then(function() {
           vm.results = SearchFactory.searchResults;
+        });
+      }
+
+      function scanBarcode() {
+        $cordovaBarcodeScanner
+        .scan()
+        .then(function(barcodeData) {
+          console.log('success in scanBarcode:');
+          console.log(barcodeData);
+          vm.searchQuery = barcodeData.text;
+          vm.search();
+          alert('barcode scanned:' +  barcodeData.text);
+        }, function(error) {
+          console.log('error in scanBarcode: ' + error);
+          alert('error in scanBarcode: ' + error);
         });
       }
 
