@@ -20,11 +20,7 @@
 
     function FavoritesCtrl(SearchFactory) {
       var vm = this;
-
-      // NOTE: duplicate code in favorites.html and in search.html
-      // you must make a new template or something.
       vm.results = SearchFactory.favorites;
-
     }
 
     // add it to our controllers module
