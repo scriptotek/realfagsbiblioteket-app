@@ -40,16 +40,12 @@
       /////
 
       function search() {
+        if (!vm.searchQuery || 0 === vm.searchQuery.length) return;
 
-        var query = vm.searchQuery;
-
-        if (!query || 0 === query.length) return;
-          
-        SearchFactory.search(query)
+        SearchFactory.search(vm.searchQuery)
         .then(function() {
           vm.results = SearchFactory.searchResults;
         });
-
       }
 
     }
@@ -65,19 +61,22 @@
       var vm = this;
 
       vm.book = SearchFactory.getBook($stateParams.id);
+      vm.toggleFavorite = toggleFavorite;
+
+      /////
 
       if (vm.book!==null){
         // The book might be a favorite saved from earlier. If it is then set isFavorite to true
         vm.book.isFavorite = SearchFactory.isBookInFavorites(vm.book.id);
       }
 
-      vm.toggleFavorite = function() {
+      function toggleFavorite() {
         // Update in localForage
         SearchFactory.toggleFavorite(vm.book);
         // Update in view
         if (vm.book.isFavorite) vm.book.isFavorite = false;
         else vm.book.isFavorite = true;
-      };
+      }
     }
 
     // add it to our controllers module
