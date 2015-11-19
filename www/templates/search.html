@@ -37,6 +37,7 @@
         </div>
       </div>
 
+      <!-- The ng-hide will hide any book from the results if the viewmodel variable showEbooks is set to false AND the book.material property has the word "electronic" in it. -->
       <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}" ng-hide="book.material.indexOf('electronic') !== -1 && vm.showEbooks === false">
         <div ng-include src="'templates/listResults.html'"></div>
       </ion-item>
