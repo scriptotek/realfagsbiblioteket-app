@@ -30,7 +30,7 @@
 
     // ------------------------------------------------------------------------
 
-    function SearchCtrl(SearchFactory, $cordovaBarcodeScanner) {
+    function SearchCtrl(SearchFactory, $cordovaBarcodeScanner, $state) {
       var vm = this;
 
       vm.searchQuery = '';
@@ -38,6 +38,7 @@
       vm.search = search;
       vm.scanBarcode = scanBarcode;
       vm.showEbooks = true;
+      vm.clickResult = clickResult;
 
       /////
 
@@ -63,6 +64,17 @@
           console.log('error in scanBarcode: ' + error);
           alert('error in scanBarcode: ' + error);
         });
+      }
+
+      function clickResult(book) {
+        if (book.multiple_editions) {
+          console.log("multiple");
+        }else{
+          // Just a single edition for this book. Navigate straight to it.
+          $state.go('app.single', {
+            id: book.id
+          });
+        }
       }
 
     }

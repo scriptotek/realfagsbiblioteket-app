@@ -21,7 +21,8 @@
         toggleFavorite: toggleFavorite,
         isBookInFavorites: isBookInFavorites,
         addCallnumberAndCollection: addCallnumberAndCollection,
-        addLocation: addLocation
+        addLocation: addLocation,
+        getBookDetails: getBookDetails
       };
 
       return factory;
@@ -31,40 +32,29 @@
       function search(query, ebook, start, appversion) {
         // Fetches results from the API given the parameters.
 
-        // return $http({
-        //   url: 'http://linode.biblionaut.net/app/',
-        //   method: 'GET',
-        //   params: {
-        //     query: query,
-        //     ebook: ebook,
-        //     start: start,
-        //     appversion: appversion
-        //   }
-        // }).success(function(data) {
-        //   factory.searchResults = data.result.documents;
-        // }).error(function(err) {
-        //   console.log('error in search: ' + err);
-        //   factory.searchResults = [];
-        // });
-
-        // fetch test data - REMOVE ME
         return $http({
-          url: 'testdata.json',
-          method: 'GET'
+          url: 'https://scs.biblionaut.net/documents',
+          method: 'GET',
+          params: {
+            query: query
+          }
         }).success(function(data) {
-          factory.searchResults = data.result.documents;
+
+          console.log(data);
+
+          factory.searchResults = data.documents;
 
           angular.forEach(factory.searchResults, function(book) {
             // Create a display-friendly authors-variable
-            book.authors = book.creators.map(function (creator) {
-              return creator.presentableName;
-            }).join(", ");
+            book.authors = book.creators.join(", ");
+
             // Create a display-friendly format variable
             if (book.material=="book_electronic") book.format = "Electronic book";
             else if (book.material=="journal_electronic") book.format = "Electronic journal";
             else if (book.material=="electronic") book.format = "Electronic resource";
             else book.format = "Printed";
           });
+
         }).error(function(err) {
           console.log('error in search: ' + err);
           factory.searchResults = [];
@@ -200,6 +190,21 @@
           console.log('error in addLocation: ' + err);
         });
 
+      }
+
+      function getBookDetails(id) {
+        // Find details for the book(s) with given id
+
+        console.log(42);
+
+        return $http.get('https://scs.biblionaut.net/documents/' + id)
+        .success(function(data) {
+          console.log(data);
+          console.log('wat');
+        })
+        .error(function(error) {
+          console.log('error in getBookDetails: ' + error);
+        });
       }
 
     }

@@ -4,9 +4,14 @@
     <p>{{book.authors}}</p>
   </div>
   <div class="col-20 col-offset-10">
-    <p>{{book.year}}</p>
-    <p ng-show="book.material.indexOf('electronic') !== -1">
-      <img src="img/ebook-icon.png" width="35px"/>
+    <p ng-show="book.multiple_editions">
+      <img src="img/icon-books.jpg" width="35px" alt="Multiple editions">
+    </p>
+    <p ng-show="!book.multiple_editions && book.material.indexOf('e-books') > -1">
+      <img src="img/icon-ebook.jpg" width="35px" alt="Ebook"/>
+    </p>
+    <p ng-show="!book.multiple_editions && book.material.indexOf('print') > -1">
+      <img src="img/icon-book.jpg" width="35px" alt="Printed book"/>
     </p>
   </div>
   <i class="icon ion-ios-arrow-right"></i>
