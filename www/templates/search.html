@@ -26,7 +26,7 @@
 
       <div ng-show="vm.results.length" class="item item-divider">
         Results
-        <div class="text-right" style="float:right">
+        <div ng-click="vm.toggleEbooks()" class="text-right" style="float:right">
           Show E-books
           <label class="toggle toggle-assertive">
             <input ng-model="vm.showEbooks" type="checkbox">
@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}">
+      <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}" ng-hide="book.material.indexOf('electronic') !== -1 && vm.showEbooks === false">
         <div ng-include src="'templates/listResults.html'"></div>
       </ion-item>
 
