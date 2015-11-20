@@ -33,7 +33,7 @@
         // Fetches results from the API given the parameters.
 
         return $http({
-          url: 'https://scs.biblionaut.net/documents',
+          url: 'https://scs.biblionaut.net/primo/search',
           method: 'GET',
           params: {
             query: query
@@ -42,17 +42,17 @@
 
           console.log(data);
 
-          factory.searchResults = data.documents;
+          factory.searchResults = data.results;
 
           angular.forEach(factory.searchResults, function(book) {
             // Create a display-friendly authors-variable
             book.authors = book.creators.join(", ");
 
             // Create a display-friendly format variable
-            if (book.material=="book_electronic") book.format = "Electronic book";
-            else if (book.material=="journal_electronic") book.format = "Electronic journal";
-            else if (book.material=="electronic") book.format = "Electronic resource";
-            else book.format = "Printed";
+            // if (book.material=="book_electronic") book.format = "Electronic book";
+            // else if (book.material=="journal_electronic") book.format = "Electronic journal";
+            // else if (book.material=="electronic") book.format = "Electronic resource";
+            // else book.format = "Printed";
           });
 
         }).error(function(err) {
@@ -195,9 +195,9 @@
       function getBookDetails(id) {
         // Find details for the book(s) with given id
 
-        console.log(42);
+        console.log(42); // LOL
 
-        return $http.get('https://scs.biblionaut.net/documents/' + id)
+        return $http.get('https://scs.biblionaut.net/primo/records/' + id)
         .success(function(data) {
           console.log(data);
           console.log('wat');

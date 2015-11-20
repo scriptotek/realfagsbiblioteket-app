@@ -4,13 +4,13 @@
     <p>{{book.authors}}</p>
   </div>
   <div class="col-20 col-offset-10">
-    <p ng-show="book.multiple_editions">
+    <p ng-show="book.type === 'group'">
       <img src="img/icon-books.jpg" width="35px" alt="Multiple editions">
     </p>
-    <p ng-show="!book.multiple_editions && book.material.indexOf('e-books') > -1">
+    <p ng-show="book.material && book.material.indexOf('e-books') != -1">
       <img src="img/icon-ebook.jpg" width="35px" alt="Ebook"/>
     </p>
-    <p ng-show="!book.multiple_editions && book.material.indexOf('print') > -1">
+    <p ng-show="book.material && book.material.indexOf('print-books') != -1">
       <img src="img/icon-book.jpg" width="35px" alt="Printed book"/>
     </p>
   </div>
