@@ -38,6 +38,7 @@
         $http({
           url: 'https://scs.biblionaut.net/primo/search',
           method: 'GET',
+          cache: true,
           params: {
             query: query,
             library: "ureal"
@@ -76,7 +77,8 @@
 
         $http({
           url: 'https://scs.biblionaut.net/primo/groups/' + id,
-          method: 'GET'
+          method: 'GET',
+          cache: true,
         }).then(function(data) {
 
           factory.searchResults = data.data.result.records;
