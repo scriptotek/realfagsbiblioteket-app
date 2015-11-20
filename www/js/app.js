@@ -88,20 +88,6 @@
             controller: 'BookCtrl',
             controllerAs: 'vm'
           }
-        },
-        resolve: {
-          // addCallnumberAndCollection: function($stateParams, SearchFactory) {
-          //     // Find callnumber (if any) and add to the book
-          //     return SearchFactory.addCallnumberAndCollection($stateParams.id);
-          // },
-          // addLocation: function($stateParams, SearchFactory, addCallnumberAndCollection) {
-          //     // Find location (if any) and add to the book
-          //     return SearchFactory.addLocation($stateParams.id);
-          // },
-          getBookDetails: function($stateParams, SearchFactory) {
-            // Find details for the book(s)
-            return SearchFactory.getBookDetails($stateParams.id);
-          }
         }
       });
     

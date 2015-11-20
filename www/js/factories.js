@@ -7,7 +7,7 @@
 
     // ------------------------------------------------------------------------
 
-    function SearchFactory($http, $filter, $localForage) {
+    function SearchFactory($http, $filter, $localForage, $q) {
 
       var searchResults = [];
       var favorites = [];
@@ -20,8 +20,7 @@
         loadFavorites: loadFavorites,
         toggleFavorite: toggleFavorite,
         isBookInFavorites: isBookInFavorites,
-        addCallnumberAndCollection: addCallnumberAndCollection,
-        addLocation: addLocation,
+        getBookFromFavorites: getBookFromFavorites,
         getBookDetails: getBookDetails
       };
 
@@ -32,17 +31,19 @@
       function search(query, ebook, start, appversion) {
         // Fetches results from the API given the parameters.
 
-        return $http({
+        factory.searchResults = [];
+        var deferred = $q.defer();
+
+        $http({
           url: 'https://scs.biblionaut.net/primo/search',
           method: 'GET',
           params: {
-            query: query
+            query: query,
+            library: "ureal"
           }
-        }).success(function(data) {
+        }).then(function success(data) {
 
-          console.log(data);
-
-          factory.searchResults = data.results;
+          factory.searchResults = data.data.results;
 
           angular.forEach(factory.searchResults, function(book) {
             // Create a display-friendly authors-variable
@@ -55,10 +56,15 @@
             // else book.format = "Printed";
           });
 
-        }).error(function(err) {
-          console.log('error in search: ' + err);
-          factory.searchResults = [];
+          // Resolve the promise. This will send the search results to the success function in the controller
+          deferred.resolve(factory.searchResults);
+
+        }, function error(error) {
+          console.log('error in search factory');
+          deferred.reject(error);
         });
+
+        return deferred.promise;
       }
 
       function loadFavorites() {
@@ -97,14 +103,21 @@
           found = $filter('filter')(factory.favorites, {id: id}, true);
           if (found.length) {
              book = found[0];
+             console.log("Found the book in favorites!");
           }
         }
-        // Is the book in searchResults?
+        // If not, is the book in searchResults?
         if (book===null && factory.searchResults.length) {
           found = $filter('filter')(factory.searchResults, {id: id}, true);
           if (found.length) {
              book = found[0];
+             console.log("Found the book in searchResults!");
           }
+        }
+
+        if (book===null) {
+          console.log("Could not find the book");
+          book = {};
         }
 
         return book;
@@ -122,89 +135,62 @@
         return false;
       }
 
-      function addCallnumberAndCollection(id) {
-        // Find and add callnumber (if any) to book of given id
+      function getBookFromFavorites(id) {
+        // Return book of given id if found in favorites
 
-        var book = factory.getBook(id);
+        var deferred = $q.defer();
 
-        return $http.get('https://ask.bibsys.no/ask2/json/items.jsp?callback=JSON_CALLBACK', {
-          params: {
-            objectid: id
-          }
-        })
-        .success(function(data) {
-          data = data.result.documents;
-          
-          // Filter because we're interested in institutionsection="UREAL" and that it has a callnumber
-          data = $filter('filter')(data, function(obj, index, array) {
-            return (obj.institutionsection === "UREAL" && obj.callnumber !== "");
-          }, true);
-          
-          // Have we found anything with a callnumber?
-          if (data.length) {
-            // If so, add this callnumber to the book
-            book.callnumber = data[0].callnumber;
-            book.collection = data[0].collection;
+        if (factory.favorites.length){
+          var found = $filter('filter')(factory.favorites, {id: id}, true);
+          if (found.length){
+            deferred.resolve(found[0]);
           }else{
-            // If so, add an empty string value so that we don't do the search again for the same book
-            book.callnumber = "";
-            book.collection = "";
+            deferred.reject("Book not in favorites.");
           }
+        }else{
+          deferred.reject("Book not in favorites.");
+        }
 
-        }).error(function(err) {
-          console.log('error in addCallnumberAndCollection: ' + err);
-        });
-
-      }
-
-      function addLocation(id) {
-        // Find and add loation (if any) to book of given id
-
-        var book = factory.getBook(id);
-
-        return $http.get('http://app.uio.no/ub/bdi/bibsearch/loc.php', {
-          params: {
-            collection: book.collection,
-            callnumber: book.callnumber
-          }
-        })
-        .success(function(data) {
-          // Here I expect a return like "bottom  2". I need the number
-          data = data.split("\t");
-
-          // data[1] is either 1, 2, or undefined. Set floortext:
-          if (data[1]=="1") book.floorText = "1st mezzanine";
-          else if (data[1]=="2") book.floorText = "2nd floor / Hangar";
-          else book.floorText = "";
-
-          // If we have a floorText, we can store mapPosition and mapUrlImage
-          if (book.floorText!=="") {
-            book.mapPosition = data[0];
-            book.mapUrlImage = "http://app.uio.no/ub/bdi/bibsearch/?collection="+book.collection+"&callnumber="+book.callnumber;
-          }else{
-            book.mapPosition = "";
-            book.mapUrlImage = "";
-          }
-
-        }).error(function(err) {
-          console.log('error in addLocation: ' + err);
-        });
-
+        // The book was not found
+        return deferred.promise;
       }
 
       function getBookDetails(id) {
         // Find details for the book(s) with given id
 
-        console.log(42); // LOL
+        // We'll return a promise, which will resolve with a book if found, or with an error if not.
+        var deferred = $q.defer();
 
-        return $http.get('https://scs.biblionaut.net/primo/records/' + id)
-        .success(function(data) {
-          console.log(data);
-          console.log('wat');
-        })
-        .error(function(error) {
-          console.log('error in getBookDetails: ' + error);
+        // Do we already have the book stored in favorites?
+        factory.getBookFromFavorites(id)
+        .then(function(data) {
+          // We found the book in favorites. This means we already have detailed information on this book
+          deferred.resolve(data);
+        }, function(error) {
+          // We have to get information on this book
+
+          $http.get('https://scs.biblionaut.net/primo/records/' + id)
+          .success(function(data) {
+            data = data.result;
+
+            book = data;
+
+            // TO DO
+            // - Figure out itemAvailable info
+            // - Figure out cover
+            // - Figure out location in map (physical location in the library)
+
+            // Resolve the promise. This will send the search results to the success function in the controller
+            deferred.resolve(book);
+          })
+          .error(function(error) {
+            console.log("error in getBookDetails factory");
+            deferred.reject(error);
+          });
+
         });
+
+        return deferred.promise;
       }
 
     }

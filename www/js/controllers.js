@@ -46,8 +46,11 @@
         if (!vm.searchQuery || 0 === vm.searchQuery.length) return;
 
         SearchFactory.search(vm.searchQuery)
-        .then(function() {
-          vm.results = SearchFactory.searchResults;
+        .then(function success(data) {
+          // console.log("got data in controller");
+          vm.results = data;
+        }, function error(error) {
+          console.log("error in search ctrl");
         });
       }
 
@@ -55,19 +58,17 @@
         $cordovaBarcodeScanner
         .scan()
         .then(function(barcodeData) {
-          console.log('success in scanBarcode:');
-          console.log(barcodeData);
+          // console.log("success in scanBarcode:");
+          // console.log(barcodeData);
           vm.searchQuery = barcodeData.text;
           vm.search();
-          alert('barcode scanned:' +  barcodeData.text);
         }, function(error) {
-          console.log('error in scanBarcode: ' + error);
-          alert('error in scanBarcode: ' + error);
+          console.log("error in scanBarcode");
         });
       }
 
       function clickResult(book) {
-        if (book.multiple_editions) {
+        if (book.type === "group") {
           console.log("multiple");
         }else{
           // Just a single edition for this book. Navigate straight to it.
@@ -89,14 +90,22 @@
     function BookCtrl($stateParams, SearchFactory) {
       var vm = this;
 
-      vm.book = SearchFactory.getBook($stateParams.id);
+      vm.book = null;
       vm.toggleFavorite = toggleFavorite;
+
+      activate();
 
       /////
 
-      if (vm.book!==null){
-        // The book might be a favorite saved from earlier. If it is then set isFavorite to true
-        vm.book.isFavorite = SearchFactory.isBookInFavorites(vm.book.id);
+      function activate() {
+        SearchFactory.getBookDetails($stateParams.id)
+        .then(function(data) {
+          vm.book = data;
+          // Did we have the book stored in favorites?
+          vm.book.isFavorite = SearchFactory.isBookInFavorites(vm.book.id);
+        }, function(error) {
+          console.log("error in activate bookctrl");
+        });
       }
 
       function toggleFavorite() {
