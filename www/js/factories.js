@@ -14,6 +14,7 @@
 
       var factory = {
         search: search,
+        lookUpGroup: lookUpGroup,
         searchResults: searchResults,
         favorites: favorites,
         getBook: getBook,
@@ -28,8 +29,8 @@
 
       /////
 
-      function search(query, ebook, start, appversion) {
-        // Fetches results from the API given the parameters.
+      function search(query) {
+        // Fetch records from API for the given query
 
         factory.searchResults = [];
         var deferred = $q.defer();
@@ -41,7 +42,7 @@
             query: query,
             library: "ureal"
           }
-        }).then(function success(data) {
+        }).then(function(data) {
 
           factory.searchResults = data.data.results;
 
@@ -59,7 +60,42 @@
           // Resolve the promise. This will send the search results to the success function in the controller
           deferred.resolve(factory.searchResults);
 
-        }, function error(error) {
+        }, function(error) {
+          console.log('error in search factory');
+          deferred.reject(error);
+        });
+
+        return deferred.promise;
+      }
+
+      function lookUpGroup(id) {
+        // Fetch group records from API for the given id
+
+        factory.searchResults = [];
+        var deferred = $q.defer();
+
+        $http({
+          url: 'https://scs.biblionaut.net/primo/groups/' + id,
+          method: 'GET'
+        }).then(function(data) {
+
+          factory.searchResults = data.data.result.records;
+
+          angular.forEach(factory.searchResults, function(book) {
+            // Create a display-friendly authors-variable
+            book.authors = book.creators.join(", ");
+
+            // Create a display-friendly format variable
+            // if (book.material=="book_electronic") book.format = "Electronic book";
+            // else if (book.material=="journal_electronic") book.format = "Electronic journal";
+            // else if (book.material=="electronic") book.format = "Electronic resource";
+            // else book.format = "Printed";
+          });
+
+          // Resolve the promise. This will send the search results to the success function in the controller
+          deferred.resolve(factory.searchResults);
+
+        }, function(error) {
           console.log('error in search factory');
           deferred.reject(error);
         });
@@ -170,10 +206,8 @@
           // We have to get information on this book
 
           $http.get('https://scs.biblionaut.net/primo/records/' + id)
-          .success(function(data) {
-            data = data.result;
-
-            book = data;
+          .then(function(data) {
+            book = data.data.result;
 
             // TO DO
             // - Figure out itemAvailable info
@@ -182,8 +216,7 @@
 
             // Resolve the promise. This will send the search results to the success function in the controller
             deferred.resolve(book);
-          })
-          .error(function(error) {
+          }, function(error) {
             console.log("error in getBookDetails factory");
             deferred.reject(error);
           });

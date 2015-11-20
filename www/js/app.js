@@ -61,11 +61,21 @@
           }
       })
       .state('app.search', {
-        url: '/search',
+        url: '/search/:query',
         views: {
           'menuContent': {
             templateUrl: 'templates/search.html',
             controller: 'SearchCtrl',
+            controllerAs: 'vm'
+          }
+        }
+      })
+      .state('app.group', {
+        url: '/group/:id',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/group.html',
+            controller: 'GroupCtrl',
             controllerAs: 'vm'
           }
         }
