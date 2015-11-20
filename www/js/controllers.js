@@ -65,7 +65,6 @@
         .then(function(data) {
           // console.log("got data in search controller");
           vm.results = data;
-          console.log(data);
         }, function(error) {
           console.log("error in search ctrl");
         });
