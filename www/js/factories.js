@@ -41,7 +41,7 @@
           cache: true,
           params: {
             query: query,
-            library: "ureal"
+            library: "ubo1030310"
           }
         }).then(function(data) {
 
