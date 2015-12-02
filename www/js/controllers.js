@@ -38,6 +38,8 @@
       vm.results = [];
       vm.search = search;
       vm.showEbooks = true;
+      // Helper variable to show/hide "no results" error message
+      vm.noResults = false;
       // Functions
       vm.scanBarcode = scanBarcode;
       vm.clickResult = clickResult;
@@ -69,6 +71,10 @@
         .then(function(data) {
           // console.log("got data in search controller");
           vm.results = data;
+
+          if (vm.results.length===0) vm.noResults = true;
+          else vm.noResults = false;
+          
           $ionicLoading.hide();
         }, function(error) {
           console.log("error in search ctrl");

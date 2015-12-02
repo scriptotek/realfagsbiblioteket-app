@@ -43,6 +43,11 @@
         <div ng-include src="'templates/listResults.html'"></div>
       </ion-item>
 
+      <!-- show if no search results -->
+      <ion-item ng-show="vm.noResults">
+        <div class="row">No results for query "{{vm.searchQuery}}"</div>
+      </ion-item>
+
     </ion-list>
   </ion-content>
 </ion-view>
