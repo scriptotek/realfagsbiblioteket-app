@@ -284,9 +284,6 @@
             // Create display-friendly authors-variable
             book.authors = book.creators.join(", ");
 
-            // Book img src
-            book.cover = "/primo/records/" + book.id + "/cover";
-
             if (book.availability !== null) {
               factory.getBookLocation(book)
               .then(function(book) {
