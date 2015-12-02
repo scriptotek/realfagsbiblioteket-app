@@ -41,7 +41,8 @@
           cache: true,
           params: {
             query: query,
-            library: "ubo1030310"
+            // library: "ubo1030310"
+            institution: "UBO"
           }
         }).then(function(data) {
 
