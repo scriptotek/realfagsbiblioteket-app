@@ -212,6 +212,56 @@
           .then(function(data) {
             book = data.data.result;
 
+            // Decide which book.avaiability-record to use, as the book might exist in several locations with different availability statuses. This is the priority list of which record we choose:
+            // 1. Exists at Realfagsbiblioteket and is available
+            // 2. Exists elsewhere and is available
+            // 3. Exists at Realfagsbiblioteket
+            
+            // If none of these 3 options are applicable, the book is simply not available.
+
+            var bookLocations;
+
+            // 1)
+            bookLocations = $filter('filter')(book.availability, function(value, index, array) {
+              return value.libraryCode === "1030310" && value.status === "available";
+            })
+            // Select the first for now
+            if (bookLocations.length>0){
+              book.availability = bookLocations[0];
+              book.available = true;
+            }
+
+            // 2)
+            if (bookLocations.length==0) {
+              bookLocations = $filter('filter')(book.availability, function(value, index, array) {
+                return value.status === "available";
+              })
+              if (bookLocations.length>0){
+                book.availability = bookLocations[0];
+                book.available = true;
+              }
+            }
+
+            // 3)
+            if (bookLocations.length==0) {
+              bookLocations = $filter('filter')(book.availability, function(value, index, array) {
+                return value.libraryCode === "1030310";
+              })
+              if (bookLocations.length>0){
+                book.availability = bookLocations[0];
+                book.available = false;
+              }
+            }
+
+            // else)
+            if (bookLocations.length==0) {
+              book.available = false;
+              book.availability = [];
+            }
+
+            // Create display-friendly authors-variable
+            book.authors = book.creators.join(", ");
+
             // TO DO
             // - Figure out itemAvailable info
             // - Figure out cover
