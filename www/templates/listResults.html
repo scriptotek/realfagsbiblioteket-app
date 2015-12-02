@@ -4,30 +4,13 @@
     <p>{{book.authors}}</p>
   </div>
   <div class="col-20">
-<!--     <p ng-show="book.type === 'group'">
-      <img src="img/icon-books.jpg" width="35px" height="35px" alt="Multiple editions">
-    </p>
-    <p ng-show="book.material && book.material.join().indexOf('e-books') != -1">
-      <img src="img/icon-ebook.jpg" width="35px" height="35px" alt="Ebook"/>
-    </p>
-    <p ng-show="book.material && book.material.join().indexOf('print-books') != -1">
-      <img src="img/icon-book.jpg" width="35px" height="35px" alt="Printed book"/>
-    </p>
-    <p ng-show="book.material && book.material.join().indexOf('journals') != -1">
-      <img src="img/icon-journal.jpg" width="35px" height="35px" alt="Journal"/>
-    </p> -->
-
     <p>
       <!-- show if type is group -->
       <img ng-show="book.type === 'group'" src="img/icon-books.jpg" width="35px" height="35px" alt="Multiple editions">
-
-      <!-- show if material anything else -->
-      <img ng-repeat="icon in book.icons" ng-src="img/icon-{{icon}}.jpg" width="35px" height="35px"/>
-
+      
+      <!-- show icons depending on record format -->
+      <img ng-repeat="icon in book.icons" ng-src="img/icon-{{icon}}.jpg" width="35px" height="35px" style="margin-right:10px;"/>
     </p>
-
-
-    <!-- <img ng-src="img/{{book.icon}}" width="35px" height="35px"> -->
   </div>
   <i class="icon ion-ios-arrow-right"></i>
 </div>
