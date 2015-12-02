@@ -30,7 +30,7 @@
 
     // ------------------------------------------------------------------------
 
-    function SearchCtrl(SearchFactory, $cordovaBarcodeScanner, $state, $stateParams) {
+    function SearchCtrl(SearchFactory, $cordovaBarcodeScanner, $state, $stateParams, $ionicLoading) {
       var vm = this;
 
       // Variables
@@ -53,6 +53,10 @@
 
       function search() {
         if (!vm.searchQuery || 0 === vm.searchQuery.length) return;
+        
+        $ionicLoading.show({
+          template: '<ion-spinner></ion-spinner> Loading...'
+        });
 
         // If the url is not currently set to this query, update it
         if (vm.searchQuery !== $stateParams.query) {
@@ -65,8 +69,10 @@
         .then(function(data) {
           // console.log("got data in search controller");
           vm.results = data;
+          $ionicLoading.hide();
         }, function(error) {
           console.log("error in search ctrl");
+          $ionicLoading.hide();
         });
       }
 
@@ -146,7 +152,7 @@ function GroupCtrl(SearchFactory, $stateParams) {
 
     // ------------------------------------------------------------------------
 
-    function BookCtrl($stateParams, SearchFactory) {
+    function BookCtrl($stateParams, SearchFactory, $ionicLoading) {
       var vm = this;
 
       vm.book = null;
@@ -157,13 +163,20 @@ function GroupCtrl(SearchFactory, $stateParams) {
       /////
 
       function activate() {
+        $ionicLoading.show({
+          template: '<ion-spinner></ion-spinner> Loading...'
+        });
+
         SearchFactory.getBookDetails($stateParams.id)
         .then(function(data) {
           vm.book = data;
           // Did we have the book stored in favorites?
           vm.book.isFavorite = SearchFactory.isBookInFavorites(vm.book.id);
+
+          $ionicLoading.hide();
         }, function(error) {
           console.log("error in activate bookctrl");
+          $ionicLoading.hide();
         });
       }
 
