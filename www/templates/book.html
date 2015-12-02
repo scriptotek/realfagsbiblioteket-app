@@ -33,9 +33,9 @@
       <div class="col-20">Format</div>
       <div class="col">{{vm.book.format}}</div>
     </div>
-    <div class="row" ng-show="vm.book.availability.floorText">
+    <div class="row" ng-show="vm.book.floorText">
       <div class="col-20">Floor</div>
-      <div class="col">{{vm.book.availability.floorText}}</div>
+      <div class="col">{{vm.book.floorText}}</div>
     </div>
     <div class="row" ng-show="vm.book.availability.collection">
       <div class="col-20">Collection</div>
@@ -47,7 +47,8 @@
     </div>
     <div class="row">
       <div class="col-100">
-        <p ng-show="vm.book.available"><img src="img/available.png" width="35px"/> Available</p>
+        <p ng-show="vm.book.available==1"><img src="img/available.png" width="35px"/> Available at Realfagsbiblioteket.</p>
+        <p ng-show="vm.book.available==2"><img src="img/available.png" width="35px"/> Available in another library. Ask at the reception.</p>
         <p ng-hide="vm.book.available"><img src="img/unavailable.png" width="35px"/> Unavailable</p>
       </div>
     </div>

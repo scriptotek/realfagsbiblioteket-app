@@ -22,7 +22,8 @@
         toggleFavorite: toggleFavorite,
         isBookInFavorites: isBookInFavorites,
         getBookFromFavorites: getBookFromFavorites,
-        getBookDetails: getBookDetails
+        getBookDetails: getBookDetails,
+        getBookLocation: getBookLocation
       };
 
       return factory;
@@ -52,11 +53,32 @@
             // Create a display-friendly authors-variable
             book.authors = book.creators.join(", ");
 
-            // Create a display-friendly format variable
-            // if (book.material=="book_electronic") book.format = "Electronic book";
-            // else if (book.material=="journal_electronic") book.format = "Electronic journal";
-            // else if (book.material=="electronic") book.format = "Electronic resource";
-            // else book.format = "Printed";
+            var whichIcons = function(material) {
+              // Figure out which icons should be shown for this search result
+
+              var availableIcons = ["ebook", "book", "other"];
+              var icons = [];
+              angular.forEach(material, function(value, index, array) {
+                // electronic
+                if (value.indexOf("e-") != -1) {
+                  if (icons.indexOf("ebook") === -1) icons.push("ebook");
+                }
+                // book
+                else if (value.indexOf("print-books") != -1) {
+                  if (icons.indexOf("book") === -1) icons.push("book");
+                }
+                // other
+                else if (value.indexOf("books") === -1) {
+                  if (icons.indexOf("other") === -1) icons.push("other");
+                }
+              });
+
+              return icons;
+            }
+
+            // Decide which icon to use.
+            book.icons = whichIcons(book.material);
+            // console.log(book.material);
           });
 
           // Resolve the promise. This will send the search results to the success function in the controller
@@ -87,12 +109,6 @@
           angular.forEach(factory.searchResults, function(book) {
             // Create a display-friendly authors-variable
             book.authors = book.creators.join(", ");
-
-            // Create a display-friendly format variable
-            // if (book.material=="book_electronic") book.format = "Electronic book";
-            // else if (book.material=="journal_electronic") book.format = "Electronic journal";
-            // else if (book.material=="electronic") book.format = "Electronic resource";
-            // else book.format = "Printed";
           });
 
           // Resolve the promise. This will send the search results to the success function in the controller
@@ -212,6 +228,12 @@
           .then(function(data) {
             book = data.data.result;
 
+            // Create a display-friendly format variable
+            // if (book.format=="book_electronic") book.format = "Electronic book";
+            // else if (book.format=="journal_electronic") book.format = "Electronic journal";
+            // else if (book.format=="electronic") book.format = "Electronic resource";
+            // else book.format = "Printed";
+
             // Decide which book.avaiability-record to use, as the book might exist in several locations with different availability statuses. This is the priority list of which record we choose:
             // 1. Exists at Realfagsbiblioteket and is available
             // 2. Exists elsewhere and is available
@@ -228,7 +250,7 @@
             // Select the first for now
             if (bookLocations.length>0){
               book.availability = bookLocations[0];
-              book.available = true;
+              book.available = 1;
             }
 
             // 2)
@@ -238,7 +260,7 @@
               })
               if (bookLocations.length>0){
                 book.availability = bookLocations[0];
-                book.available = true;
+                book.available = 2;
               }
             }
 
@@ -256,24 +278,70 @@
             // else)
             if (bookLocations.length==0) {
               book.available = false;
-              book.availability = [];
+              book.availability = null;
             }
 
             // Create display-friendly authors-variable
             book.authors = book.creators.join(", ");
 
-            // TO DO
-            // - Figure out itemAvailable info
-            // - Figure out cover
-            // - Figure out location in map (physical location in the library)
+            // Book img src
+            book.cover = "/primo/records/" + book.id + "/cover";
 
-            // Resolve the promise. This will send the search results to the success function in the controller
-            deferred.resolve(book);
+            if (book.availability !== null) {
+              factory.getBookLocation(book)
+              .then(function(book) {
+                // We got a book location
+                deferred.resolve(book);
+              }, function(error) {
+                // We didn't get book location, but resolve promise anyway.
+                deferred.resolve(book);
+              });
+            }else{
+              // Resolve without location information
+              deferred.resolve(book);
+            }
           }, function(error) {
             console.log("error in getBookDetails factory");
             deferred.reject(error);
           });
 
+        });
+
+        return deferred.promise;
+      }
+
+      function getBookLocation(book) {
+        // Find the physical location of the given book, add the results to the book, then return the book
+
+        var deferred = $q.defer();
+
+        $http.get('http://app.uio.no/ub/bdi/bibsearch/loc2.php', {
+          params: {
+            collection: book.availability.collectionCode,
+            callnumber: book.availability.callcode
+          }
+        }).then(function(data) {
+          // Here I expect a return like "bottom  2". I need the number
+          data = data.data.split("\t");
+
+          // data[1] is either 1, 2, or undefined. Set floortext:
+          if (data[1]=="1") book.floorText = "1st mezzanine";
+          else if (data[1]=="2") book.floorText = "2nd floor / Hangar";
+          else book.floorText = "";
+
+          // If we have a floorText, we can store mapPosition and mapUrlImage
+          if (book.floorText!=="") {
+            book.mapPosition = data[0];
+            book.mapUrlImage = "http://app.uio.no/ub/bdi/bibsearch/new.php?collection="+book.availability.collectionCode+"&callnumber="+book.availability.callcode;
+          }else{
+            book.mapPosition = "";
+            book.mapUrlImage = "";
+          }
+
+          deferred.resolve(book);
+        }, function(error) {
+          // console.log("error in factory.getBookLocation")
+          deferred.reject(error);
         });
 
         return deferred.promise;
