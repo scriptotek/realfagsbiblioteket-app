@@ -240,21 +240,19 @@
 
         if (localAvailable.length){
           // There's available holdings at our local library
-          record.print.available = 1;
 
           // Let's just pick the first one for now.
           // @TODO: Rather than just showing the first one, we
           //        should prioritize open stack collections over closed stack!
-          record.print.holding = localAvailable[0];
+          record.print = localAvailable[0];
 
         } else if (otherAvailable.length) {
           // No available holdings at our local library, but somewhere else
-          record.print.available = 2;
 
           // Let's just pick the first one for now.
           // @TODO: We should sort availability based on distance from local library.
           //        See <https://github.com/scriptotek/scs/issues/8>
-          record.print.holding = otherAvailable[0];
+          record.print = otherAvailable[0];
 
         } else if (localHoldings.length){
           // No available holdings, but local non-available holdings
@@ -263,7 +261,7 @@
           // Let's just pick the first one for now.
           // @TODO: Rather than just showing the first one, we
           //        should prioritize open stack collections over closed stack!
-          record.print.holding = localHoldings[0];
+          record.print = localHoldings[0];
 
         } else if (otherHoldings.length) {
           // No local holdings, holdings elsewhere, but not available
@@ -272,13 +270,11 @@
           // Let's just pick the first one for now.
           // @TODO: Rather than just showing the first one, we
           //        should prioritize open stack collections over closed stack!
-          record.print.holding = otherHoldings[0];
+          record.print = otherHoldings[0];
 
-        } else {
-          // No holdings at all!
-
-          // @TODO How to handle? Could still be electronic
         }
+
+        record.print.available = record.print.status !== undefined && record.print.status.toLowerCase() == 'available';
       }
 
       function processElectronicAvailability(record) {
@@ -295,7 +291,7 @@
         record.electronic = electronic[0];
       }
 
-      function getBookDetails(id) {
+      function getBookDetails(id, localLibrary) {
         // Find details for the book(s) with given id
 
         // We'll return a promise, which will resolve with a book if found, or with an error if not.
@@ -314,14 +310,13 @@
             book = data.data.result;
 
             // Add display-friendly variables for displaying availability
-            var localLibrary = 'UBO1030310';
             processPrintAvailability(book, localLibrary);
             processElectronicAvailability(book);
 
             // Create display-friendly authors-variable
             book.authors = book.creators.join(", ");
 
-            if (book.availability !== null) {
+            if (book.print && book.print.library == localLibrary) {
               factory.getBookLocation(book)
               .then(function(book) {
                 // We got a book location
@@ -351,25 +346,25 @@
 
         $http.get('http://app.uio.no/ub/bdi/bibsearch/loc2.php', {
           params: {
-            collection: book.print.holding.collectionCode,
-            callnumber: book.print.holding.callcode
+            collection: book.print.collection_code,
+            callnumber: book.print.callcode
           }
         }).then(function(data) {
           // Here I expect a return like "bottom  2". I need the number
           data = data.data.split("\t");
 
-          // data[1] is either 1, 2, or undefined. Set floortext:
-          if (data[1]=="1") book.print.holding.floorText = "1st mezzanine";
-          else if (data[1]=="2") book.print.holding.floorText = "2nd floor / Hangar";
-          else book.print.holding.floorText = "";
+          // data[1] is either 1, 2, or undefined. Set floor_text:
+          if (data[1]=="1") book.print.floor_text = "1st mezzanine";
+          else if (data[1]=="2") book.print.floor_text = "2nd floor / Hangar";
+          else book.print.floor_text = "";
 
-          // If we have a floorText, we can store mapPosition and mapUrlImage
-          if (book.print.holding.floorText!=="") {
-            book.print.holding.mapPosition = data[0];
-            book.print.holding.mapUrlImage = "http://app.uio.no/ub/bdi/bibsearch/new.php?collection="+book.print.holding.print.holding.collectionCode+"&callnumber="+book.print.holding.availability.callcode;
+          // If we have a floor_text, we can store map_position and map_url_image
+          if (book.print.floor_text!=="") {
+            book.print.map_position = data[0];
+            book.print.map_url_image = "http://app.uio.no/ub/bdi/bibsearch/new.php?collection="+book.print.collection_code+"&callnumber="+book.print.callcode;
           }else{
-            book.print.holding.mapPosition = "";
-            book.print.holding.mapUrlImage = "";
+            book.print.map_position = "";
+            book.print.map_url_image = "";
           }
 
           deferred.resolve(book);

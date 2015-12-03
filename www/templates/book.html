@@ -55,29 +55,29 @@
 
         <div class="row">
           <div class="col-100">
-            <p ng-show="vm.book.print.available==1"><img src="img/available.png" width="35px"/> Available at Realfagsbiblioteket.</p>
-            <p ng-show="vm.book.print.available==2"><img src="img/available.png" width="35px"/> Available in another library. Ask at the reception.</p>
+            <p ng-show="vm.book.print.available && vm.book.print.library === vm.localLibrary"><img src="img/available.png" width="35px"/> Available at Realfagsbiblioteket.</p>
+            <p ng-show="vm.book.print.available && vm.book.print.library !== vm.localLibrary"><img src="img/available.png" width="35px"/> Available in another library. Ask at the reception.</p>
             <p ng-hide="vm.book.print.available"><img src="img/unavailable.png" width="35px"/> Unavailable</p>
           </div>
         </div>
 
         <!-- Help locating the item -->
-        <div class="row" ng-show="vm.book.floorText">
+        <div class="row" ng-show="vm.book.print.floor_text">
           <div class="col-20">Floor</div>
-          <div class="col">{{vm.book.print.holding.floorText}}</div>
+          <div class="col">{{vm.book.print.floor_text}}</div>
         </div>
-        <div class="row" ng-show="vm.book.print.holding.collection">
+        <div class="row" ng-show="vm.book.print.collection_name">
           <div class="col-20">Collection</div>
-          <div class="col">{{vm.book.print.holding.collection}}</div>
+          <div class="col">{{vm.book.print.collection_name}}</div>
         </div>
-        <div class="row" ng-show="vm.book.print.holding.callcode">
+        <div class="row" ng-show="vm.book.print.callcode">
           <div class="col-20">Code</div>
-          <div class="col">{{vm.book.print.holding.callcode}}</div>
+          <div class="col">{{vm.book.print.callcode}}</div>
         </div>
 
-        <div class="row" ng-show="vm.book.mapUrlImage!=''">
+        <div class="row" ng-show="vm.book.print.map_url_image!=''">
           <div class="col-100">
-            <img ng-src="{{vm.book.print.holding.mapUrlImage}}" width="100%" alt="">
+            <img ng-src="{{vm.book.print.map_url_image}}" width="100%" alt="">
           </div>
         </div>
     </div>
