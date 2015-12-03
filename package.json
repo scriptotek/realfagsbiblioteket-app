@@ -26,5 +26,8 @@
   "cordovaPlatforms": [
     "ios",
     "android"
-  ]
+  ],
+  "scripts": {
+    "postinstall": "bower i && gulp && ionic state reset && ionic config build"
+  }
 }
