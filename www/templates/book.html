@@ -47,9 +47,19 @@
           <strong>Electronic version</strong>
         </div>
         <div class="row">
-          <div class="col-100"><img src="img/available.png" width="35px"/> <a ng-href="{{vm.book.electronic.url}}">Read online</a></div>
+          <div class="col-20">
+            <img src="img/available.png" width="35px;">
+          </div>
+          <div class="col">
+            <a ng-href="{{vm.book.electronic.url}}" ng-hide="vm.book.electronic.url.toString().indexOf('uresolver') !== -1">Read online</a>
+            <div ng-show="vm.book.electronic.url.toString().indexOf('uresolver') !== -1">
+              <div style="position:absolute;z-index:1; background:#eee;" ng-show="!vm.uresolverLoaded">Loading...</div>
+              <iframe ng-src="{{vm.book.electronic.url}}" style="width:100%;height:120px;" ubo-iframe-onload="vm.uresolverLoaded = true"></iframe>
+            </div>
+          </div>
         </div>
     </div>
+
 
     <!-- Print -->
     <div ng-show="vm.book.print">

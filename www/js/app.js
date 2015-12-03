@@ -4,6 +4,7 @@
 
   angular.module('starter', [
     'ionic',
+    'directives',
     'factories',
     'controllers',
     'LocalForageModule',

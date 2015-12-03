@@ -7,7 +7,7 @@
 
     // ------------------------------------------------------------------------
 
-    function SearchFactory($http, $filter, $localForage, $q) {
+    function SearchFactory($http, $filter, $localForage, $q, $sce) {
 
       var searchResults = [];
       var favorites = [];
@@ -289,6 +289,9 @@
 
         // @TODO: Pick first or…?
         record.electronic = electronic[0];
+
+        // Trust for use in iframe
+        record.electronic.url = $sce.trustAsResourceUrl(record.electronic.url);
       }
 
       function getBookDetails(id, localLibrary) {
