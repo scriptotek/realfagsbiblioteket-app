@@ -281,7 +281,7 @@
         // Adds a view-friendly 'record.electronic' object based on
         // data from 'record.components', for showing electronic availability.
         var electronic = record.components.filter(function(component) {
-          return component.category !== 'Alma-P';
+          return component.category !== undefined && component.category !== 'Alma-P';
         });
         if (!electronic.length) {
           return;
