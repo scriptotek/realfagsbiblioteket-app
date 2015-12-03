@@ -9,7 +9,7 @@
     </author>
   <content src="index.html"/>
   <access origin="*"/>
-  <allow-navigation href="*://ask.bibsys.no/*" />
+  <allow-navigation href="*://scs.biblionaut.net/*" />
   <allow-navigation href="*://app.uio.no/*" />
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
