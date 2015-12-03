@@ -162,6 +162,7 @@ function GroupCtrl(SearchFactory, $stateParams) {
       var vm = this;
 
       vm.book = null;
+      vm.localLibrary = 'UBO1030310';  // @TODO: Get from some global config
       vm.toggleFavorite = toggleFavorite;
 
       activate();
@@ -169,13 +170,11 @@ function GroupCtrl(SearchFactory, $stateParams) {
       /////
 
       function activate() {
-        var localLibrary = 'UBO1030310';  // @TODO: Get from some global config
-
         $ionicLoading.show({
           template: '<ion-spinner></ion-spinner> Loading...'
         });
 
-        SearchFactory.getBookDetails($stateParams.id, localLibrary)
+        SearchFactory.getBookDetails($stateParams.id, vm.localLibrary)
         .then(function(data) {
           vm.book = data;
           // Did we have the book stored in favorites?
