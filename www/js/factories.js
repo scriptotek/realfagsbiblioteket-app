@@ -210,6 +210,91 @@
         return deferred.promise;
       }
 
+      function processPrintAvailability(record, localLibrary) {
+        // Adds a view-friendly 'record.print' object based on
+        // data from 'record.components', for showing print availability.
+
+        var printed = record.components.filter(function(x) {
+          return x.category === 'Alma-P';
+        });
+        if (!printed.length) {
+          return;
+        }
+
+        printed = printed[0];
+
+        record.print = {};
+
+        var localHoldings = printed.holdings.filter(function(holding) {
+          return holding.library === localLibrary;
+        });
+        var otherHoldings = printed.holdings.filter(function(holding) {
+          return holding.library !== localLibrary;
+        });
+
+        function isAvailable(holding) {
+          return holding.status === 'available';
+        }
+        localAvailable = localHoldings.filter(isAvailable);
+        otherAvailable = otherHoldings.filter(isAvailable);
+
+        if (localAvailable.length){
+          // There's available holdings at our local library
+          record.print.available = 1;
+
+          // Let's just pick the first one for now.
+          // @TODO: Rather than just showing the first one, we
+          //        should prioritize open stack collections over closed stack!
+          record.print.holding = localAvailable[0];
+
+        } else if (otherAvailable.length) {
+          // No available holdings at our local library, but somewhere else
+          record.print.available = 2;
+
+          // Let's just pick the first one for now.
+          // @TODO: We should sort availability based on distance from local library.
+          //        See <https://github.com/scriptotek/scs/issues/8>
+          record.print.holding = otherAvailable[0];
+
+        } else if (localHoldings.length){
+          // No available holdings, but local non-available holdings
+          record.print.available = 0;
+
+          // Let's just pick the first one for now.
+          // @TODO: Rather than just showing the first one, we
+          //        should prioritize open stack collections over closed stack!
+          record.print.holding = localHoldings[0];
+
+        } else if (otherHoldings.length) {
+          // No local holdings, holdings elsewhere, but not available
+          record.print.available = 0;
+
+          // Let's just pick the first one for now.
+          // @TODO: Rather than just showing the first one, we
+          //        should prioritize open stack collections over closed stack!
+          record.print.holding = otherHoldings[0];
+
+        } else {
+          // No holdings at all!
+
+          // @TODO How to handle? Could still be electronic
+        }
+      }
+
+      function processElectronicAvailability(record) {
+        // Adds a view-friendly 'record.electronic' object based on
+        // data from 'record.components', for showing electronic availability.
+        var electronic = record.components.filter(function(component) {
+          return component.category !== 'Alma-P';
+        });
+        if (!electronic.length) {
+          return;
+        }
+
+        // @TODO: Pick first or…?
+        record.electronic = electronic[0];
+      }
+
       function getBookDetails(id) {
         // Find details for the book(s) with given id
 
@@ -228,58 +313,10 @@
           .then(function(data) {
             book = data.data.result;
 
-            // Create a display-friendly format variable
-            // if (book.format=="book_electronic") book.format = "Electronic book";
-            // else if (book.format=="journal_electronic") book.format = "Electronic journal";
-            // else if (book.format=="electronic") book.format = "Electronic resource";
-            // else book.format = "Printed";
-
-            // Decide which book.avaiability-record to use, as the book might exist in several locations with different availability statuses. This is the priority list of which record we choose:
-            // 1. Exists at Realfagsbiblioteket and is available
-            // 2. Exists elsewhere and is available
-            // 3. Exists at Realfagsbiblioteket
-            
-            // If none of these 3 options are applicable, the book is simply not available.
-
-            var bookLocations;
-
-            // 1)
-            bookLocations = $filter('filter')(book.availability, function(value, index, array) {
-              return value.libraryCode === "1030310" && value.status === "available";
-            })
-            // Select the first for now
-            if (bookLocations.length>0){
-              book.availability = bookLocations[0];
-              book.available = 1;
-            }
-
-            // 2)
-            if (bookLocations.length==0) {
-              bookLocations = $filter('filter')(book.availability, function(value, index, array) {
-                return value.status === "available";
-              })
-              if (bookLocations.length>0){
-                book.availability = bookLocations[0];
-                book.available = 2;
-              }
-            }
-
-            // 3)
-            if (bookLocations.length==0) {
-              bookLocations = $filter('filter')(book.availability, function(value, index, array) {
-                return value.libraryCode === "1030310";
-              })
-              if (bookLocations.length>0){
-                book.availability = bookLocations[0];
-                book.available = false;
-              }
-            }
-
-            // else)
-            if (bookLocations.length==0) {
-              book.available = false;
-              book.availability = null;
-            }
+            // Add display-friendly variables for displaying availability
+            var localLibrary = 'UBO1030310';
+            processPrintAvailability(book, localLibrary);
+            processElectronicAvailability(book);
 
             // Create display-friendly authors-variable
             book.authors = book.creators.join(", ");
@@ -314,25 +351,25 @@
 
         $http.get('http://app.uio.no/ub/bdi/bibsearch/loc2.php', {
           params: {
-            collection: book.availability.collectionCode,
-            callnumber: book.availability.callcode
+            collection: book.print.holding.collectionCode,
+            callnumber: book.print.holding.callcode
           }
         }).then(function(data) {
           // Here I expect a return like "bottom  2". I need the number
           data = data.data.split("\t");
 
           // data[1] is either 1, 2, or undefined. Set floortext:
-          if (data[1]=="1") book.floorText = "1st mezzanine";
-          else if (data[1]=="2") book.floorText = "2nd floor / Hangar";
-          else book.floorText = "";
+          if (data[1]=="1") book.print.holding.floorText = "1st mezzanine";
+          else if (data[1]=="2") book.print.holding.floorText = "2nd floor / Hangar";
+          else book.print.holding.floorText = "";
 
           // If we have a floorText, we can store mapPosition and mapUrlImage
-          if (book.floorText!=="") {
-            book.mapPosition = data[0];
-            book.mapUrlImage = "http://app.uio.no/ub/bdi/bibsearch/new.php?collection="+book.availability.collectionCode+"&callnumber="+book.availability.callcode;
+          if (book.print.holding.floorText!=="") {
+            book.print.holding.mapPosition = data[0];
+            book.print.holding.mapUrlImage = "http://app.uio.no/ub/bdi/bibsearch/new.php?collection="+book.print.holding.print.holding.collectionCode+"&callnumber="+book.print.holding.availability.callcode;
           }else{
-            book.mapPosition = "";
-            book.mapUrlImage = "";
+            book.print.holding.mapPosition = "";
+            book.print.holding.mapUrlImage = "";
           }
 
           deferred.resolve(book);
