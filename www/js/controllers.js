@@ -183,6 +183,7 @@ function GroupCtrl(SearchFactory, $stateParams) {
           $ionicLoading.hide();
         }, function(error) {
           console.log("error in activate bookctrl");
+          vm.error = error;
           $ionicLoading.hide();
         });
       }

@@ -84,6 +84,8 @@
 
   </ion-content>
   <ion-content padding="true" ng-hide="vm.book">
-    <p>No book found.</p>
+    <p>
+      An error occured: {{ vm.error || 'Unknown error.' }}
+    </p>
   </ion-content>
 </ion-view>

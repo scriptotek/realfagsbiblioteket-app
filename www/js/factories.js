@@ -329,9 +329,13 @@
               // Resolve without location information
               deferred.resolve(book);
             }
-          }, function(error) {
+          }, function(response) {
             console.log("error in getBookDetails factory");
-            deferred.reject(error);
+            if (response.data && response.data.error) {
+              deferred.reject(response.data.error);
+            } else {
+              deferred.reject(data.data.statustext);
+            }
           });
 
         });
