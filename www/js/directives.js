@@ -19,6 +19,9 @@
                 expr(scope);
                 scope.$apply();
             });
+            element.on('$destroy', function() {
+                element.off('load');
+            });
         }
     }
 
