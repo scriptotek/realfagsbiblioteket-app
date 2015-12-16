@@ -1,10 +1,10 @@
 <ion-view view-title="Book">
   <ion-content padding="true" ng-show="vm.book">
     <div class="row">
-      <div class="col-80">
+      <div class="col col-80">
         <h1>{{vm.book.title}}</h1>
       </div>
-      <div class="col-20">
+      <div class="col col-20">
         <a ng-click="vm.toggleFavorite()">
           <i ng-hide="vm.book.isFavorite" class="ion-ios-star-outline" style="font-size:4em"></i>
           <i ng-show="vm.book.isFavorite" class="ion-ios-star" style="font-size:4em"></i>
@@ -12,32 +12,32 @@
       </div>
     </div>
     <div class="row" ng-show="vm.book.authors">
-      <p>by {{vm.book.authors}}</p>
+      <div class="col"><p>by {{vm.book.authors}}</p></div>
     </div>
     <div class="row">
-      <div class="col-100"><img height="200px" ng-src="{{vm.book.links.cover}}"></div>
+      <div class="col"><img height="200px" ng-src="{{vm.book.links.cover}}"></div>
     </div>
     <div class="row">
-      <div class="col-100"><p>{{vm.book.note}}</p></div>
+      <div class="col"><p>{{vm.book.note}}</p></div>
     </div>
     <div class="row" ng-show="vm.book.publisher">
-      <div class="col-20">Publisher</div>
+      <div class="col col-20">Publisher</div>
       <div class="col">{{vm.book.publisher}}</div>
     </div>
     <div class="row" ng-show="vm.book.date">
-      <div class="col-20">Year</div>
+      <div class="col col-20">Year</div>
       <div class="col">{{vm.book.date}}</div>
     </div>
     <div class="row" ng-show="vm.book.isbn.length">
-      <div class="col-20">ISBN</div>
+      <div class="col col-20">ISBN</div>
       <div class="col">{{vm.book.isbns[0]}}</div>
     </div>
     <div class="row" ng-show="vm.book.edition">
-      <div class="col-20">Edition</div>
+      <div class="col col-20">Edition</div>
       <div class="col">{{vm.book.edition}}</div>
     </div>
     <div class="row">
-      <div class="col-20">Format</div>
+      <div class="col col-20">Format</div>
       <div class="col">{{vm.book.format || 'Unknown'}}</div>
     </div>
 
@@ -47,7 +47,7 @@
           <strong>Electronic version</strong>
         </div>
         <div class="row">
-          <div class="col-20">
+          <div class="col col-20">
             <img src="img/available.png" width="35px;">
           </div>
           <div class="col">
@@ -68,7 +68,7 @@
         </div>
 
         <div class="row">
-          <div class="col-100">
+          <div class="col">
             <p ng-show="vm.book.print.available && vm.book.print.library === vm.localLibrary"><img src="img/available.png" width="35px"/> Available at Realfagsbiblioteket.</p>
             <p ng-show="vm.book.print.available && vm.book.print.library !== vm.localLibrary"><img src="img/available.png" width="35px"/> Not available at Realfagsbiblioteket, but available at {{ vm.book.print.library}}. Call XYZ or ask at the reception if you need directions.</p>
             <p ng-hide="vm.book.print.available"><img src="img/unavailable.png" width="35px"/> Unavailable. (TODO: Add link to form for ordering the item).</p>
@@ -77,20 +77,20 @@
 
         <!-- Help locating the item -->
         <div class="row" ng-show="vm.book.print.floor_text">
-          <div class="col-20">Floor</div>
+          <div class="col col-20">Floor</div>
           <div class="col">{{vm.book.print.floor_text}}</div>
         </div>
         <div class="row" ng-show="vm.book.print.collection_name">
-          <div class="col-20">Collection</div>
+          <div class="col col-20">Collection</div>
           <div class="col">{{vm.book.print.collection_name}}</div>
         </div>
         <div class="row" ng-show="vm.book.print.callcode">
-          <div class="col-20">Code</div>
+          <div class="col col-20">Code</div>
           <div class="col">{{vm.book.print.callcode}}</div>
         </div>
 
         <div class="row" ng-show="vm.book.print.map_url_image!=''">
-          <div class="col-100">
+          <div class="col">
             <img ng-src="{{vm.book.print.map_url_image}}" width="100%" alt="">
           </div>
         </div>
