@@ -10,7 +10,7 @@
     'LocalForageModule',
     'ngCordova'])
 
-  .run(function($ionicPlatform) {
+  .run(function($ionicPlatform, $ionicPopup) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -23,6 +23,20 @@
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
       }
+      // Give the user a warning if we can't see an internet connection
+      if(window.Connection) {
+            if(navigator.connection.type == Connection.NONE) {
+                $ionicPopup.confirm({
+                    title: "Internet Disconnected",
+                    content: "This app requires an active internet connection to function."
+                })
+                .then(function(result) {
+                    if(!result) {
+                        ionic.Platform.exitApp();
+                    }
+                });
+            }
+        }
     });
   })
 
