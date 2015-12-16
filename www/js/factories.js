@@ -305,7 +305,9 @@
         record.electronic = electronic[0];
 
         // Trust for use in iframe
-        record.electronic.url = $sce.trustAsResourceUrl(record.electronic.url);
+        if (record.urls.length) {
+          record.urls[0].url = $sce.trustAsResourceUrl(record.urls[0].url);
+        }
       }
 
       function getBookDetails(id, localLibrary) {
