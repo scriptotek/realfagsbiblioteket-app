@@ -23,7 +23,8 @@
         isBookInFavorites: isBookInFavorites,
         getBookFromFavorites: getBookFromFavorites,
         getBookDetails: getBookDetails,
-        getBookLocation: getBookLocation
+        getBookLocation: getBookLocation,
+        updateBookInFavorites: updateBookInFavorites
       };
 
       return factory;
@@ -150,6 +151,8 @@
       function getBook(id) {
         // Find and return the book with the given id, either from searchResults or from stored favorites.
 
+        // @TODO: Decide whether to remove this function. Not used as of 16.dec
+
         var found;
         var book = null;
 
@@ -181,6 +184,8 @@
       function isBookInFavorites(id) {
         // Determine whether the bookId is a book we can find in the stored favorites.
 
+        // @TODO: Decide whether to remove this function. Not used as of 16.dec
+
         if (factory.favorites.length){
           var found = $filter('filter')(factory.favorites, {id: id}, true);
           if (found.length) return true;
@@ -188,6 +193,15 @@
 
         // The book was not found
         return false;
+      }
+
+      function updateBookInFavorites(book) {
+        // Removes current version in favorites and replaces with new
+
+        // remove old
+        factory.favorites.splice(factory.favorites.indexOf(book),1);
+        // add new
+        factory.favorites.push(book);
       }
 
       function getBookFromFavorites(id) {
@@ -300,47 +314,41 @@
         // We'll return a promise, which will resolve with a book if found, or with an error if not.
         var deferred = $q.defer();
 
-        // Do we already have the book stored in favorites?
-        factory.getBookFromFavorites(id)
+        $http.get('https://scs.biblionaut.net/primo/records/' + id)
         .then(function(data) {
-          // We found the book in favorites. This means we already have detailed information on this book
-          deferred.resolve(data);
-        }, function(error) {
-          // We have to get information on this book
+          book = data.data.result;
 
-          $http.get('https://scs.biblionaut.net/primo/records/' + id)
-          .then(function(data) {
-            book = data.data.result;
+          // Add display-friendly variables for displaying availability
+          processPrintAvailability(book, localLibrary);
+          processElectronicAvailability(book);
 
-            // Add display-friendly variables for displaying availability
-            processPrintAvailability(book, localLibrary);
-            processElectronicAvailability(book);
+          // Create display-friendly authors-variable
+          book.authors = book.creators.join(", ");
 
-            // Create display-friendly authors-variable
-            book.authors = book.creators.join(", ");
+          // Since the book may have been updated in the backend since the last load, update the book in localForage.favorites if it's a favorite
+          if (isBookInFavorites(book.id)) updateBookInFavorites(book);
 
-            if (book.print && book.print.library == localLibrary) {
-              factory.getBookLocation(book)
-              .then(function(book) {
-                // We got a book location
-                deferred.resolve(book);
-              }, function(error) {
-                // We didn't get book location, but resolve promise anyway.
-                deferred.resolve(book);
-              });
-            }else{
-              // Resolve without location information
+          // Get location
+          if (book.print && book.print.library == localLibrary) {
+            factory.getBookLocation(book)
+            .then(function(book) {
+              // We got a book location
               deferred.resolve(book);
-            }
-          }, function(response) {
-            console.log("error in getBookDetails factory");
-            if (response.data && response.data.error) {
-              deferred.reject(response.data.error);
-            } else {
-              deferred.reject(data.data.statustext);
-            }
-          });
-
+            }, function(error) {
+              // We didn't get book location, but resolve promise anyway.
+              deferred.resolve(book);
+            });
+          }else{
+            // Resolve without location information
+            deferred.resolve(book);
+          }
+        }, function(response) {
+          console.log("error in getBookDetails factory");
+          if (response.data && response.data.error) {
+            deferred.reject(response.data.error);
+          } else {
+            deferred.reject(data.data.statustext);
+          }
         });
 
         return deferred.promise;
