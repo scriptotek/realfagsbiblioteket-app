@@ -7,7 +7,7 @@
 
     // ------------------------------------------------------------------------
 
-    function SearchFactory($http, $filter, $localForage, $q, $sce) {
+    function SearchFactory($http, $filter, $localForage, $q, $sce, $ionicPopup) {
 
       var searchResults = [];
       var favorites = [];
@@ -24,12 +24,30 @@
         getBookFromFavorites: getBookFromFavorites,
         getBookDetails: getBookDetails,
         getBookLocation: getBookLocation,
-        updateBookInFavorites: updateBookInFavorites
+        updateBookInFavorites: updateBookInFavorites,
+        checkInternetConnection: checkInternetConnection
       };
 
       return factory;
 
       /////
+
+      function checkInternetConnection() {
+        // Give the user a warning if we can't see an internet connection
+        if(window.Connection) {
+          if(navigator.connection.type == Connection.NONE) {
+            $ionicPopup.confirm({
+              title: "Internet Disconnected",
+              content: "This app requires an active internet connection to function."
+            })
+            .then(function(result) {
+              if(!result) {
+                ionic.Platform.exitApp();
+              }
+            });
+          }
+        }
+      }
 
       function search(query) {
         // Fetch records from API for the given query
@@ -87,6 +105,7 @@
 
         }, function(error) {
           console.log('error in search factory');
+          checkInternetConnection();
           deferred.reject(error);
         });
 
@@ -117,6 +136,7 @@
 
         }, function(error) {
           console.log('error in search factory');
+          checkInternetConnection();
           deferred.reject(error);
         });
 
@@ -346,6 +366,7 @@
           }
         }, function(response) {
           console.log("error in getBookDetails factory");
+          checkInternetConnection();
           if (response.data && response.data.error) {
             deferred.reject(response.data.error);
           } else {
