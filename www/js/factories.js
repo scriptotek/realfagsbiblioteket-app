@@ -370,7 +370,7 @@
           if (response.data && response.data.error) {
             deferred.reject(response.data.error);
           } else {
-            deferred.reject(data.data.statustext);
+            deferred.reject(response.statusText);
           }
         });
 
