@@ -21,23 +21,23 @@
       <div class="col"><p>{{vm.book.note}}</p></div>
     </div>
     <div class="row" ng-show="vm.book.publisher">
-      <div class="col col-20">Publisher</div>
+      <div class="col col-30">Publisher</div>
       <div class="col">{{vm.book.publisher}}</div>
     </div>
     <div class="row" ng-show="vm.book.date">
-      <div class="col col-20">Year</div>
+      <div class="col col-30">Year</div>
       <div class="col">{{vm.book.date}}</div>
     </div>
     <div class="row" ng-show="vm.book.isbn.length">
-      <div class="col col-20">ISBN</div>
+      <div class="col col-30">ISBN</div>
       <div class="col">{{vm.book.isbns[0]}}</div>
     </div>
     <div class="row" ng-show="vm.book.edition">
-      <div class="col col-20">Edition</div>
+      <div class="col col-30">Edition</div>
       <div class="col">{{vm.book.edition}}</div>
     </div>
     <div class="row">
-      <div class="col col-20">Format</div>
+      <div class="col col-30">Format</div>
       <div class="col">{{vm.book.format || 'Unknown'}}</div>
     </div>
 
@@ -47,7 +47,7 @@
           <strong>Electronic version</strong>
         </div>
         <div class="row">
-          <div class="col col-20">
+          <div class="col col-30">
             <img src="img/available.png" width="35px;">
           </div>
           <div class="col">
@@ -77,15 +77,15 @@
 
         <!-- Help locating the item -->
         <div class="row" ng-show="vm.book.print.floor_text">
-          <div class="col col-20">Floor</div>
+          <div class="col col-30">Floor</div>
           <div class="col">{{vm.book.print.floor_text}}</div>
         </div>
         <div class="row" ng-show="vm.book.print.collection_name">
-          <div class="col col-20">Collection</div>
+          <div class="col col-30">Collection</div>
           <div class="col">{{vm.book.print.collection_name}}</div>
         </div>
         <div class="row" ng-show="vm.book.print.callcode">
-          <div class="col col-20">Code</div>
+          <div class="col col-30">Code</div>
           <div class="col">{{vm.book.print.callcode}}</div>
         </div>
 
