@@ -8,8 +8,12 @@ Former https://github.com/saqimtiaz/BibSearch/
 
 Run `npm install` to fetch all dependencies, then `ionic serve` to start a dev server.
 
-To build for Android you need Android Studio. Use the SDK manager to fetch a recent SDK. Remember to set the `ANDROID_HOME` environment variable. 
+#### Build and run on Android
 
-To build for iOS ...
+`ionic run android --device`
 
+To build for Android you need Java and Android Studio. Use the SDK manager to fetch a recent SDK. Remember to set the `ANDROID_HOME` environment variable. 
 
+#### Build and run on iOS
+
+..
