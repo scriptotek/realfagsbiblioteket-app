@@ -1,9 +1,9 @@
 <div class="row item-icon-right">
-  <div class="col-60">
+  <div class="col col-70">
     <h3>{{book.title}} {{book.edition}} {{book.date}} </h3>
     <p>{{book.creator_string || book.publisher}}</p>
   </div>
-  <div class="col">
+  <div class="col col-30">
     <p class="text-right">
       <!-- show if type is group -->
       <img ng-show="book.type === 'group'" src="img/icon-books.jpg" width="35px" height="35px" alt="Multiple editions">
