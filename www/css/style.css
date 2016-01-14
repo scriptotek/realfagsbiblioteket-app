@@ -5,3 +5,16 @@
 .page-image {
   width: 80%
 }
+
+.slider {
+  height: 100%;
+}
+.slider-slide {
+  padding-top: 80px;
+  /*text-align: center;*/
+}
+.ordered-list {
+  list-style-position: inside;
+  list-style: decimal;
+  padding-left: 2em;
+}

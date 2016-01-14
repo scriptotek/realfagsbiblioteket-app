@@ -59,6 +59,15 @@
           }
         }
       })
+      .state('app.intro', {
+        url: '/intro',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/intro.html'
+          }
+        }
+          
+      })
       .state('app.home', {
           url: '/home',
           views: {
