@@ -70,8 +70,9 @@
         <div class="row">
           <div class="col">
             <p ng-show="vm.book.print.available && vm.book.print.library === vm.localLibrary"><img src="img/available.png" width="35px"/> Available at Realfagsbiblioteket.</p>
-            <p ng-show="vm.book.print.available && vm.book.print.library !== vm.localLibrary"><img src="img/available.png" width="35px"/> Not available at Realfagsbiblioteket, but available at {{ vm.book.print.library}}. Call XYZ or ask at the reception if you need directions.</p>
-            <p ng-hide="vm.book.print.available"><img src="img/unavailable.png" width="35px"/> Unavailable. (TODO: Add link to form for ordering the item).</p>
+            <p ng-show="vm.book.print.available && vm.book.print.library !== vm.localLibrary"><img src="img/available.png" width="35px"/> Not available at Realfagsbiblioteket, but available at another library. Contact the library at <a href="mailto:realfagsbiblioteket@ub.uio.no">realfagsbiblioteket@ub.uio.no</a> to request it.
+ <!--            <p ng-show="vm.book.print.available && vm.book.print.library !== vm.localLibrary"><img src="img/available.png" width="35px"/> Not available at Realfagsbiblioteket, but available at {{ vm.book.print.library}}. Call XYZ or ask at the reception if you need directions.</p> -->
+            <p ng-hide="vm.book.print.available"><img src="img/unavailable.png" width="35px"/> Unavailable. Contact the library if you want to be added to the reservation queue.</p>
           </div>
         </div>
 
