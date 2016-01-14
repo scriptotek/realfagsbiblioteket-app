@@ -1,4 +1,4 @@
-<ion-view view-title="Search">
+<ion-view view-title="Søk">
   <ion-content>
     <ion-list>
 
@@ -6,18 +6,18 @@
       <form ng-submit="vm.search()">
         <label class="item item-input item-button-right">
           <i class="icon ion-search placeholder-icon"></i>
-          <input type="text" placeholder="name, author or ISBN" ng-model="vm.searchQuery">
+          <input type="text" placeholder="tittel, forfatter eller ISBN" ng-model="vm.searchQuery">
         </label>
       </form>
 
       <div class="item no-padding">
         <div class="row no-padding">
           <div class="col">
-            <button ng-click="vm.search()" class="button button-full button-positive">Search</button>
+            <button ng-click="vm.search()" class="button button-full button-positive">Søk</button>
           </div>
           <div class="col">
             <button ng-click="vm.scanBarcode()" class="button button-full button-positive">
-              Scan barcode
+              Scan barkode
               <i class="icon ion-ios-barcode-outline"></i>
             </button>
           </div>
@@ -25,7 +25,8 @@
       </div>
 
       <div ng-show="vm.results.length" class="item item-divider">
-        Results
+        Resultater
+        <!-- TODO: Toggle ebooks for v2.0
         <div ng-click="vm.toggleEbooks()" class="text-right" style="float:right">
           Show E-books
           <label class="toggle toggle-assertive">
@@ -34,7 +35,7 @@
               <div class="handle"></div>
             </div>
           </label>
-        </div>
+        </div> -->
       </div>
 
       <!-- The ng-hide will hide any book from the results if the viewmodel variable showEbooks is set to false AND the book.material property has the word "electronic" in it. -->
