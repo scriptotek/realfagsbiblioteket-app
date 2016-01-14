@@ -57,7 +57,7 @@
         if (!vm.searchQuery || 0 === vm.searchQuery.length) return;
         
         $ionicLoading.show({
-          template: '<ion-spinner></ion-spinner> Loading...'
+          template: '<ion-spinner></ion-spinner> Laster...'
         });
 
         // If the url is not currently set to this query, update it
@@ -171,7 +171,7 @@ function GroupCtrl(SearchFactory, $stateParams) {
 
       function activate() {
         $ionicLoading.show({
-          template: '<ion-spinner></ion-spinner> Loading...'
+          template: '<ion-spinner></ion-spinner> Laster...'
         });
 
         SearchFactory.getBookDetails($stateParams.id, vm.localLibrary)

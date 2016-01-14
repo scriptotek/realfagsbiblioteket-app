@@ -37,8 +37,8 @@
         if(window.Connection) {
           if(navigator.connection.type == Connection.NONE) {
             $ionicPopup.confirm({
-              title: "Internet Disconnected",
-              content: "This app requires an active internet connection to function."
+              title: "Ingen internettilgang",
+              content: "Denne appen krever en aktiv internett-tilkobling for å fungere."
             })
             .then(function(result) {
               if(!result) {
