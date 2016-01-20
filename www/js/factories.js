@@ -56,7 +56,7 @@
         var deferred = $q.defer();
 
         $http({
-          url: 'https://scs.biblionaut.net/primo/search',
+          url: 'https://lsm.biblionaut.net/primo/search',
           method: 'GET',
           cache: true,
           params: {
@@ -119,7 +119,7 @@
         var deferred = $q.defer();
 
         $http({
-          url: 'https://scs.biblionaut.net/primo/groups/' + id,
+          url: 'https://lsm.biblionaut.net/primo/groups/' + id,
           method: 'GET',
           cache: true,
         }).then(function(data) {
@@ -336,7 +336,7 @@
         // We'll return a promise, which will resolve with a book if found, or with an error if not.
         var deferred = $q.defer();
 
-        $http.get('https://scs.biblionaut.net/primo/records/' + id)
+        $http.get('https://lsm.biblionaut.net/primo/records/' + id)
         .then(function(data) {
           book = data.data.result;
 
