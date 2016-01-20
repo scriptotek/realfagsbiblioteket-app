@@ -312,20 +312,9 @@
       }
 
       function processElectronicAvailability(record) {
-        // Adds a view-friendly 'record.electronic' object based on
-        // data from 'record.components', for showing electronic availability.
-        var electronic = record.components.filter(function(component) {
-          return component.category !== undefined && component.category !== 'Alma-P';
-        });
-        if (!electronic.length) {
-          return;
-        }
-
-        // @TODO: Pick first or…?
-        record.electronic = electronic[0];
-
-        // Trust for use in iframe
-        if (record.urls.length) {
+        if (record.urls && record.urls.length) {
+          // Trust for use in iframe
+          // @TODO: Do we ever need more than the first URL?
           record.urls[0].url = $sce.trustAsResourceUrl(record.urls[0].url);
         }
       }
