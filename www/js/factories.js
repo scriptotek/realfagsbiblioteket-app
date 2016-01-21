@@ -9,19 +9,27 @@
 
     function SearchFactory($http, $filter, $localForage, $q, $sce, $ionicPopup) {
 
-      var searchResults = [];
+      var searchResult = {}; // Datastructure like:
+      /*
+      {
+        source: url for search,
+        first: number search starts at,
+        next: next search should start here, to retrieve more results,
+        total_results: total available for this search,
+        results: array of the actual books
+      }
+      */
+
       var favorites = [];
 
       var factory = {
         search: search,
         lookUpGroup: lookUpGroup,
-        searchResults: searchResults,
+        searchResult: searchResult,
         favorites: favorites,
-        getBook: getBook,
         loadFavorites: loadFavorites,
         toggleFavorite: toggleFavorite,
         isBookInFavorites: isBookInFavorites,
-        getBookFromFavorites: getBookFromFavorites,
         getBookDetails: getBookDetails,
         getBookLocation: getBookLocation,
         updateBookInFavorites: updateBookInFavorites,
@@ -49,10 +57,12 @@
         }
       }
 
-      function search(query) {
+      function search(query, start) {
         // Fetch records from API for the given query
 
-        factory.searchResults = [];
+        // Set default value for start
+        start = typeof start !== 'undefined' ? start : 1;
+
         var deferred = $q.defer();
 
         $http({
@@ -62,13 +72,15 @@
           params: {
             query: query,
             // library: "ubo1030310"
-            institution: "UBO"
+            institution: "UBO",
+            start: start
           }
         }).then(function(data) {
 
-          factory.searchResults = data.data.results;
+          var newResult = data.data;
 
-          angular.forEach(factory.searchResults, function(book) {
+          // Do some preprocessing for each book
+          angular.forEach(newResult.results, function(book) {
             // Create a display-friendly authors-variable
             book.authors = book.creators.join(", ");
 
@@ -97,11 +109,20 @@
 
             // Decide which icon to use.
             book.icons = whichIcons(book.material);
-            // console.log(book.material);
           });
 
-          // Resolve the promise. This will send the search results to the success function in the controller
-          deferred.resolve(factory.searchResults);
+          // New search?
+          if (start === 1) {
+            factory.searchResult = newResult;
+          } else {
+            // Need to concat newResults and update variables
+            factory.searchResult.results = factory.searchResult.results.concat(newResult.results);
+            factory.searchResult.first = newResult.first;
+            factory.searchResult.next = newResult.next;
+          }
+
+          // Resolve the promise. This will send the (new) search results to the success function in the controller
+          deferred.resolve(newResult);
 
         }, function(error) {
           console.log('error in search factory');
@@ -113,6 +134,8 @@
       }
 
       function lookUpGroup(id) {
+        // @TODO: Remove? If not, update to use new factory.searchResult structure.
+
         // Fetch group records from API for the given id
 
         factory.searchResults = [];
@@ -168,39 +191,6 @@
         $localForage.setItem('favorites', factory.favorites);
       }
 
-      function getBook(id) {
-        // Find and return the book with the given id, either from searchResults or from stored favorites.
-
-        // @TODO: Decide whether to remove this function. Not used as of 16.dec
-
-        var found;
-        var book = null;
-
-        // Is the book stored in favorites?
-        if (factory.favorites.length){
-          found = $filter('filter')(factory.favorites, {id: id}, true);
-          if (found.length) {
-             book = found[0];
-             console.log("Found the book in favorites!");
-          }
-        }
-        // If not, is the book in searchResults?
-        if (book===null && factory.searchResults.length) {
-          found = $filter('filter')(factory.searchResults, {id: id}, true);
-          if (found.length) {
-             book = found[0];
-             console.log("Found the book in searchResults!");
-          }
-        }
-
-        if (book===null) {
-          console.log("Could not find the book");
-          book = {};
-        }
-
-        return book;
-      }
-
       function isBookInFavorites(id) {
         // Determine whether the bookId is a book we can find in the stored favorites.
 
@@ -222,26 +212,6 @@
         factory.favorites.splice(factory.favorites.indexOf(book),1);
         // add new
         factory.favorites.push(book);
-      }
-
-      function getBookFromFavorites(id) {
-        // Return book of given id if found in favorites
-
-        var deferred = $q.defer();
-
-        if (factory.favorites.length){
-          var found = $filter('filter')(factory.favorites, {id: id}, true);
-          if (found.length){
-            deferred.resolve(found[0]);
-          }else{
-            deferred.reject("Book not in favorites.");
-          }
-        }else{
-          deferred.reject("Book not in favorites.");
-        }
-
-        // The book was not found
-        return deferred.promise;
       }
 
       function processPrintAvailability(record, localLibrary) {

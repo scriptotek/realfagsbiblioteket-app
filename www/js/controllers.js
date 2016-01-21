@@ -30,7 +30,7 @@
 
     // ------------------------------------------------------------------------
 
-    function SearchCtrl(SearchFactory, $cordovaBarcodeScanner, $state, $stateParams, $ionicLoading) {
+    function SearchCtrl(SearchFactory, $cordovaBarcodeScanner, $state, $stateParams, $ionicLoading, $scope) {
       var vm = this;
 
       // Variables
@@ -40,9 +40,14 @@
       vm.showEbooks = true;
       // Helper variable to show/hide "no results" error message
       vm.noResults = false;
+      // Helper variable for ionic-infinite-scroll. Set to false when there are no new books.
+      vm.canLoadMoreResults = true;
+      // On android loadMore() fires instantly even though immediate-check="false" on the ion-infinite-scroll element. Therefore use this helper variable:
+      vm.initialSearchCompleted = false;
       // Functions
       vm.scanBarcode = scanBarcode;
       vm.clickResult = clickResult;
+      vm.loadMore = loadMore;
 
       activate();
 
@@ -51,6 +56,33 @@
       function activate() {
         vm.searchQuery = $stateParams.query;
         vm.search();
+      }
+
+      function loadMore() {
+
+        // Can we load more books?
+        if (vm.canLoadMoreResults && vm.results.length > 0 && vm.results.length === SearchFactory.searchResult.total_results) {
+          vm.canLoadMoreResults = false;
+        }
+
+        // Don't load more if there are no more results
+        if (!vm.canLoadMoreResults) {
+          return;
+        }
+
+        SearchFactory.search(vm.searchQuery, vm.results.length+1)
+        .then(function(data) {
+          vm.results = vm.results.concat(data.results);
+
+          if (vm.results.length===0) vm.noResults = true;
+          else vm.noResults = false;
+          
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        }, function(error) {
+          console.log("error in search ctrl");
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        });
+
       }
 
       function search() {
@@ -67,13 +99,19 @@
           $stateParams.query = vm.searchQuery;
         }
 
+        // Need to update vm.canLoadMoreResults for the new search
+        vm.canLoadMoreResults = true;
+
         SearchFactory.search(vm.searchQuery)
         .then(function(data) {
           // console.log("got data in search controller");
-          vm.results = data;
+          vm.results = data.results;
 
           if (vm.results.length===0) vm.noResults = true;
           else vm.noResults = false;
+
+          // Update helper variable so that loadMore() will work normally
+          vm.initialSearchCompleted = true;
           
           $ionicLoading.hide();
         }, function(error) {
@@ -119,6 +157,8 @@
     // ------------------------------------------------------------------------
 
 function GroupCtrl(SearchFactory, $stateParams) {
+      // @TODO: Remove?
+
       var vm = this;
 
       // Variables

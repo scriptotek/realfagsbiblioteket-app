@@ -44,6 +44,13 @@
         <div ng-include src="'templates/listResults.html'"></div>
       </ion-item>
 
+      <ion-infinite-scroll
+        on-infinite="vm.loadMore()"
+        distance="1%"
+        immediate-check="false"
+        ng-if="vm.canLoadMoreResults && vm.initialSearchCompleted">
+      </ion-infinite-scroll>
+
       <!-- show if no search results -->
       <ion-item ng-show="vm.noResults">
         <div class="row">No results for query "{{vm.searchQuery}}"</div>
