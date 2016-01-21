@@ -51,7 +51,7 @@
             <img src="img/available.png" width="35px;">
           </div>
           <div class="col">
-            <a ng-href="{{vm.book.urls[0].url}}" ng-hide="vm.book.urls[0].url.toString().indexOf('uresolver') !== -1">Les online</a>
+            <a href="#" ubo-href="{{ vm.book.urls[0].url }}" ng-hide="vm.book.urls[0].url.toString().indexOf('uresolver') !== -1">Les online</a>
             <div ng-show="vm.book.urls[0].url.toString().indexOf('uresolver') !== -1">
               <div style="position:absolute;z-index:1; background:#eee;" ng-show="!vm.uresolverLoaded">Laster...</div>
               <iframe ng-src="{{vm.book.urls[0].url}}" style="width:100%;height:120px;" ubo-iframe-onload="vm.uresolverLoaded = true"></iframe>
