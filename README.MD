@@ -6,7 +6,7 @@ Former https://github.com/saqimtiaz/BibSearch/
 
 ### Development
 
-Run `npm install` to fetch all dependencies, then `ionic serve` to start a dev server.
+Run `npm install` followed by `cordova plugin add https://github.com/phonegap/phonegap-plugin-barcodescanner.git` to fetch all dependencies, then `ionic serve` to start a dev server.
 
 #### Build and run on Android
 
