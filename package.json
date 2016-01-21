@@ -2,6 +2,11 @@
   "name": "realfagsbiblioteket-app",
   "version": "1.1.1",
   "description": "Search and navigate the UiO Science Library",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scriptotek/realfagsbiblioteket-app.git"
+  },
+  "license": "MIT",
   "dependencies": {
     "gulp": "^3.9.0",
     "gulp-concat": "^2.2.0",
