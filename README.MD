@@ -17,3 +17,7 @@ To build for Android you need Java and Android Studio. Use the SDK manager to fe
 #### Build and run on iOS
 
 ..
+
+### Credits
+
+The icons used in search results are made by [Freepik](http://www.freepik.com) from [www.flaticon.com](http://www.flaticon.com), and are licenced with [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
