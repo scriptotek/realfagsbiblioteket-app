@@ -25,18 +25,18 @@
       }
       // Give the user a warning if we can't see an internet connection
       if(window.Connection) {
-            if(navigator.connection.type == Connection.NONE) {
-                $ionicPopup.confirm({
-                    title: "Ingen internettilgang",
-                    content: "Denne appen krever en aktiv internett-tilkobling for å fungere."
-                })
-                .then(function(result) {
-                    if(!result) {
-                        ionic.Platform.exitApp();
-                    }
-                });
+        if(navigator.connection.type == Connection.NONE) {
+          $ionicPopup.confirm({
+            title: "Ingen internettilgang",
+            content: "Denne appen krever en aktiv internett-tilkobling for å fungere."
+          })
+          .then(function(result) {
+            if(!result) {
+              ionic.Platform.exitApp();
             }
+          });
         }
+      }
     });
   })
 
