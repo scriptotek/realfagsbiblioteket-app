@@ -37,6 +37,16 @@
           });
         }
       }
+      // Get app information. This only works on devices. Use this to query server status.
+      if (navigator.appInfo !== undefined) {
+        navigator.appInfo.getAppInfo(function(appInfo) {
+          console.log('identifier: %s', appInfo.identifier);
+          console.log('version: %s', appInfo.version);
+          console.log('build: %s', appInfo.build);
+        }, function(err) {
+            console.log(err);
+        });
+      }
     });
   })
 
