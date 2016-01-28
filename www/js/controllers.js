@@ -60,6 +60,8 @@
 
       function loadMore() {
 
+        console.log("Trying to load more..");
+
         // Can we load more books?
         if (vm.canLoadMoreResults && vm.results.length > 0 && vm.results.length === SearchFactory.searchResult.total_results) {
           vm.canLoadMoreResults = false;
@@ -109,6 +111,12 @@
 
           if (vm.results.length===0) vm.noResults = true;
           else vm.noResults = false;
+
+          // If 0 results, disable infinite scroll. Without this step loadMore
+          // gets called again and again.
+          if (vm.results.length === 0) {
+            vm.canLoadMoreResults = false;
+          }
 
           // Update helper variable so that loadMore() will work normally
           vm.initialSearchCompleted = true;
