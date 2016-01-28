@@ -48,6 +48,7 @@
       vm.scanBarcode = scanBarcode;
       vm.clickResult = clickResult;
       vm.loadMore = loadMore;
+      vm.searchQueryUpdated = searchQueryUpdated;
 
       activate();
 
@@ -58,10 +59,11 @@
         vm.search();
       }
 
+      function searchQueryUpdated() {
+        vm.noResults = false;
+      }
+
       function loadMore() {
-
-        console.log("Trying to load more..");
-
         // Can we load more books?
         if (vm.canLoadMoreResults && vm.results.length > 0 && vm.results.length === SearchFactory.searchResult.total_results) {
           vm.canLoadMoreResults = false;
@@ -109,13 +111,13 @@
           // console.log("got data in search controller");
           vm.results = data.results;
 
-          if (vm.results.length===0) vm.noResults = true;
-          else vm.noResults = false;
-
-          // If 0 results, disable infinite scroll. Without this step loadMore
-          // gets called again and again.
           if (vm.results.length === 0) {
+            vm.noResults = true;
+
+            // Disable infinite scroll. Without this loadMore gets called again and again.
             vm.canLoadMoreResults = false;
+          } else {
+            vm.noResults = false;
           }
 
           // Update helper variable so that loadMore() will work normally

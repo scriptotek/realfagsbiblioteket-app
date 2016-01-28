@@ -6,7 +6,11 @@
       <form ng-submit="vm.search()">
         <label class="item item-input item-button-right">
           <i class="icon ion-search placeholder-icon"></i>
-          <input type="text" placeholder="tittel, forfatter eller ISBN" ng-model="vm.searchQuery">
+          <input
+            type="text"
+            placeholder="tittel, forfatter eller ISBN"
+            ng-model="vm.searchQuery"
+            ng-change="vm.searchQueryUpdated()">
         </label>
       </form>
 
