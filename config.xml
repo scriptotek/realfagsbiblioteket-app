@@ -8,9 +8,15 @@
     Scriptoteket
   </author>
   <content src="index.html"/>
-  <access origin="*"/>
+  
+  <!-- Allow searching: -->
+  <access origin="https://lsm.biblionaut.net/*"/>
+  <!-- Allow fetching ebooks: -->
+  <access origin="https://*.exlibrisgroup.com/*"/>
+
   <allow-navigation href="*://scs.biblionaut.net/*"/>
   <allow-navigation href="*://app.uio.no/*"/>
+
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
