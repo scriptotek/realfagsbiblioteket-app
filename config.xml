@@ -2,7 +2,7 @@
 <widget id="com.ionicframework.realfagsbiblioteketapp655944" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Realfagsbiblioteket</name>
   <description>
-    Search and navigate the UiO Science Library
+    Finn bøker og utforsk samlingene til Realfagsbiblioteket ved Universitetet i Oslo
   </description>
   <author email="scriptoteket@ub.uio.no" href="https://github.com/scriptotek/">
     Scriptoteket
