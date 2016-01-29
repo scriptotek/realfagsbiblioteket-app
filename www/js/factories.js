@@ -20,6 +20,18 @@
       }
       */
 
+      var platform = ionic.Platform.platform();
+      var deviceInfo = ionic.Platform.device();
+      var appVersion = '';
+
+      if (navigator.appInfo !== undefined) {
+        navigator.appInfo.getAppInfo(function(appInfo) {
+          appVersion = appInfo.version;
+        }, function(err) {
+            console.log(err);
+        });
+      }
+
       var favorites = [];
 
       var factory = {
@@ -66,13 +78,15 @@
         var deferred = $q.defer();
 
         $http({
-          url: 'https://lsm.biblionaut.net/primo/search',
+          url: 'http://app.uio.no/ub/bdi/realfagsbiblioteket/search.php',
           method: 'GET',
           cache: true,
           params: {
+            platform: platform,
+            platform_version: deviceInfo.version,
+            app_version: appVersion,
+            device: deviceInfo.manufacturer + ' ' + deviceInfo.model,
             query: query,
-            // library: "ubo1030310"
-            institution: "UBO",
             start: start
           }
         }).then(function(data) {
@@ -141,6 +155,7 @@
         factory.searchResults = [];
         var deferred = $q.defer();
 
+        // @TODO: Remove hard dependency on *.biblionaut.net by using `links.group` URL from search result
         $http({
           url: 'https://lsm.biblionaut.net/primo/groups/' + id,
           method: 'GET',
@@ -292,6 +307,7 @@
         // We'll return a promise, which will resolve with a book if found, or with an error if not.
         var deferred = $q.defer();
 
+        // @TODO: Remove hard dependency on *.biblionaut.net by using `links.self` URL from search result
         $http.get('https://lsm.biblionaut.net/primo/records/' + id)
         .then(function(data) {
           book = data.data.result;

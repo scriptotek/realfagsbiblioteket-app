@@ -11,6 +11,7 @@
 
   <!-- Allow searching: -->
   <access origin="https://lsm.biblionaut.net/*"/>
+  <access origin="http://app.uio.no/ub/bdi/*"/>
 
   <!-- Allow fetching ebooks using uresolver: -->
   <access origin="https://*.exlibrisgroup.com/*"/>
