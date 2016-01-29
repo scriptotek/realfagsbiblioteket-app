@@ -2,7 +2,10 @@
   <ion-content padding="true" ng-show="vm.book">
     <div class="row">
       <div class="col col-80">
-        <h1>{{vm.book.title}}</h1>
+        <h2 class="book-title">{{vm.book.title}}</h2>
+        <div ng-show="vm.book.authors">
+          av {{vm.book.authors}}
+        </div>
       </div>
       <div class="col col-20">
         <a ng-click="vm.toggleFavorite()">
@@ -10,9 +13,6 @@
           <i ng-show="vm.book.isFavorite" class="ion-ios-star" style="font-size:4em"></i>
         </a>
       </div>
-    </div>
-    <div class="row" ng-show="vm.book.authors">
-      <div class="col"><p>av {{vm.book.authors}}</p></div>
     </div>
     <div class="row">
       <div class="col"><img height="200px" ng-src="{{vm.book.links.cover}}"></div>

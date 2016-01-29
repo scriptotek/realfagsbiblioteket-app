@@ -18,3 +18,7 @@
   list-style: decimal;
   padding-left: 2em;
 }
+
+h2.book-title {
+	font-size: 24px;
+}
