@@ -218,22 +218,19 @@
         // Adds a view-friendly 'record.print' object based on
         // data from 'record.components', for showing print availability.
 
-        var printed = record.components.filter(function(x) {
-          return x.category === 'Alma-P';
-        });
-        if (!printed.length) {
-          return;
-        }
+        var localHoldings = [],
+          otherHoldings = [];
 
-        printed = printed[0];
-
-        record.print = {};
-
-        var localHoldings = printed.holdings.filter(function(holding) {
-          return holding.library === localLibrary;
-        });
-        var otherHoldings = printed.holdings.filter(function(holding) {
-          return holding.library !== localLibrary;
+        record.components.forEach(function(component) {
+          if (component.holdings) {
+            component.holdings.forEach(function(holding) {
+              if (holding.library === localLibrary) {
+                localHoldings.push(holding);
+              } else {
+                otherHoldings.push(holding);
+              }
+            });
+          }
         });
 
         function isAvailable(holding) {
