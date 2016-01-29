@@ -5,8 +5,8 @@
     // define the module that will hold all the factories we're gonna use
     angular.module('directives', [])
       .directive('uboIframeOnload', ['$parse', iframeOnloadDirective])
-      .directive('uboHref', extLinkDirective)
-      .directive('uboGeoLink', geoLinkDirective);
+      .directive('uboExtLink', uboExtLinkDirective)
+      .directive('uboGeoLink', uboGeoLinkDirective);
 
     function iframeOnloadDirective($parse) {
         var directive = {
@@ -29,17 +29,18 @@
 
     // Directive to open external links using inAppBrowser
     // Source: https://forum.ionicframework.com/t/how-to-opening-links-in-content-in-system-browser-instead-of-cordova-browser-wrapper/2427/10
-    function extLinkDirective() {
+    function uboExtLinkDirective() {
         var directive = {
             link: link,
-            restrict: 'A'
+            restrict: 'A',
+            scope: '='  // isolate scope
         };
         return directive;
 
         function link(scope, element, attrs) {
             var url = '';
 
-            attrs.$observe('uboHref', function(value) {
+            attrs.$observe('href', function(value) {
                 if (value) {
                     url = value;
                 }
@@ -57,10 +58,10 @@
     }
 
     // Directive to open map in default map app
-    function geoLinkDirective() {
+    function uboGeoLinkDirective() {
         var directive = {
             link: link,
-            restrict: 'E',
+            restrict: 'A',
             template: '<a href="#" ng-transclude></a>',
             transclude: true,
             replace: true,
