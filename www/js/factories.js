@@ -272,7 +272,6 @@
 
         } else if (localHoldings.length){
           // No available holdings, but local non-available holdings
-          record.print.available = 0;
 
           // Let's just pick the first one for now.
           // @TODO: Rather than just showing the first one, we
@@ -281,16 +280,17 @@
 
         } else if (otherHoldings.length) {
           // No local holdings, holdings elsewhere, but not available
-          record.print.available = 0;
 
           // Let's just pick the first one for now.
           // @TODO: Rather than just showing the first one, we
           //        should prioritize open stack collections over closed stack!
           record.print = otherHoldings[0];
-
         }
 
-        record.print.available = record.print.status !== undefined && record.print.status.toLowerCase() == 'available';
+        if (record.print) {
+          record.print.available = record.print.status !== undefined && record.print.status.toLowerCase() == 'available';
+        }
+
       }
 
       function processElectronicAvailability(record) {
