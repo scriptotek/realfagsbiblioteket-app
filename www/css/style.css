@@ -1,4 +1,9 @@
 /* Empty. Add your own CSS if you like */
+
+.pane {
+  background: #eee;
+}
+
 .no-padding {
     padding: 0px !important;
 }

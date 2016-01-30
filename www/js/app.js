@@ -82,7 +82,9 @@
           url: '/home',
           views: {
             'menuContent': {
-              templateUrl: 'templates/home.html'
+              templateUrl: 'templates/home.html',
+              controller: 'HomeCtrl',
+              controllerAs: 'vm'
             }
           }
       })

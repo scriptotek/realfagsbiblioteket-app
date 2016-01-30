@@ -1,23 +1,37 @@
-<ion-view view-title="Hjem">
+<ion-view view-title="Realfagsbiblioteket">
   <ion-content padding="true">
 
-    <h1>Realfagsbiblioteket</h1>
 
-    <p>
-    	Velkommen til Realfagsbiblioteket-appen! Her kan du finne bøker Realfagsbiblioteket har i sine samlinger og sjekke utlånsstatus.
-    </p>
-    <p>
-    	Dette er en tidlig utgave av en nyskrevet versjon av appen, så det vil komme mer funksjonalitet etter hvert.
+    <div class="card">
 
-    	Tilbakemeldinger settes stor pris på – enten på <a ubo-ext-link href="https://github.com/scriptotek/emnesok">GitHub</a> eller til <a ubo-ext-link href="mailto:bib-lab-drift@ub.uio.no">bib-lab-drift@ub.uio.no</a>.
-    </p>
+      <div class="item item-text-wrap">
+        Finn en bok ved å søke eller skanne en ISBN-kode.
 
-    <p>
-    	Du kan søke og finne bøker ved å trykke på meny-knappen øverst til venstre, eller <a ui-sref="app.intro">trykke her for en kort introduksjon</a>.
-    </p>
+        <div class="row no-padding">
+          <div class="col">
+            <a ui-sref="app.search" class="button button-full button-energized icon ion-ios-search">
+                Søk
+            </a>
+          </div>
+          <div class="col">
+            <button ng-click="vm.scanBarcode()" class="button button-full button-energized icon ion-ios-barcode-outline">
+              ISBN
+            </button>
+          </div>
+        </div>
+      </div>
 
-    <div class="col text-center">
-      <img class="page-image" src="img/UiO_UBREAL_Segl_A_cmyk2BLACK.png">
+    </div>
+
+    <div class="card">
+
+      <div class="item item-text-wrap">
+      Dette er en tidlig utgave av en nyskrevet versjon av appen, så det vil komme mer funksjonalitet etter hvert.
+        Tilbakemeldinger settes stor pris på – enten på <a ubo-ext-link href="https://github.com/scriptotek/emnesok">GitHub</a> eller til <a ubo-ext-link href="mailto:bib-lab-drift@ub.uio.no">bib-lab-drift@ub.uio.no</a>.
+      </div>
+      <div class="item item-text-wrap">
+        Du kan søke og finne bøker ved å trykke på meny-knappen øverst til venstre, eller <a ui-sref="app.intro">trykke her for en kort introduksjon</a>.
+      </div>
     </div>
 
   </ion-content>

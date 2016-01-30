@@ -5,6 +5,7 @@
     // define the module that will hold all the factories we're gonna use
     angular.module('directives', [])
       .directive('uboIframeOnload', ['$parse', iframeOnloadDirective])
+      .directive('uboFocus', uboFocusDirective)
       .directive('uboExtLink', uboExtLinkDirective)
       .directive('uboGeoLink', uboGeoLinkDirective);
 
@@ -24,6 +25,31 @@
             element.on('$destroy', function() {
                 element.off('load');
             });
+        }
+    }
+
+    // Directive to auto-focus an element
+    function uboFocusDirective($parse, $timeout) {
+        var directive = {
+            link: link,
+            restrict: 'A'
+        };
+        return directive;
+
+        function link(scope, element, attrs) {
+            var expr = $parse(attrs.uboFocus);
+            var enabled = expr(scope);
+
+            if (!enabled) {
+                return;
+            }
+
+            $timeout(function () {
+                element[0].focus();
+                if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+                    cordova.plugins.Keyboard.show(); //open keyboard manually for iOS
+                }
+            }, 350);
         }
     }
 

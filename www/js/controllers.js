@@ -30,6 +30,35 @@
 
     // ------------------------------------------------------------------------
 
+    function HomeCtrl($state, $cordovaBarcodeScanner) {
+      var vm = this;
+
+      // Functions
+      vm.scanBarcode = scanBarcode;
+
+      /////
+
+      function scanBarcode() {
+        $cordovaBarcodeScanner
+        .scan()
+        .then(function(barcodeData) {
+          // console.log("success in scanBarcode:");
+          // console.log(barcodeData);
+          $state.go('app.search', {query: barcodeData.text});
+        }, function(error) {
+          console.log("error in scanBarcode");
+        });
+      }
+
+    }
+
+    // add it to our controllers module
+    angular
+      .module('controllers')
+      .controller('HomeCtrl', HomeCtrl);
+
+    // ------------------------------------------------------------------------
+
     function SearchCtrl(SearchFactory, $cordovaBarcodeScanner, $state, $stateParams, $ionicLoading, $scope) {
       var vm = this;
 

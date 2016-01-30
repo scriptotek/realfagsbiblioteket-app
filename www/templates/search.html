@@ -7,26 +7,13 @@
         <label class="item item-input item-button-right">
           <i class="icon ion-search placeholder-icon"></i>
           <input
+            ubo-focus="!vm.searchQuery.length"
             type="text"
-            placeholder="tittel, forfatter eller ISBN"
+            placeholder="Tittel, forfatter eller ISBN"
             ng-model="vm.searchQuery"
             ng-change="vm.searchQueryUpdated()">
         </label>
       </form>
-
-      <div class="item no-padding">
-        <div class="row no-padding">
-          <div class="col">
-            <button ng-click="vm.search()" class="button button-full button-energized">Søk</button>
-          </div>
-          <div class="col">
-            <button ng-click="vm.scanBarcode()" class="button button-full button-energized">
-              Skann ISBN
-              <i class="icon ion-ios-barcode-outline"></i>
-            </button>
-          </div>
-        </div>
-      </div>
 
       <div ng-show="vm.results.length" class="item item-divider">
         Resultater
