@@ -78,6 +78,7 @@
       vm.clickResult = clickResult;
       vm.loadMore = loadMore;
       vm.searchQueryUpdated = searchQueryUpdated;
+      vm.totalResults = 0;
 
       activate();
 
@@ -139,6 +140,7 @@
         .then(function(data) {
           // console.log("got data in search controller");
           vm.results = data.results;
+          vm.totalResults = SearchFactory.searchResult.total_results;
 
           if (vm.results.length === 0) {
             vm.noResults = true;
