@@ -1,118 +1,20 @@
 <ion-view view-title="Bok">
-  <ion-content padding="true" ng-show="vm.book">
+  <ion-content>
 
-<div class="book card">
+    <ion-slide-box show-pager="false" ng-if="vm.books">
+      <ion-slide ng-repeat="book in vm.books">
 
-  <div class="item" style="padding-bottom: 6px;">
+        <div ng-include src="'templates/bookCard.html'"></div>
 
-    <span class="item-note">
-      <a ng-click="vm.toggleFavorite()" style="font-size:2.8em;" class="energized">
-        <i ng-hide="vm.book.isFavorite" class="ion-ios-star-outline"></i>
-        <i ng-show="vm.book.isFavorite" class="ion-ios-star"></i>
-      </a>
-    </span>
+      <ion-slide>
+    </ion-slide-box>
 
-    <h2 style="white-space: normal">{{vm.book.title}}</h2>
-
-    <p>{{vm.book.authors}}</p>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <p ng-show="vm.book.date"><span class="label">År:</span> {{vm.book.date}}</p>
-      <p ng-show="vm.book.publisher"><span class="label">Utgiver:</span> {{vm.book.publisher}}</p>
-      <p ng-show="vm.book.edition"><span class="label">Utgave:</span> {{vm.book.edition}}</p>
-      <p ng-show="vm.book.series"><span class="label">Serie:</span> {{vm.book.series}}</p>
-      <!--
-      can be confusing for deduped records…
-      <p ng-show="vm.book.bib_format"><span class="label">Format:</span> {{vm.book.bib_format}}</p>
-      -->
-    </div>
-
-    <div class="col col-33">
-      <img style="width:100%;" ng-src="{{vm.book.links.cover}}">
-    </div>
-
-  </div>
-
-
-  <div ng-if="vm.book.urls && vm.book.urls.length">
-    <div class="item item-icon-left balanced" ng-if="vm.book.print.available" style="padding-top:0; padding-bottom: 0;">
-      <i class="icon ion-checkmark-circled"></i>
-      <a ubo-ext-link href="{{ vm.book.urls[0].url }}" class="button button-clear button-positive" style="padding-left:0;">Tilgjengelig online</a>
-    </div>
-  </div>
-
-  <div ng-if="vm.book.print">
-
-      <div class="item item-icon-left balanced" ng-if="vm.book.print.available">
-        <i class="icon ion-checkmark-circled"></i>
-        {{ vm.book.print.statusMessage }}
-      </div>
-      <div class="item item-icon-left assertive" ng-if="!vm.book.print.available">
-        <i class="icon ion-close-circled"></i>
-        {{ vm.book.print.statusMessage }}
-      </div>
-
-      <div class="item" ng-if="!vm.book.print.available">
-
-        <p>
-          Bestille/reservere boka?
-        </p>
-
-        <a class="button button-clear button-positive" ubo-ext-link href="mailto:realfagsbiblioteket@ub.uio.no?subject={{vm.book.title}} {{vm.book.edition}} ({{vm.book.date}})">Kontakt oss</a>
-
-      </div>
-
-      <!-- Help locating the item -->
-      <div ng-if="vm.book.print.available">
-
-          <dl class="dl-horizontal">
-            <dt class="label" ng-if="vm.book.print.floor_text">Etasje:</dt>
-            <dd ng-if="vm.book.print.floor_text">{{vm.book.print.floor_text}}</dd>
-            <dt class="label">Samling:</dt>
-            <dd>{{vm.book.print.collection_name}}</dd>
-            <dt class="label">Plass:</dt>
-            <dd><tt>{{vm.book.print.callcode}}</tt></dd>
-          </dl>
-
-          <div class="item" ng-if="vm.book.print.map_url_image">
-              <img ng-src="{{vm.book.print.map_url_image}}" alt="Kart" class="full-image">
-              <p class="text-center">
-                Trykk på kartet for større utgave
-              </p>
-          </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- @TODO: Make subject search work
-<div class="card" ng-if="vm.book.subjects.realfagstermer && vm.book.subjects.realfagstermer.length">
-  <div class="item">
-        <p>
-        <span class="label">Flere bøker om</span><br>
-        <span ng-repeat="subject in vm.book.subjects.realfagstermer">
-          <button class="button button-small button-clear button-positive ion-ios-pricetag">
-             {{ subject }}
-          </button>
-        </span>
-      </p>
-  </div>
-</div>
--->
-
-  </ion-content>
-  <ion-content padding="true" ng-show="!vm.busy && !vm.book">
-    <div class="book card">
-
+    <div class="book card" ng-if="!vm.busy && !vm.books">
       <div class="item item-icon-left assertive">
         <i class="icon ion-close-circled"></i>
         {{ vm.error || 'Det oppsto en ukjent feil.' }}
       </div>
-
     </div>
+
   </ion-content>
 </ion-view>

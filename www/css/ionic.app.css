@@ -19,6 +19,9 @@ $dark:                            #444 !default;
 tt {
   font-family: monospace !important; }
 
+.slider-slide {
+  padding-top: 0 !important; }
+
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/

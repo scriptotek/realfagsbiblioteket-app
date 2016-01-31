@@ -1,0 +1,104 @@
+<div>
+    <div class="book card">
+
+      <div class="item" style="padding-bottom: 6px;">
+
+        <span class="item-note">
+          <a ng-click="vm.toggleFavorite(book)" style="font-size:2.8em;" class="energized">
+            <i ng-hide="book.isFavorite" class="ion-ios-star-outline"></i>
+            <i ng-show="book.isFavorite" class="ion-ios-star"></i>
+          </a>
+        </span>
+
+        <h2 style="white-space: normal">{{book.title}}</h2>
+
+        <p>{{book.authors}}</p>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p ng-show="book.date"><span class="label">År:</span> {{book.date}}</p>
+          <p ng-show="book.publisher"><span class="label">Utgiver:</span> {{book.publisher}}</p>
+          <p ng-show="book.edition"><span class="label">Utgave:</span> {{book.edition}}</p>
+          <p ng-show="book.series"><span class="label">Serie:</span> {{book.series}}</p>
+          <!--
+          can be confusing for deduped records…
+          <p ng-show="book.bib_format"><span class="label">Format:</span> {{book.bib_format}}</p>
+          -->
+        </div>
+
+        <div class="col col-33">
+          <img style="width:100%;" ng-src="{{book.links.cover}}">
+        </div>
+
+      </div>
+
+
+      <div ng-if="book.urls && book.urls.length">
+        <div class="item item-icon-left balanced" ng-if="book.print.available" style="padding-top:0; padding-bottom: 0;">
+          <i class="icon ion-checkmark-circled"></i>
+          <a ubo-ext-link href="{{ book.urls[0].url }}" class="button button-clear button-positive" style="padding-left:0;">Tilgjengelig online</a>
+        </div>
+      </div>
+
+      <div ng-if="book.print">
+
+          <div class="item item-icon-left balanced" ng-if="book.print.available">
+            <i class="icon ion-checkmark-circled"></i>
+            {{ book.print.statusMessage }}
+          </div>
+          <div class="item item-icon-left assertive" ng-if="!book.print.available">
+            <i class="icon ion-close-circled"></i>
+            {{ book.print.statusMessage }}
+          </div>
+
+          <div class="item" ng-if="!book.print.available">
+
+            <p>
+              Bestille/reservere boka?
+            </p>
+
+            <a class="button button-clear button-positive" ubo-ext-link href="mailto:realfagsbiblioteket@ub.uio.no?subject={{book.title}} {{book.edition}} ({{book.date}})">Kontakt oss</a>
+
+          </div>
+
+          <!-- Help locating the item -->
+          <div ng-if="book.print.available">
+
+              <dl class="dl-horizontal">
+                <dt class="label" ng-if="book.print.floor_text">Etasje:</dt>
+                <dd ng-if="book.print.floor_text">{{book.print.floor_text}}</dd>
+                <dt class="label">Samling:</dt>
+                <dd>{{book.print.collection_name}}</dd>
+                <dt class="label">Plass:</dt>
+                <dd><tt>{{book.print.callcode}}</tt></dd>
+              </dl>
+
+              <div class="item" ng-if="book.print.map_url_image">
+                  <img ng-src="{{book.print.map_url_image}}" alt="Kart" class="full-image">
+                  <p class="text-center">
+                    <!-- Trykk på kartet for større utgave -->
+                  </p>
+              </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- @TODO: Make subject search work
+    <div class="card" ng-if="book.subjects.realfagstermer && book.subjects.realfagstermer.length">
+      <div class="item">
+            <p>
+            <span class="label">Flere bøker om</span><br>
+            <span ng-repeat="subject in book.subjects.realfagstermer">
+              <button class="button button-small button-clear button-positive ion-ios-pricetag">
+                 {{ subject }}
+              </button>
+            </span>
+          </p>
+      </div>
+    </div>
+    -->
+</div>

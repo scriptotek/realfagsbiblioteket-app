@@ -37,6 +37,10 @@ tt {
   font-family: monospace !important;
 }
 
+.slider-slide {
+  padding-top: 0 !important;
+}
+
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 

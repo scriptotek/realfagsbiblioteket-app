@@ -274,9 +274,12 @@ function GroupCtrl(SearchFactory, $stateParams) {
         .then(function(data) {
           $ionicLoading.hide();
           vm.busy = false;
-          vm.book = data;
+
           // Did we have the book stored in favorites?
-          vm.book.isFavorite = SearchFactory.isBookInFavorites(vm.book.id);
+          // @TODO: Move to factory
+          data.isFavorite = SearchFactory.isBookInFavorites(data.id);
+
+          vm.books = [data];
         }, function(error) {
           $ionicLoading.hide();
           vm.busy = false;
@@ -284,12 +287,12 @@ function GroupCtrl(SearchFactory, $stateParams) {
         });
       }
 
-      function toggleFavorite() {
+      function toggleFavorite(book) {
         // Update in localForage
-        SearchFactory.toggleFavorite(vm.book);
+        SearchFactory.toggleFavorite(book);
         // Update in view
-        if (vm.book.isFavorite) vm.book.isFavorite = false;
-        else vm.book.isFavorite = true;
+        if (book.isFavorite) book.isFavorite = false;
+        else book.isFavorite = true;
       }
     }
 
