@@ -41,12 +41,33 @@
 
     // ------------------------------------------------------------------------
 
-    function IsbnCtrl($scope, $state, $ionicLoading, $ionicHistory, SearchFactory, scanditKey) {
+    function IsbnCtrl($scope, $state, $ionicLoading, $ionicHistory, SearchFactory, XisbnFactory, scanditKey) {
       var vm = this;
 
-      activate();
+      vm.authorTitleSearch = authorTitleSearch;
+      vm.scan = scan;
+
+      $scope.$on('$ionicView.enter', activate);
 
       /////
+
+      function authorTitleSearch() {
+
+        // Source: https://github.com/driftyco/ionic/issues/1287#issuecomment-67752210
+        // @TODO: Remove if https://github.com/driftyco/ionic/pull/3811 get merged
+        $ionicHistory.currentView($ionicHistory.backView());
+
+        $state.go('app.search', {query: vm.title + ' ' + vm.author});
+      }
+
+      function scan() {
+        // @TODO: Inject as a dependency, so we can mock it
+        window.cordova.exec(success, failure, 'ScanditSDK', 'scan', [scanditKey, {
+          beep: true,
+          code128: false,
+          dataMatrix: false
+        }]);
+      }
 
       function activate() {
         if (!window.cordova) {
@@ -54,14 +75,12 @@
           return;
         }
 
-        $scope.$on('$ionicView.enter', function() {
-          window.cordova.exec(success, failure, 'ScanditSDK', 'scan', [scanditKey, {
-            beep: true,
-            code128: false,
-            dataMatrix: false
-          }]);
-        });
+        vm.author = undefined;
+        vm.title = undefined;
+        vm.isbn = undefined;
+        vm.error = undefined;
 
+        vm.scan();
       }
 
       function success(data) {
@@ -94,8 +113,26 @@
             $ionicHistory.currentView($ionicHistory.backView());
 
             $state.go('app.single', {id: data.results[0].id});
+
           } else {
-            vm.error = 'Not found';
+
+            XisbnFactory.getMetadata(isbn).then(function(metadata) {
+              console.log(Object.keys(metadata));
+              if (metadata.stat == 'ok' && metadata.list.length) {
+                vm.isbn = isbn;
+                var author = _.get(metadata.list[0], 'author', '');
+                author = author.replace(/[.,;?]\s*$/, '');
+                author = author.replace(/\. Trans.*$/, '');  // Remove 'Translated by…'
+                author = author.replace(/\. Ed.*$/, '');  // Remove 'Edited by…'
+                vm.author = author;
+                vm.title = metadata.list[0].title;
+              } else {
+                vm.error = 'Boka ble ikke funnet.';
+              }
+            }, function(error) {
+              console.log('XisbnFactory error: ', error);
+              vm.error = error;
+            });
           }
         }, function(error) {
           $ionicLoading.hide();

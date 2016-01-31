@@ -16,6 +16,7 @@
   <access origin="https://lsm.biblionaut.net/*"/>
   <access origin="http://innhold.bibsys.no/*"/>
   <access origin="https://innhold.bibsys.no/*"/>
+  <access origin="http://xisbn.worldcat.org/webservices/*"/>
 
   <!-- Allow fetching ebooks using uresolver: -->
   <access origin="https://*.exlibrisgroup.com/*"/>

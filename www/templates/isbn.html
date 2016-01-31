@@ -1,17 +1,36 @@
 <ion-view view-title="Søk">
   <ion-content>
 
-    <div class="card" ng-if="vm.error">
+    <div class="card" ng-show="!vm.error && !vm.title">
+      <div class="item">
+        Venter på strekkodeleser…
+      </div>
+    </div>
+
+    <div class="book card" ng-if="vm.error">
       <div class="item item-icon-left assertive">
         <i class="icon ion-close-circled"></i>
         {{ vm.error || 'Det oppsto en ukjent feil.' }}
       </div>
+
+      <div class="item">
+        <button class="button button-full button-balanced" ng-click="vm.scan()">Prøv på nytt</button>
+      </div>
     </div>
 
+    <div class="book card" ng-if="vm.title">
+      <div class="item item-text-wrap">
+        Vi har ikke utgaven med ISBN-nummeret {{vm.isbn}},
+        men det kan hende vi har andre utgaver av den samme boka.
+      </div>
 
-    <div class="card" ng-if="!vm.error">
-      <div class="item item-icon-left balanced">
-        Venter på strekkodeleser…
+      <div class="item item-text-wrap">
+        Du kan forsøke et søk etter bokas tittel («{{ vm.title }}»)
+        og forfatter ({{ vm.author }}).
+      </div>
+
+      <div class="item">
+        <button class="button button-full button-balanced icon ion-ios-search" ng-click="vm.authorTitleSearch()">Søk etter forfatter + tittel</button>
       </div>
     </div>
 
