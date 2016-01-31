@@ -27,3 +27,21 @@
 h2.book-title {
 	font-size: 24px;
 }
+
+/**
+ * When touching a list element, the intention is often to scroll.
+ * We therefore don't want the list element to become activated immediately
+ * upon touching. Add a little delay and fade in/out.
+ */
+.item {
+  background-color: #FFF;
+  transition: background-color 80ms linear; /* Faster fade out */
+  -webkit-transition: background-color 80ms linear;
+}
+.item.activated {
+  background-color: #eee;
+  transition: background-color 300ms linear;
+  -webkit-transition: background-color 300ms linear;
+  transition-delay: 300ms;
+  -webkit-transition-delay: 300ms;
+}
