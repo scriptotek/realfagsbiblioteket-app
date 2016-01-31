@@ -35,30 +35,15 @@
 
   </div>
 
-<!--
-  <div class="item item-body" ng-show="vm.book.urls.length">
-        <div class="row">
-          <strong>Online-tilgang:</strong>
-        </div>
-        <div class="row">
-          <div class="col col-25">
-            <img src="img/available.png" width="35px;">
-          </div>
-          <div class="col">
-            <a ubo-ext-link href="{{ vm.book.urls[0].url }}" ng-hide="vm.book.urls[0].url.toString().indexOf('uresolver') !== -1">Les online</a>
-            <div ng-show="vm.book.urls[0].url.toString().indexOf('uresolver') !== -1">
-              <div style="position:absolute;z-index:1; background:#eee;" ng-show="!vm.uresolverLoaded">Laster...</div>
-              <iframe ng-src="{{vm.book.urls[0].url}}" style="width:100%;height:120px;" ubo-iframe-onload="vm.uresolverLoaded = true"></iframe>
-            </div>
-          </div>
-        </div>
-    </div>-->
+
+  <div ng-if="vm.book.urls && vm.book.urls.length">
+    <div class="item item-icon-left balanced" ng-if="vm.book.print.available" style="padding-top:0; padding-bottom: 0;">
+      <i class="icon ion-checkmark-circled"></i>
+      <a ubo-ext-link href="{{ vm.book.urls[0].url }}" class="button button-clear button-positive" style="padding-left:0;">Tilgjengelig online</a>
+    </div>
+  </div>
 
   <div ng-if="vm.book.print">
-
-<!--      <div class="item">
-        <h3>Hvordan får jeg tak i den?</h3>
-      </div>-->
 
       <div class="item item-icon-left balanced" ng-if="vm.book.print.available">
         <i class="icon ion-checkmark-circled"></i>
@@ -75,7 +60,7 @@
           Bestille/reservere boka?
         </p>
 
-        <a class="button button-clear button-energized" ubo-ext-link href="mailto:realfagsbiblioteket@ub.uio.no?subject={{vm.book.title}} {{vm.book.edition}} ({{vm.book.date}})">Kontakt oss</a>
+        <a class="button button-clear button-positive" ubo-ext-link href="mailto:realfagsbiblioteket@ub.uio.no?subject={{vm.book.title}} {{vm.book.edition}} ({{vm.book.date}})">Kontakt oss</a>
 
       </div>
 
@@ -118,62 +103,6 @@
   </div>
 </div>
 -->
-
-<!--
-    <!-- Electronic -->
-    <!--
-    <div ng-show="vm.book.urls.length">
-        <div class="row">
-          <strong>Online-tilgang:</strong>
-        </div>
-        <div class="row">
-          <div class="col col-30">
-            <img src="img/available.png" width="35px;">
-          </div>
-          <div class="col">
-            <a ubo-ext-link href="{{ vm.book.urls[0].url }}" ng-hide="vm.book.urls[0].url.toString().indexOf('uresolver') !== -1">Les online</a>
-            <div ng-show="vm.book.urls[0].url.toString().indexOf('uresolver') !== -1">
-              <div style="position:absolute;z-index:1; background:#eee;" ng-show="!vm.uresolverLoaded">Laster...</div>
-              <iframe ng-src="{{vm.book.urls[0].url}}" style="width:100%;height:120px;" ubo-iframe-onload="vm.uresolverLoaded = true"></iframe>
-            </div>
-          </div>
-        </div>
-    </div>-->
-
-
-    <!-- Print --><!--
-    <div ng-show="vm.book.print">
-        <div class="row">
-          <strong>Trykt utgave:</strong>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <p ng-show="vm.book.print.available && vm.book.print.library === vm.localLibrary"><img src="img/available.png" width="35px"/> Tilgjengelig fra Realfagsbiblioteket.</p>
-            <p ng-show="vm.book.print.available && vm.book.print.library !== vm.localLibrary"><img src="img/available.png" width="35px"/> Ikke tilgjengelig fra Realfagsbiblioteket, men tilgjengelig fra et annet bibliotek. <a ubo-ext-link href="mailto:realfagsbiblioteket@ub.uio.no?subject={{vm.book.title}} {{vm.book.edition}} ({{vm.book.date}})">Kontakt oss</a> for informasjon.
-            <p ng-hide="vm.book.print.available"><img src="img/unavailable.png" width="35px"/> Ikke tilgjengelig. <a ubo-ext-link href="mailto:realfagsbiblioteket@ub.uio.no?subject={{vm.book.title}} {{vm.book.edition}} ({{vm.book.date}})">Kontakt oss</a> for å reservere eller bestille den.</p>
-          </div>
-        </div>
-
-        <div class="row" ng-show="vm.book.print.floor_text">
-          <div class="col col-30">Etasje</div>
-          <div class="col">{{vm.book.print.floor_text}}</div>
-        </div>
-        <div class="row" ng-show="vm.book.print.collection_name">
-          <div class="col col-30">Samling</div>
-          <div class="col">{{vm.book.print.collection_name}}</div>
-        </div>
-        <div class="row" ng-show="vm.book.print.callcode">
-          <div class="col col-30">Kode</div>
-          <div class="col">{{vm.book.print.callcode}}</div>
-        </div>
-
-        <div class="row" ng-show="vm.book.print.map_url_image!=''">
-          <div class="col">
-            <img ng-src="{{vm.book.print.map_url_image}}" width="100%" alt="">
-          </div>
-        </div>
-    </div>-->
 
   </ion-content>
   <ion-content padding="true" ng-show="!vm.busy && !vm.book">
