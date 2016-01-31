@@ -1,16 +1,19 @@
-<div class="row item-icon-right">
-  <div class="col col-70">
-    <h3>{{book.title}} {{book.edition}} {{book.date}} </h3>
-    <p>{{book.creator_string || book.publisher}}</p>
-  </div>
+<div>
+  <h2>{{book.title}}</h2>
+    <span class="item-note">
+      {{book.date}}
+    </span>
+
+  <p ng-show="book.edition">{{book.edition}}</p>
+  <p>{{book.creator_string || book.publisher}}</p>
+
+<!--
   <div class="col col-30">
     <p class="text-right">
-      <!-- show if type is group -->
       <img ng-show="book.type === 'group'" src="img/icon-books.jpg" width="35px" height="35px" alt="Multiple editions">
-      
-      <!-- show icons depending on record format -->
       <img ng-repeat="icon in book.icons" ng-src="img/icon-{{icon}}.jpg" width="35px" height="35px" style="margin-right:10px;"/>
     </p>
   </div>
   <i class="icon ion-ios-arrow-right"></i>
+  -->
 </div>
