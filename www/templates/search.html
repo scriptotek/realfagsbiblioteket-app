@@ -31,7 +31,8 @@
 
       <!-- The ng-hide will hide any book from the results if the viewmodel variable showEbooks is set to false AND the book.material property has the word "electronic" in it. -->
       <!-- <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}" ng-hide="book.material.indexOf('electronic') !== -1 && vm.showEbooks === false"> -->
-      <ion-item ng-repeat="book in vm.results" ng-click="vm.clickResult(book)" ng-hide="book.material.indexOf('electronic') !== -1 && vm.showEbooks === false">
+
+      <ion-item ng-repeat="book in vm.results" ng-click="vm.clickResult(book)">
         <div ng-include src="'templates/listResults.html'"></div>
       </ion-item>
 
@@ -44,7 +45,7 @@
 
       <!-- show if no search results -->
       <ion-item ng-show="vm.noResults">
-        <div class="row">Ingen resultater for søkestreng "{{vm.searchQuery}}"</div>
+        <div class="row">Ingen resultater for søkestreng «{{vm.searchQuery}}».</div>
       </ion-item>
 
     </ion-list>
