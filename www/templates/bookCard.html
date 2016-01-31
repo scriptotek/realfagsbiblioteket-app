@@ -15,7 +15,7 @@
         <p>{{book.authors}}</p>
       </div>
 
-      <div class="row">
+      <div class="row" style="padding-bottom: 0;">
         <div class="col">
           <p ng-show="book.date"><span class="label">År:</span> {{book.date}}</p>
           <p ng-show="book.publisher"><span class="label">Utgiver:</span> {{book.publisher}}</p>
@@ -66,6 +66,8 @@
           <div ng-if="book.print.available">
 
               <dl class="dl-horizontal">
+                <dt class="label" ng-if="book.print.lib_label">Bibliotek:</dt>
+                <dd ng-if="book.print.lib_label">{{book.print.lib_label}}</dd>
                 <dt class="label" ng-if="book.print.floor_text">Etasje:</dt>
                 <dd ng-if="book.print.floor_text">{{book.print.floor_text}}</dd>
                 <dt class="label">Samling:</dt>

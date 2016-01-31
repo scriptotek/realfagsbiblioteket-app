@@ -263,6 +263,7 @@
         if (sel) {
           sel.statusMessage = 'På hylla i et annet UiO-bibliotek';
           sel.statusCode = 'available';
+          sel.lib_label = sel.library;
           return sel;
         }
 
