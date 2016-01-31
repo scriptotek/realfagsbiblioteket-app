@@ -121,7 +121,9 @@
 
       function search() {
         if (!vm.searchQuery || 0 === vm.searchQuery.length) return;
-        
+
+        document.activeElement.blur();
+
         $ionicLoading.show({
           template: '<ion-spinner></ion-spinner> Laster...'
         });
