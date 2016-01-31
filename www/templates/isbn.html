@@ -1,0 +1,19 @@
+<ion-view view-title="Søk">
+  <ion-content>
+
+    <div class="card" ng-if="vm.error">
+      <div class="item item-icon-left assertive">
+        <i class="icon ion-close-circled"></i>
+        {{ vm.error || 'Det oppsto en ukjent feil.' }}
+      </div>
+    </div>
+
+
+    <div class="card" ng-if="!vm.error">
+      <div class="item item-icon-left balanced">
+        Venter på strekkodeleser…
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

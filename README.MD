@@ -6,7 +6,15 @@ Former https://github.com/saqimtiaz/BibSearch/
 
 ### Development
 
-Run `npm install` followed by `cordova plugin add https://github.com/phonegap/phonegap-plugin-barcodescanner.git` to fetch all dependencies, then `ionic serve` to start a dev server.
+* `npm install` to install deps
+* `gulp install` to install frontend deps
+* Install Scandit:
+  * Since Scandit is not open source, we cannot distribute it on GitHub. Create an account at Scandit, download `scandit-barcodescanner-community-phonegap_4.11.0.zip` from https://ssl.scandit.com/account/sdk and unzip it in the root project folder.
+  * `ionic plugin add scandit-barcodescanner-community-phonegap_4.11.0`
+  * `cp config/env.dist.json config/env.json` and add your API key to the file.
+* `gulp` to build CSS from SASS and inject the Scandit API key
+
+To start a dev server: `ionic serve`
 
 #### Build and run on Android
 

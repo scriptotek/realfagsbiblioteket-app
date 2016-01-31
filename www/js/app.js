@@ -7,6 +7,7 @@
     'directives',
     'factories',
     'controllers',
+    'constants',
     'LocalForageModule',
     'ngCordova'])
 
@@ -95,6 +96,16 @@
               templateUrl: 'templates/information.html'
             }
           }
+      })
+      .state('app.isbn', {
+        url: '/isbn',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/isbn.html',
+            controller: 'IsbnCtrl',
+            controllerAs: 'vm'
+          }
+        }
       })
       .state('app.search', {
         url: '/search/:query',

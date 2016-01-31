@@ -30,26 +30,8 @@
 
     // ------------------------------------------------------------------------
 
-    function HomeCtrl($state, $cordovaBarcodeScanner) {
+    function HomeCtrl() {
       var vm = this;
-
-      // Functions
-      vm.scanBarcode = scanBarcode;
-
-      /////
-
-      function scanBarcode() {
-        $cordovaBarcodeScanner
-        .scan()
-        .then(function(barcodeData) {
-          // console.log("success in scanBarcode:");
-          // console.log(barcodeData);
-          $state.go('app.search', {query: barcodeData.text});
-        }, function(error) {
-          console.log("error in scanBarcode");
-        });
-      }
-
     }
 
     // add it to our controllers module
@@ -59,7 +41,78 @@
 
     // ------------------------------------------------------------------------
 
-    function SearchCtrl(SearchFactory, $cordovaBarcodeScanner, $state, $stateParams, $ionicLoading, $scope) {
+    function IsbnCtrl($scope, $state, $ionicLoading, $ionicHistory, SearchFactory, scanditKey) {
+      var vm = this;
+
+      activate();
+
+      /////
+
+      function activate() {
+        if (!window.cordova) {
+          vm.error = 'Not running on a device.';
+          return;
+        }
+
+        $scope.$on('$ionicView.enter', function() {
+          window.cordova.exec(success, failure, 'ScanditSDK', 'scan', [scanditKey, {
+            beep: true,
+            code128: false,
+            dataMatrix: false
+          }]);
+        });
+
+      }
+
+      function success(data) {
+        // data[0]: the barcode
+        // data[1]: code type (EAN)
+        $scope.$apply(function() {
+          search(data[0]);
+        });
+      }
+
+      function failure(error) {
+        $scope.$apply(function() {
+          vm.error = 'Failed to scan barcode: ' + error;
+        });
+      }
+
+      function search(isbn) {
+        $ionicLoading.show({
+          template: '<ion-spinner></ion-spinner> Søker...'
+        });
+
+        SearchFactory.search(isbn)
+        .then(function(data) {
+          $ionicLoading.hide();
+
+          if (data.results.length) {
+
+            // Source: https://github.com/driftyco/ionic/issues/1287#issuecomment-67752210
+            // @TODO: Remove if https://github.com/driftyco/ionic/pull/3811 get merged
+            $ionicHistory.currentView($ionicHistory.backView());
+
+            $state.go('app.single', {id: data.results[0].id});
+          } else {
+            vm.error = 'Not found';
+          }
+        }, function(error) {
+          $ionicLoading.hide();
+          vm.error = 'Søket gikk ut i feil';
+        });
+      }
+
+    }
+
+    // add it to our controllers module
+    angular
+      .module('controllers')
+      .controller('IsbnCtrl', IsbnCtrl);
+
+    // ------------------------------------------------------------------------
+
+    function SearchCtrl(SearchFactory, $state, $stateParams, $ionicLoading, $scope) {
       var vm = this;
 
       // Variables
@@ -74,7 +127,6 @@
       // On android loadMore() fires instantly even though immediate-check="false" on the ion-infinite-scroll element. Therefore use this helper variable:
       vm.initialSearchCompleted = false;
       // Functions
-      vm.scanBarcode = scanBarcode;
       vm.clickResult = clickResult;
       vm.loadMore = loadMore;
       vm.searchQueryUpdated = searchQueryUpdated;
@@ -125,7 +177,7 @@
         document.activeElement.blur();
 
         $ionicLoading.show({
-          template: '<ion-spinner></ion-spinner> Laster...'
+          template: '<ion-spinner></ion-spinner> Søker...'
         });
 
         // If the url is not currently set to this query, update it
@@ -160,19 +212,6 @@
         }, function(error) {
           console.log("error in search ctrl");
           $ionicLoading.hide();
-        });
-      }
-
-      function scanBarcode() {
-        $cordovaBarcodeScanner
-        .scan()
-        .then(function(barcodeData) {
-          // console.log("success in scanBarcode:");
-          // console.log(barcodeData);
-          vm.searchQuery = barcodeData.text;
-          vm.search();
-        }, function(error) {
-          console.log("error in scanBarcode");
         });
       }
 
