@@ -319,6 +319,35 @@
         }
       }
 
+      function cacheBookCover(url) {
+        var promiseResolved = false;
+        var deferred = $q.defer();
+
+        function resolve() {
+          if (!promiseResolved) {
+            promiseResolved = true;
+            deferred.resolve();
+          }
+        }
+
+        // Don't wait more than a second
+        setTimeout(function() {
+          resolve();
+        }, 1000);
+
+        var img = new Image();
+        img.src = url;
+        img.onload = function(q) {
+          // @TODO: We could test if we actually got a valid data, and
+          // mark the cover as valid/invalid, see <http://stackoverflow.com/a/9809055/489916>
+          resolve();
+        };
+        img.onerror = function(q) {
+          resolve();
+        };
+        return deferred.promise;
+      }
+
       function getBookDetails(id, config) {
         // Find details for the book(s) with given id
 
@@ -340,20 +369,23 @@
           // Since the book may have been updated in the backend since the last load, update the book in localForage.favorites if it's a favorite
           if (isBookInFavorites(book.id)) updateBookInFavorites(book);
 
-          // Get location
-          if (book.print && book.print.library == config.libraries.local.code) {
-            factory.getBookLocation(book)
-            .then(function(book) {
-              // We got a book location
+          cacheBookCover(book.links.cover).then(function() {
+            // Get location
+            if (book.print && book.print.library == config.libraries.local.code) {
+              factory.getBookLocation(book)
+              .then(function(book) {
+                // We got a book location
+                deferred.resolve(book);
+              }, function(error) {
+                // We didn't get book location, but resolve promise anyway.
+                deferred.resolve(book);
+              });
+            }else{
+              // Resolve without location information
               deferred.resolve(book);
-            }, function(error) {
-              // We didn't get book location, but resolve promise anyway.
-              deferred.resolve(book);
-            });
-          }else{
-            // Resolve without location information
-            deferred.resolve(book);
-          }
+            }
+          });
+
         }, function(response) {
           console.log("error in getBookDetails factory");
           checkInternetConnection();
