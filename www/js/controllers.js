@@ -245,6 +245,7 @@ function GroupCtrl(SearchFactory, $stateParams) {
       var vm = this;
 
       vm.book = null;
+      vm.busy = true;
 
       // List of local libraries in preferred order.
       // @TODO: Get from some global config
@@ -271,15 +272,15 @@ function GroupCtrl(SearchFactory, $stateParams) {
 
         SearchFactory.getBookDetails($stateParams.id, config)
         .then(function(data) {
+          $ionicLoading.hide();
+          vm.busy = false;
           vm.book = data;
           // Did we have the book stored in favorites?
           vm.book.isFavorite = SearchFactory.isBookInFavorites(vm.book.id);
-
-          $ionicLoading.hide();
         }, function(error) {
-          console.log("error in activate bookctrl");
-          vm.error = error;
           $ionicLoading.hide();
+          vm.busy = false;
+          vm.error = error;
         });
       }
 

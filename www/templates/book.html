@@ -173,9 +173,14 @@
     </div>-->
 
   </ion-content>
-  <ion-content padding="true" ng-hide="vm.book">
-    <p>
-      Noe gikk galt: {{ vm.error || 'Ukjent feil.' }}
-    </p>
+  <ion-content padding="true" ng-show="!vm.busy && !vm.book">
+    <div class="book card">
+
+      <div class="item item-icon-left assertive">
+        <i class="icon ion-close-circled"></i>
+        {{ vm.error || 'Det oppsto en ukjent feil.' }}
+      </div>
+
+    </div>
   </ion-content>
 </ion-view>
