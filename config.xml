@@ -10,8 +10,12 @@
   <content src="index.html"/>
 
   <!-- Allow searching: -->
-  <access origin="https://lsm.biblionaut.net/*"/>
   <access origin="http://app.uio.no/ub/bdi/*"/>
+
+  <!-- Covers etc.: -->
+  <access origin="https://lsm.biblionaut.net/*"/>
+  <access origin="http://innhold.bibsys.no/*"/>
+  <access origin="https://innhold.bibsys.no/*"/>
 
   <!-- Allow fetching ebooks using uresolver: -->
   <access origin="https://*.exlibrisgroup.com/*"/>

@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "angular-localforage": "~1.2.3",
-    "localforage": "~1.3.0"
+    "localforage": "~1.3.0",
+    "lodash": "~4.1.0"
   }
 }

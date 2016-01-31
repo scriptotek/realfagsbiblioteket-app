@@ -33,6 +33,51 @@ $balanced: $accent-color !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
+tt {
+  font-family: monospace !important;
+}
+
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+h3 {
+  color: $primary-color-dark;
+}
+
+$smalltextsize: .9em;
+// Horizontal description lists
+$dl-horizontal-offset: 100px;
+.dl-horizontal {
+  margin-bottom: 4px;
+  dt {
+    float: left;
+    width: ($dl-horizontal-offset - 10);
+    clear: left;
+    text-align: right;
+    font-weight: normal;
+  }
+  dd {
+    margin-left: $dl-horizontal-offset;
+  }
+}
+
+.book.card .item {
+  border-style: none;
+}
+
+.book.card .row {
+  padding: 11px;
+}
+.book.card .label {
+  opacity: 0.6;
+}
+.book.card .col p {
+  font-size: $smalltextsize;
+  opacity: 0.8;
+  margin: 0;
+}
+/*
+.book.card .button-small {
+  line-height: 20px !important;
+  min-height: 20px !important;
+}*/

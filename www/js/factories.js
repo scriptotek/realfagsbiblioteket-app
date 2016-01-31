@@ -229,68 +229,86 @@
         factory.favorites.push(book);
       }
 
-      function processPrintAvailability(record, localLibrary) {
+      function getBestHolding(holdings, config) {
+        var localLibrary = config.libraries.local.code;
+        var satelliteLibraries = _.map(config.libraries.satellites, 'code');
+
+        var available = _.filter(holdings, {status: 'available'});
+        var sel = [];
+
+        if (!holdings.length) {
+          return;
+        }
+
+        // 1.1 Available at local library
+        sel = _.filter(available, {library: localLibrary});
+        if (sel.length) {
+          // @TODO: Rather than just returning the first one, we
+          //        should prioritize open stack collections over closed stack.
+          sel[0].statusMessage = 'På hylla i ' + config.libraries.local.name;
+          sel[0].statusCode = 'available_local';
+          return sel[0];
+        }
+
+        // 1.2 Available at satellite library
+        sel = _.filter(available, function(x) { return satelliteLibraries.indexOf(x.library) != -1; });
+        if (sel.length) {
+          sel[0].statusMessage = 'På hylla i ' + _.find(config.libraries.satellites, {code: sel[0].library}).name;
+          sel[0].statusCode = 'available';
+          return sel[0];
+        }
+
+        // 1.3 Available at other UBO library
+        sel = _.find(available, {alma_instance: '47BIBSYS_UBO'});
+        if (sel) {
+          sel.statusMessage = 'På hylla i et annet UiO-bibliotek';
+          sel.statusCode = 'available';
+          return sel;
+        }
+
+        // 2.1 At local library, but not available
+        sel = _.find(holdings, {library: localLibrary});
+        if (sel) {
+          sel.statusMessage = 'Utlånt fra ' + config.libraries.local.name;
+          sel.statusCode = 'request_needed';
+          return sel;
+        }
+
+        // 2.2 At satellite library, but not available
+        sel = _.find(holdings, function(x) { return satelliteLibraries.indexOf(x.library) != -1; });
+        if (sel) {
+          sel.statusMessage = 'Utlånt fra ' + _.find(config.libraries.satellites, {code: sel.library}).name;
+          sel.statusCode = 'request_needed';
+          return sel;
+        }
+
+        // 2.3 At other UBO library, but not available
+        sel = _.find(holdings, {alma_instance: '47BIBSYS_UBO'});
+        if (sel) {
+          sel.statusMessage = 'Utlånt fra et annet UiO-bibliotek';
+          sel.statusCode = 'request_needed';
+          return sel;
+        }
+
+        // 3 Whatever
+        holdings[0].statusMessage = 'Ikke tilgjengelig ved UiO';
+        holdings[0].statusCode = 'request_needed';
+        return holdings[0];
+      }
+
+      function processPrintAvailability(record, config) {
         // Adds a view-friendly 'record.print' object based on
         // data from 'record.components', for showing print availability.
 
-        var localHoldings = [],
-          otherHoldings = [];
 
-        record.components.forEach(function(component) {
-          if (component.holdings) {
-            component.holdings.forEach(function(holding) {
-              if (holding.library === localLibrary) {
-                localHoldings.push(holding);
-              } else {
-                otherHoldings.push(holding);
-              }
-            });
-          }
-        });
+        // Make a flat list of holdings
+        var holdings = _.filter(_.flatten(_.map(record.components, 'holdings')), 'library');
 
-        function isAvailable(holding) {
-          return holding.status === 'available';
-        }
-        localAvailable = localHoldings.filter(isAvailable);
-        otherAvailable = otherHoldings.filter(isAvailable);
-
-        if (localAvailable.length){
-          // There's available holdings at our local library
-
-          // Let's just pick the first one for now.
-          // @TODO: Rather than just showing the first one, we
-          //        should prioritize open stack collections over closed stack!
-          record.print = localAvailable[0];
-
-        } else if (otherAvailable.length) {
-          // No available holdings at our local library, but somewhere else
-
-          // Let's just pick the first one for now.
-          // @TODO: We should sort availability based on distance from local library.
-          //        See <https://github.com/scriptotek/scs/issues/8>
-          record.print = otherAvailable[0];
-
-        } else if (localHoldings.length){
-          // No available holdings, but local non-available holdings
-
-          // Let's just pick the first one for now.
-          // @TODO: Rather than just showing the first one, we
-          //        should prioritize open stack collections over closed stack!
-          record.print = localHoldings[0];
-
-        } else if (otherHoldings.length) {
-          // No local holdings, holdings elsewhere, but not available
-
-          // Let's just pick the first one for now.
-          // @TODO: Rather than just showing the first one, we
-          //        should prioritize open stack collections over closed stack!
-          record.print = otherHoldings[0];
-        }
+        record.print = getBestHolding(holdings, config);
 
         if (record.print) {
-          record.print.available = record.print.status !== undefined && record.print.status.toLowerCase() == 'available';
+          record.print.available = record.print.statusCode == 'available' || record.print.statusCode == 'available_local';
         }
-
       }
 
       function processElectronicAvailability(record) {
@@ -301,7 +319,7 @@
         }
       }
 
-      function getBookDetails(id, localLibrary) {
+      function getBookDetails(id, config) {
         // Find details for the book(s) with given id
 
         // We'll return a promise, which will resolve with a book if found, or with an error if not.
@@ -313,7 +331,7 @@
           book = data.data.result;
 
           // Add display-friendly variables for displaying availability
-          processPrintAvailability(book, localLibrary);
+          processPrintAvailability(book, config);
           processElectronicAvailability(book);
 
           // Create display-friendly authors-variable
@@ -323,7 +341,7 @@
           if (isBookInFavorites(book.id)) updateBookInFavorites(book);
 
           // Get location
-          if (book.print && book.print.library == localLibrary) {
+          if (book.print && book.print.library == config.libraries.local.code) {
             factory.getBookLocation(book)
             .then(function(book) {
               // We got a book location

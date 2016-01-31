@@ -245,7 +245,19 @@ function GroupCtrl(SearchFactory, $stateParams) {
       var vm = this;
 
       vm.book = null;
-      vm.localLibrary = 'UBO1030310';  // @TODO: Get from some global config
+
+      // List of local libraries in preferred order.
+      // @TODO: Get from some global config
+      var config = {
+        libraries: {
+          local: {code: 'UBO1030310', name: 'Realfagsbiblioteket'},
+          satellites: [
+            {code: 'UBO1030317', name: 'Informatikkbiblioteket'}
+          ]
+        }
+      };
+      vm.config = config;
+
       vm.toggleFavorite = toggleFavorite;
 
       activate();
@@ -257,7 +269,7 @@ function GroupCtrl(SearchFactory, $stateParams) {
           template: '<ion-spinner></ion-spinner> Laster...'
         });
 
-        SearchFactory.getBookDetails($stateParams.id, vm.localLibrary)
+        SearchFactory.getBookDetails($stateParams.id, config)
         .then(function(data) {
           vm.book = data;
           // Did we have the book stored in favorites?
