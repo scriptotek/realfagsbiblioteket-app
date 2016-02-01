@@ -1,8 +1,8 @@
 <div>
     <div class="book card">
 
+      <!-- Title + authors + star -->
       <div class="item" style="padding-bottom: 6px;">
-
         <span class="item-note">
           <a ng-click="vm.toggleFavorite(book)" style="font-size:2.8em;" class="energized">
             <i ng-hide="book.isFavorite" class="ion-ios-star-outline"></i>
@@ -11,10 +11,10 @@
         </span>
 
         <h2 style="white-space: normal">{{book.title}}</h2>
-
         <p>{{book.authors}}</p>
       </div>
 
+      <!-- Cover + metadata -->
       <div class="row" style="padding-bottom: 0;">
         <div class="col">
           <p ng-show="book.date"><span class="label">År:</span> {{book.date}}</p>
@@ -26,68 +26,67 @@
           <p ng-show="book.bib_format"><span class="label">Format:</span> {{book.bib_format}}</p>
           -->
         </div>
-
         <div class="col col-33">
           <img style="width:100%;" ng-src="{{book.links.cover}}">
         </div>
-
       </div>
 
-
+      <!-- Available as ebook / online resource -->
       <div ng-if="book.urls && book.urls.length">
-        <div class="item item-icon-left balanced" ng-if="book.print.available" style="padding-top:0; padding-bottom: 0;">
+        <div class="item item-icon-left balanced" style="padding-top:0; padding-bottom: 0;">
           <i class="icon ion-checkmark-circled"></i>
           <a ubo-ext-link href="{{ book.urls[0].url }}" class="button button-clear button-positive" style="padding-left:0;">Tilgjengelig online</a>
         </div>
       </div>
 
-      <div ng-if="book.print">
+      <!-- Print holdings -->
+      <div ng-repeat="holding in book.holdings">
 
-          <div class="item item-icon-left balanced" ng-if="book.print.available">
-            <i class="icon ion-checkmark-circled"></i>
-            {{ book.print.statusMessage }}
-          </div>
-          <div class="item item-icon-left assertive" ng-if="!book.print.available">
-            <i class="icon ion-close-circled"></i>
-            {{ book.print.statusMessage }}
-          </div>
-
-          <div class="item" ng-if="!book.print.available">
-
-            <p>
-              Bestille/reservere boka?
-            </p>
-
-            <a class="button button-clear button-positive" ubo-ext-link href="mailto:realfagsbiblioteket@ub.uio.no?subject={{book.title}} {{book.edition}} ({{book.date}})">Kontakt oss</a>
-
-          </div>
-
-          <!-- Help locating the item -->
-          <div ng-if="book.print.available">
-
-              <dl class="dl-horizontal">
-                <dt class="label" ng-if="book.print.lib_label">Bibliotek:</dt>
-                <dd ng-if="book.print.lib_label">{{book.print.lib_label}}</dd>
-                <dt class="label" ng-if="book.print.floor_text">Etasje:</dt>
-                <dd ng-if="book.print.floor_text">{{book.print.floor_text}}</dd>
-                <dt class="label">Samling:</dt>
-                <dd>{{book.print.collection_name}}</dd>
-                <dt class="label">Plass:</dt>
-                <dd><tt>{{book.print.callcode}}</tt></dd>
-              </dl>
-
-              <div class="item" ng-if="book.print.map_url_image">
-                  <img ng-src="{{book.print.map_url_image}}" alt="Kart" class="full-image">
-                  <p class="text-center">
-                    <!-- Trykk på kartet for større utgave -->
-                  </p>
-              </div>
-
-            </div>
-
+        <div class="item item-icon-left balanced" ng-if="holding.available">
+          <i class="icon ion-checkmark-circled"></i>
+          {{ holding.statusMessage }}
+        </div>
+        <div class="item item-icon-left assertive" ng-if="!holding.available">
+          <i class="icon ion-close-circled"></i>
+          {{ holding.statusMessage }}
         </div>
 
-    </div>
+        <!-- Help locating the item -->
+        <div ng-if="holding.available">
+
+          <dl class="dl-horizontal">
+            <dt class="label" ng-if="holding.lib_label">Bibliotek:</dt>
+            <dd ng-if="holding.lib_label">{{holding.lib_label}}</dd>
+            <dt class="label" ng-if="holding.floor_text">Etasje:</dt>
+            <dd ng-if="holding.floor_text">{{holding.floor_text}}</dd>
+            <dt class="label">Samling:</dt>
+            <dd>{{holding.collection_name}}</dd>
+            <dt class="label">Plass:</dt>
+            <dd><tt>{{holding.callcode}}</tt></dd>
+          </dl>
+
+          <div class="item" ng-if="holding.map_url_image">
+              <img ng-src="{{holding.map_url_image}}" alt="Kart" class="full-image">
+              <p class="text-center">
+                <!-- Trykk på kartet for større utgave -->
+              </p>
+          </div>
+
+        </div>
+      </div>
+      <!--
+              <div class="item" ng-if="!holding.available">
+
+          <p>
+            Bestille/reservere boka?
+          </p>
+
+          <a class="button button-clear button-positive" ubo-ext-link href="mailto:realfagsbiblioteket@ub.uio.no?subject={{book.title}} {{book.edition}} ({{book.date}})">Kontakt oss</a>
+
+        </div>
+-->
+
+    </div><!-- End of card -->
 
     <!-- @TODO: Make subject search work
     <div class="card" ng-if="book.subjects.realfagstermer && book.subjects.realfagstermer.length">

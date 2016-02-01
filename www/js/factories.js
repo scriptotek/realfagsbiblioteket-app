@@ -20,6 +20,7 @@
       }
       */
 
+
       var platform = ionic.Platform.platform();
       var deviceInfo = ionic.Platform.device();
       var appVersion = '';
@@ -43,7 +44,7 @@
         toggleFavorite: toggleFavorite,
         isBookInFavorites: isBookInFavorites,
         getBookDetails: getBookDetails,
-        getBookLocation: getBookLocation,
+        addHoldingLocation: addHoldingLocation,
         updateBookInFavorites: updateBookInFavorites,
         checkInternetConnection: checkInternetConnection
       };
@@ -229,16 +230,21 @@
         factory.favorites.push(book);
       }
 
-      function getBestHolding(holdings, config) {
+      function getBestHoldings(holdings, config) {
         var localLibrary = config.libraries.local.code;
         var satelliteLibraries = _.map(config.libraries.satellites, 'code');
 
-        var available = _.filter(holdings, {status: 'available'});
+        var partitioned = _.partition(holdings, {status: 'available'});
+        var available = partitioned[0];
+        var unavailable = partitioned[1];
         var sel = [];
+        var out = [];
+        var avaCount = 0;
 
         if (!holdings.length) {
-          return;
+          return out;
         }
+        // console.log(holdings);
 
         // 1.1 Available at local library
         sel = _.filter(available, {library: localLibrary});
@@ -246,55 +252,70 @@
           // @TODO: Rather than just returning the first one, we
           //        should prioritize open stack collections over closed stack.
           sel[0].statusMessage = 'På hylla i ' + config.libraries.local.name;
-          sel[0].statusCode = 'available_local';
-          return sel[0];
+          sel[0].available = true;
+          out.push(sel[0]);
+          avaCount += 1;
+        } else {
+
+          // 1.2 At local library, but not available
+          if (!avaCount) {
+            sel = _.find(unavailable, {library: localLibrary});
+            if (sel) {
+              sel.statusMessage = 'Utlånt fra ' + config.libraries.local.name;
+              sel.available = false;
+              out.push(sel);
+            }
+          }
         }
 
-        // 1.2 Available at satellite library
+        // 2.1 Available at satellite library
         sel = _.filter(available, function(x) { return satelliteLibraries.indexOf(x.library) != -1; });
         if (sel.length) {
           sel[0].statusMessage = 'På hylla i ' + _.find(config.libraries.satellites, {code: sel[0].library}).name;
-          sel[0].statusCode = 'available';
-          return sel[0];
+          sel[0].available = true;
+          out.push(sel[0]);
+          avaCount += 1;
+        } else {
+
+          // 2.2 At satellite library, but not available
+          sel = _.find(unavailable, function(x) { return satelliteLibraries.indexOf(x.library) != -1; });
+          if (sel) {
+            sel.statusMessage = 'Utlånt fra ' + _.find(config.libraries.satellites, {code: sel.library}).name;
+            sel.available = false;
+            out.push(sel);
+          }
         }
 
-        // 1.3 Available at other UBO library
-        sel = _.find(available, {alma_instance: '47BIBSYS_UBO'});
-        if (sel) {
-          sel.statusMessage = 'På hylla i et annet UiO-bibliotek';
-          sel.statusCode = 'available';
-          sel.lib_label = sel.library;
-          return sel;
+        // 3.1 Available at other UBO library
+        if (!avaCount) {
+          sel = _.find(available, {alma_instance: '47BIBSYS_UBO'});
+          if (sel) {
+            sel.statusMessage = 'På hylla i et annet UiO-bibliotek';
+            sel.available = true;
+            sel.lib_label = sel.library;
+            out.push(sel);
+          }
+        } else {
+
+          // 3.2 At other UBO library, but not available
+          if (!out.length) {
+            sel = _.find(unavailable, {alma_instance: '47BIBSYS_UBO'});
+            if (sel) {
+              sel.statusMessage = 'Utlånt fra et annet UiO-bibliotek';
+              sel.available = false;
+              out.push(sel);
+            }
+          }
         }
 
-        // 2.1 At local library, but not available
-        sel = _.find(holdings, {library: localLibrary});
-        if (sel) {
-          sel.statusMessage = 'Utlånt fra ' + config.libraries.local.name;
-          sel.statusCode = 'request_needed';
-          return sel;
+        // 4 Whatever
+        if (!out.length) {
+          holdings[0].statusMessage = 'Ikke tilgjengelig ved UiO';
+          holdings[0].available = false;
+          out.push(holdings[0]);
         }
 
-        // 2.2 At satellite library, but not available
-        sel = _.find(holdings, function(x) { return satelliteLibraries.indexOf(x.library) != -1; });
-        if (sel) {
-          sel.statusMessage = 'Utlånt fra ' + _.find(config.libraries.satellites, {code: sel.library}).name;
-          sel.statusCode = 'request_needed';
-          return sel;
-        }
-
-        // 2.3 At other UBO library, but not available
-        sel = _.find(holdings, {alma_instance: '47BIBSYS_UBO'});
-        if (sel) {
-          sel.statusMessage = 'Utlånt fra et annet UiO-bibliotek';
-          sel.statusCode = 'request_needed';
-          return sel;
-        }
-
-        // 3 Whatever
-        holdings[0].statusMessage = 'Ikke tilgjengelig ved UiO';
-        holdings[0].statusCode = 'request_needed';
-        return holdings[0];
+        return out;
       }
 
       function processPrintAvailability(record, config) {
@@ -305,11 +326,7 @@
         // Make a flat list of holdings
         var holdings = _.filter(_.flatten(_.map(record.components, 'holdings')), 'library');
 
-        record.print = getBestHolding(holdings, config);
-
-        if (record.print) {
-          record.print.available = record.print.statusCode == 'available' || record.print.statusCode == 'available_local';
-        }
+        record.holdings = getBestHoldings(holdings, config);
       }
 
       function processElectronicAvailability(record) {
@@ -372,10 +389,10 @@
 
           cacheBookCover(book.links.cover).then(function() {
             // Get location
-            if (book.print && book.print.library == config.libraries.local.code) {
-              factory.getBookLocation(book)
-              .then(function(book) {
-                // We got a book location
+            if (book.holdings.length && book.holdings[0].available && book.holdings[0].library == config.libraries.local.code) {
+              factory.addHoldingLocation(book.holdings[0])
+              .then(function() {
+                // We got a holding location
                 deferred.resolve(book);
               }, function(error) {
                 // We didn't get book location, but resolve promise anyway.
@@ -400,32 +417,32 @@
         return deferred.promise;
       }
 
-      function getBookLocation(book) {
-        // Find the physical location of the given book, add the results to the book, then return the book
+      function addHoldingLocation(holding) {
+        // Find the physical location of the given holding and add the results to the holding
 
         var deferred = $q.defer();
 
         $http.get('http://app.uio.no/ub/bdi/bibsearch/loc2.php', {
           params: {
-            collection: book.print.collection_code,
-            callnumber: book.print.callcode
+            collection: holding.collection_code,
+            callnumber: holding.callcode
           }
         }).then(function(data) {
           // Here I expect a return like "bottom  2". I need the number
           data = data.data.split("\t");
 
           // data[1] is either 1, 2, or undefined. Set floor_text:
-          if (data[1]=="1") book.print.floor_text = "1st mezzanine";
-          else if (data[1]=="2") book.print.floor_text = "2nd floor / Hangar";
-          else book.print.floor_text = "";
+          if (data[1]=="1") holding.floor_text = "1. messanin";
+          else if (data[1]=="2") holding.floor_text = "Hangaren (2. etasje)";
+          else holding.floor_text = "";
 
           // If we have a floor_text, we can store map_position and map_url_image
-          if (book.print.floor_text!=="") {
-            book.print.map_position = data[0];
-            book.print.map_url_image = "http://app.uio.no/ub/bdi/bibsearch/new.php?collection="+book.print.collection_code+"&callnumber="+book.print.callcode;
+          if (holding.floor_text!=="") {
+            holding.map_position = data[0];
+            holding.map_url_image = "http://app.uio.no/ub/bdi/bibsearch/new.php?collection=" + holding.collection_code + "&callnumber=" + holding.callcode;
           }else{
-            book.print.map_position = "";
-            book.print.map_url_image = "";
+            holding.map_position = "";
+            holding.map_url_image = "";
           }
 
           deferred.resolve(book);
