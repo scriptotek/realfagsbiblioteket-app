@@ -108,7 +108,7 @@
 
             element.on('click',function(e){
                 var url,
-                    coords = encodeURIComponent(lat) + ',' + encodeURIComponent(lng),
+                    coords = lat + ',' + lng,
                     query;
 
                 e.preventDefault();
@@ -116,10 +116,10 @@
                     scope.$eval(attrs.ngClick);
                 }
                 if (ionic.Platform.isIOS()) {
-                    query = 'sll=' + coords + '&q=' + encodeURIComponent(q) + '&z=17';
+                    query = 'sll=' + coords + '&q=' + q + '&z=17';
                     url = 'maps:?' + query;
                 } else {
-                    query = 'q=' + encodeURIComponent(q) + '&z=16';
+                    query = 'q=' + q + '&z=16';
                     url = 'geo:' + coords + '?' + query;
                 }
                 window.open(encodeURI(url), '_system');
