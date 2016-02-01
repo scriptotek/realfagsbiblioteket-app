@@ -329,7 +329,8 @@ function GroupCtrl(SearchFactory, $stateParams) {
         libraries: {
           local: {code: 'UBO1030310', name: 'Realfagsbiblioteket'},
           satellites: [
-            {code: 'UBO1030317', name: 'Informatikkbiblioteket'}
+            {code: 'UBO1030317', name: 'Informatikkbiblioteket'},
+            {code: 'UBO1030500', name: 'Naturhistorisk museum'}
           ]
         }
       };
