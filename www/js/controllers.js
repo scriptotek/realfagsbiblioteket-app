@@ -120,7 +120,7 @@
               if (metadata.stat == 'ok' && metadata.list.length) {
                 vm.isbn = isbn;
                 var author = _.get(metadata.list[0], 'author', '');
-                author = author.replace(/[.,;?]\s*$/, '');
+                author = author.replace(/[,;:].*$/, ''); // Slightly aggressive
                 author = author.replace(/\. Trans.*$/, '');  // Remove 'Translated by…'
                 author = author.replace(/\. Ed.*$/, '');  // Remove 'Edited by…'
                 vm.author = author;
