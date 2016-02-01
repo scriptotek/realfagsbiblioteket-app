@@ -73,7 +73,7 @@
             });
 
             element.on('click',function(e){
-                console.log('Opening url:', url);
+                // console.log('Opening url:', url);
                 e.preventDefault();
                 if(attrs.ngClick){
                     scope.$eval(attrs.ngClick);

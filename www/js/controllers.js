@@ -117,7 +117,6 @@
           } else {
 
             XisbnFactory.getMetadata(isbn).then(function(metadata) {
-              console.log(Object.keys(metadata));
               if (metadata.stat == 'ok' && metadata.list.length) {
                 vm.isbn = isbn;
                 var author = _.get(metadata.list[0], 'author', '');
