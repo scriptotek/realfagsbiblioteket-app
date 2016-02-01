@@ -88,18 +88,18 @@
 
     </div><!-- End of card -->
 
-    <!-- @TODO: Make subject search work
+    <!-- @TODO: Make subject search work -->
     <div class="card" ng-if="book.subjects.realfagstermer && book.subjects.realfagstermer.length">
-      <div class="item">
-            <p>
-            <span class="label">Flere bøker om</span><br>
-            <span ng-repeat="subject in book.subjects.realfagstermer">
-              <button class="button button-small button-clear button-positive ion-ios-pricetag">
-                 {{ subject }}
-              </button>
-            </span>
-          </p>
+      <div class="item item-text-wrap">
+        <p>
+          <div class="label" style="padding-bottom:.6em;">Flere bøker om</div>
+          <span ng-repeat="subject in book.subjects.realfagstermer">
+            <a ui-sref="app.search({query: subject})" class="button button-small button-clear button-positive ion-ios-pricetag">
+               {{ subject }}
+            </a>
+          </span>
+        </p>
       </div>
     </div>
-    -->
+
 </div>
