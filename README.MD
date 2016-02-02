@@ -39,17 +39,22 @@ iOS:
 
 * `ionic prepare ios`
 * Open `platforms/ios/Realfagsbiblioteket.xcodeproj`
-* Select `Generic iOS Device` in the dropdown menu at the toolbar.
+  * Select `Generic iOS Device` in the dropdown menu at the toolbar and `Target → Realfagsbiblioteket`.
+  ![XCode 1](meta/xcode1.png)
+  * Under `Build Settings`, fill in values under `Code Signing`.
+  ![XCode 2](meta/xcode2.png)
+  * Delete the icon entry in Realfagsbiblioteket-Info.plist: http://stackoverflow.com/a/19358534/489916
+  * Add the 167x167 icon manually unless this has been fixed: https://github.com/driftyco/ionic-cli/issues/713
 * Select the `Product → Archive` menu item.
-* This should also open up the `Organizer - Archives` window in XCode automatically.
+  * This should also open up the `Organizer - Archives` window in XCode automatically.
   If it doesn't, you can click the `Window → Organizer` menu item.
+  * Click `Validate`, then `Upload`. Cross your fingers…
 
 Additional notes for iOs/XCode:
 
 * UiO has a organization membership to Apple Developer, so you need to be added to the organization.
 * Once added, you can request a certificate (press the plus button under `iOs certificates` at https://developer.apple.com/membercenter/). Follow the instructions and add the certificate to your keychain.
 * In XCode: log in to your Apple ID under `Preferences → Accounts` and download the provisioning profile under `View details`.
-* Under `Build Settings`, fill in values under `Code Signing`.
 
 ### Credits
 
