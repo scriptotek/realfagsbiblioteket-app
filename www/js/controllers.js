@@ -61,6 +61,9 @@
       }
 
       function scan() {
+
+        resetState();
+
         // @TODO: Inject as a dependency, so we can mock it
         window.cordova.exec(success, failure, 'ScanditSDK', 'scan', [scanditKey, {
           beep: true,
@@ -69,16 +72,18 @@
         }]);
       }
 
+      function resetState() {
+        vm.author = undefined;
+        vm.title = undefined;
+        vm.isbn = undefined;
+        vm.error = undefined;
+      }
+
       function activate() {
         if (!window.cordova) {
           vm.error = 'Not running on a device.';
           return;
         }
-
-        vm.author = undefined;
-        vm.title = undefined;
-        vm.isbn = undefined;
-        vm.error = undefined;
 
         vm.scan();
       }
