@@ -335,7 +335,6 @@ function GroupCtrl(SearchFactory, $stateParams) {
       /////
 
       function mapPopup(holding) {
-        console.log(holding.map_url_image);
         $ionicPopup.confirm({
           template: '<img src="' + encodeURI(holding.map_url_image + '&orientation=f') + '" alt="Kart" class="full-image">',
           title: "Kart",
