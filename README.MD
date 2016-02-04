@@ -6,6 +6,8 @@ Former https://github.com/saqimtiaz/BibSearch/
 
 ### Development
 
+[![Stories in Ready](https://badge.waffle.io/scriptotek/realfagsbiblioteket-app.svg?label=ready&title=Ready)](http://waffle.io/scriptotek/realfagsbiblioteket-app)
+
 * To build for Android you need Java and Android Studio. Use the SDK manager to fetch a recent SDK. Remember to set the `ANDROID_HOME` environment variable.
 * To build for iOs, you need the latest XCode and `npm install -g ios-sim ios-deploy`.
 
