@@ -308,12 +308,13 @@ function GroupCtrl(SearchFactory, $stateParams) {
 
     // ------------------------------------------------------------------------
 
-    function BookCtrl($stateParams, SearchFactory, $ionicLoading, $ionicPopup) {
+    function BookCtrl($stateParams, SearchFactory, $ionicLoading, $ionicPopup, $ionicModal) {
       var vm = this;
 
       vm.book = null;
       vm.busy = true;
       vm.mapPopup = mapPopup;
+      // vm.mapModal = mapModal; // un-comment when mapModal() is done
 
       // List of local libraries in preferred order.
       // @TODO: Get from some global config
@@ -342,6 +343,21 @@ function GroupCtrl(SearchFactory, $stateParams) {
           buttons: [{ text: 'Tilbake' }]
         })
       }
+
+      // @TODO: Finish modal
+      // function mapModal(holding) {
+      //   console.log(42);
+      //   console.log($ionicModal.fromTemplate)
+
+      //   var modaltemplate = '<div><img src="' + encodeURI(holding.map_url_image + '&orientation=f') + '" alt="Kart"></div>';
+
+      //   var modal = $ionicModal.fromTemplate(modaltemplate, {
+      //     animation: 'slide-in-up'
+      //   });
+      //   modal.show()
+
+      //   console.log(modal)
+      // }
 
       function activate() {
         $ionicLoading.show({
