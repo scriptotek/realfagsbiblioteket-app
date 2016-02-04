@@ -322,11 +322,12 @@ function GroupCtrl(SearchFactory, $stateParams) {
 
     // ------------------------------------------------------------------------
 
-    function BookCtrl($stateParams, SearchFactory, $ionicLoading) {
+    function BookCtrl($stateParams, SearchFactory, $ionicLoading, $ionicPopup) {
       var vm = this;
 
       vm.book = null;
       vm.busy = true;
+      vm.mapPopup = mapPopup;
 
       // List of local libraries in preferred order.
       // @TODO: Get from some global config
@@ -346,6 +347,16 @@ function GroupCtrl(SearchFactory, $stateParams) {
       activate();
 
       /////
+
+      function mapPopup(holding) {
+        console.log(holding.map_url_image);
+        $ionicPopup.confirm({
+          template: '<img src="' + encodeURI(holding.map_url_image + '&orientation=f') + '" alt="Kart" class="full-image">',
+          title: "Kart",
+          content: "Denne appen krever en aktiv internett-tilkobling for å fungere.",
+          buttons: [{ text: 'Tilbake' }]
+        })
+      }
 
       function activate() {
         $ionicLoading.show({

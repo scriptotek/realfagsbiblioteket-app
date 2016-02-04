@@ -66,10 +66,7 @@
           </dl>
 
           <div class="item" ng-if="holding.map_url_image">
-              <img ng-src="{{holding.map_url_image}}" alt="Kart" class="full-image">
-              <p class="text-center">
-                <!-- Trykk på kartet for større utgave -->
-              </p>
+              <img ng-click="vm.mapPopup(holding)" ng-src="{{holding.map_url_image}}" alt="Kart" class="full-image">
           </div>
 
         </div>
