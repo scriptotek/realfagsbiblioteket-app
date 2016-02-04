@@ -48,7 +48,7 @@
         <div class="row">Ingen resultater for søkestreng «{{vm.searchQuery}}».</div>
       </ion-item>
 
-      <div class="item item-icon-left assertive" ng-if="vm.error">
+      <div class="item item-icon-left item-text-wrap assertive" ng-if="vm.error">
         <i class="icon ion-close-circled"></i>
         Kunne ikke hente resultater:
         {{ vm.error || 'Det oppsto en ukjent feil.' }}
