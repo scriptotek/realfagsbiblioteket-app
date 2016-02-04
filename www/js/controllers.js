@@ -157,21 +157,28 @@
       var vm = this;
 
       // Variables
+      vm.error = null;
       vm.searchQuery = '';
       vm.results = [];
       vm.search = search;
       vm.showEbooks = true;
+
+      // Total number of results (undefined until search carried out)
+      vm.totalResults = undefined;
+
       // Helper variable to show/hide "no results" error message
       vm.noResults = false;
+
       // Helper variable for ionic-infinite-scroll. Set to false when there are no new books.
-      vm.canLoadMoreResults = true;
+      vm.canLoadMoreResults = false;
+
       // On android loadMore() fires instantly even though immediate-check="false" on the ion-infinite-scroll element. Therefore use this helper variable:
       vm.initialSearchCompleted = false;
+
       // Functions
       vm.clickResult = clickResult;
       vm.loadMore = loadMore;
       vm.searchQueryUpdated = searchQueryUpdated;
-      vm.totalResults = 0;
 
       activate();
 
@@ -186,35 +193,37 @@
         vm.noResults = false;
       }
 
-      function loadMore() {
+      function searchCompleted() {
         // Can we load more books?
-        if (vm.canLoadMoreResults && vm.results.length > 0 && vm.results.length === SearchFactory.searchResult.total_results) {
-          vm.canLoadMoreResults = false;
-        }
+        // console.log('::', SearchFactory.searchResult.total_results, vm.results.length, SearchFactory.searchResult.total_results);
+        vm.canLoadMoreResults = vm.totalResults === undefined || vm.results.length < SearchFactory.searchResult.total_results;
+        $ionicLoading.hide();
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+      }
 
-        // Don't load more if there are no more results
-        if (!vm.canLoadMoreResults) {
-          return;
-        }
+      function loadMore() {
+        console.log('> loadMore, starting from ' + (vm.results.length+1));
 
+        vm.error = null;
         SearchFactory.search(vm.searchQuery, vm.results.length+1)
         .then(function(data) {
           vm.results = vm.results.concat(data.results);
+          vm.totalResults = SearchFactory.searchResult.total_results;
 
-          if (vm.results.length===0) vm.noResults = true;
-          else vm.noResults = false;
-          
-          $scope.$broadcast('scroll.infiniteScrollComplete');
+          vm.noResults = (vm.results.length===0);
+          searchCompleted();
         }, function(error) {
-          console.log("error in search ctrl");
-          $scope.$broadcast('scroll.infiniteScrollComplete');
+          console.log("error in search ctrl: ", error);
+          vm.error = error.statusText ? error.statusText : 'Ingen nettverksforbindelse';
+          searchCompleted();
         });
 
       }
 
       function search() {
-        if (!vm.searchQuery || 0 === vm.searchQuery.length) return;
+        if (!vm.searchQuery) return;
 
+        // Unfocus the input field to hide keyboard
         document.activeElement.blur();
 
         $ionicLoading.show({
@@ -225,35 +234,12 @@
         if (vm.searchQuery !== $stateParams.query) {
           // Update the url without reloading, so that the user can go back in history to this search.
           $state.go('app.search', {query: vm.searchQuery}, {notify: false});
-          $stateParams.query = vm.searchQuery;
+          $stateParams.query = vm.searchQuery; // Is this needed??
         }
 
-        // Need to update vm.canLoadMoreResults for the new search
-        vm.canLoadMoreResults = true;
-
-        SearchFactory.search(vm.searchQuery)
-        .then(function(data) {
-          // console.log("got data in search controller");
-          vm.results = data.results;
-          vm.totalResults = SearchFactory.searchResult.total_results;
-
-          if (vm.results.length === 0) {
-            vm.noResults = true;
-
-            // Disable infinite scroll. Without this loadMore gets called again and again.
-            vm.canLoadMoreResults = false;
-          } else {
-            vm.noResults = false;
-          }
-
-          // Update helper variable so that loadMore() will work normally
-          vm.initialSearchCompleted = true;
-          
-          $ionicLoading.hide();
-        }, function(error) {
-          console.log("error in search ctrl");
-          $ionicLoading.hide();
-        });
+        vm.totalResults = undefined;
+        vm.results = [];
+        loadMore();
       }
 
       function clickResult(book) {
