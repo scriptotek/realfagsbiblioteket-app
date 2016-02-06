@@ -249,10 +249,18 @@
         // 1.1 Available at local library
         sel = _.filter(available, {library: localLibrary});
         if (sel.length) {
-          // @TODO: Rather than just returning the first one, we
-          //        should prioritize open stack collections over closed stack.
+
+          // - Open collections are preferred over closed ones
+          // - 'UREAL Pensum' is less preferred than other open collections
+          var oc = config.libraries.local.openStackCollections;
+          sel.sort(function(a, b) {
+            return oc.indexOf(b.collection_code) - oc.indexOf(a.collection_code);
+          });
+
+          sel[0].closed_stack = (oc.indexOf(sel[0].collection_code) == -1);
           sel[0].statusMessage = 'På hylla i ' + config.libraries.local.name;
           sel[0].available = true;
+
           out.push(sel[0]);
           avaCount += 1;
         } else {

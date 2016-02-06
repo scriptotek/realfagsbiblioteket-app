@@ -65,6 +65,11 @@
             <dd><tt>{{holding.callcode}}</tt></dd>
           </dl>
 
+          <div ng-if="holding.closed_stack"style="margin: 8px 8px 8px 40px;">
+            <i class="ion-alert-circled energized"></i>
+            OBS: Må hentes frem fra magasin e.l.
+          </div>
+
           <div class="item" ng-if="holding.map_url_image">
               <img ng-src="{{holding.map_url_image}}" alt="Kart" class="full-image">
               <p class="text-center">

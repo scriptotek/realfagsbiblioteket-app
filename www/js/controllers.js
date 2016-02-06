@@ -317,7 +317,25 @@ function GroupCtrl(SearchFactory, $stateParams) {
       // @TODO: Get from some global config
       var config = {
         libraries: {
-          local: {code: 'UBO1030310', name: 'Realfagsbiblioteket'},
+          local: {
+            code: 'UBO1030310',
+            name: 'Realfagsbiblioteket',
+            openStackCollections: [  // sorted in order of increasing preference ('Pensum' is less preferred than the rest)
+              'k00471',  // UREAL Pensum
+              'k00460',  // UREAL Laveregrad
+              'k00413',  // UREAL Astr.
+              'k00421',  // UREAL Biol.
+              'k00447',  // UREAL Geo.
+              'k00449',  // UREAL Geol.
+              'k00426',  // UREAL Farm.
+              'k00457',  // UREAL Kjem.
+              'k00440',  // UREAL Fys.
+              'k00465',  // UREAL Mat.
+              'k00475',  // UREAL Samling 42
+              'k00477',  // UREAL SciFi
+              'k00423',  // UREAL Boksamling
+            ]
+          },
           satellites: [
             {code: 'UBO1030317', name: 'Informatikkbiblioteket'},
             {code: 'UBO1030500', name: 'Naturhistorisk museum'}
