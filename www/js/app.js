@@ -10,21 +10,24 @@
     'constants',
     'ngCordova'])
 
-  .run(function($ionicPlatform, $ionicPopup, FavoriteFactory) {
+  .run(function($ionicPlatform, $ionicPopup, $cordovaKeyboard, $cordovaStatusbar, FavoriteFactory) {
     $ionicPlatform.ready(function() {
+
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
-      if (window.cordova && window.cordova.plugins.Keyboard) {
-        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-        cordova.plugins.Keyboard.disableScroll(true);
+      if ($cordovaKeyboard.hideKeyboardAccessoryBar) {
+        $cordovaKeyboard.hideKeyboardAccessoryBar(true);
+        $cordovaKeyboard.disableScroll(true);
 
       }
-      if (window.StatusBar) {
-        // org.apache.cordova.statusbar required
-        StatusBar.styleDefault();
+
+      if ($cordovaStatusbar.styleDefault) {
+        console.log('cordovaStatusbar.styleDefault');
+        $cordovaStatusbar.styleDefault();
       }
+
       // Give the user a warning if we can't see an internet connection
-      if(window.Connection) {
+      if(navigator.connection) {
         if(navigator.connection.type == Connection.NONE) {
           $ionicPopup.confirm({
             title: "Ingen internettilgang",
@@ -37,9 +40,10 @@
           });
         }
       }
+
       // Get app information. This only works on devices.
       // @TODO: Use this to query server status.
-      if (navigator.appInfo !== undefined) {
+      if (navigator.appInfo) {
         navigator.appInfo.getAppInfo(function(appInfo) {
           // console.log('identifier: %s', appInfo.identifier);
           // console.log('version: %s', appInfo.version);
