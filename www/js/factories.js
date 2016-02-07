@@ -494,16 +494,6 @@
       function query(queryStr, args) {
         var deferred = $q.defer();
 
-        if (!ionic.Platform.isWebView()) {
-          $timeout(deferred.resolve(null));
-          return deferred.promise;
-        }
-
-        if (!dbReady) {
-          $timeout(deferred.reject('Database is not ready'));
-          return deferred.promise;
-        }
-
         $cordovaSQLite.execute(db, queryStr, args).then(function(res) {
           deferred.resolve(res);
         }, function(err) {
@@ -516,6 +506,19 @@
 
       function get(mmsId) {
         var deferred = $q.defer();
+
+        if (!ionic.Platform.isWebView()) {
+          // Not on a device. Use SessionStorage for testing
+          $timeout(function() {
+            var q = sessionStorage.getItem(mmsId);
+            if (q) q = {
+              data: JSON.parse(sessionStorage.getItem(mmsId)),
+              created_at: null
+            };
+            deferred.resolve(q);
+          });
+          return deferred.promise;
+        }
 
         query('SELECT data, created_at FROM favorites WHERE mms_id=?', [mmsId]).then(function(res) {
           if (res.rows.length === 0) {
@@ -534,6 +537,21 @@
 
       function ls() {
         var deferred = $q.defer();
+
+        if (!ionic.Platform.isWebView()) {
+          // Not on a device. Use SessionStorage for testing
+          $timeout(function() {
+            var rows = [];
+            for (var i = 0; i < sessionStorage.length; i++){
+                rows.push({
+                  data: JSON.parse(sessionStorage.getItem(sessionStorage.key(i))),
+                  created_at: null
+                });
+            }
+            deferred.resolve(rows);
+          });
+          return deferred.promise;
+        }
 
         query('SELECT data, created_at FROM favorites', []).then(function(res) {
           var rows = [];
@@ -555,6 +573,12 @@
       function rm(mmsId) {
         var deferred = $q.defer();
 
+        if (!ionic.Platform.isWebView()) {
+          // Not on a device. Use SessionStorage for testing
+          $timeout(function() { deferred.resolve(sessionStorage.removeItem(mmsId)); });
+          return deferred.promise;
+        }
+
         console.log('Delete:' , mmsId);
         query('DELETE FROM favorites WHERE mms_id=?', [mmsId]).then(function(res) {
           deferred.resolve(true);
@@ -570,6 +594,12 @@
         var deferred = $q.defer();
 
         data = JSON.stringify(data);
+
+        if (!ionic.Platform.isWebView()) {
+          // Not on a device. Use SessionStorage for testing
+          $timeout(function() { deferred.resolve(sessionStorage.setItem(mmsId, data)); });
+          return deferred.promise;
+        }
 
         get(mmsId).then(function(row) {
           if (row === null) {
