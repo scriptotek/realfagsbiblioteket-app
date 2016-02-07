@@ -16,7 +16,7 @@
       </form>
 
       <div ng-if="vm.totalResults !== undefined" class="item item-divider">
-        {{ vm.totalResults }} resultater
+        {{ vm.totalResults ? 'Fant ' + vm.totalResults + ' dokumenter' : 'Fant ingen dokumenter' }}
         <!-- TODO: Toggle ebooks for v2.0
         <div ng-click="vm.toggleEbooks()" class="text-right" style="float:right">
           Show E-books
@@ -43,12 +43,7 @@
         ng-if="!vm.error && vm.canLoadMoreResults">
       </ion-infinite-scroll>
 
-      <!-- show if no search results -->
-      <ion-item ng-if="vm.noResults">
-        <div class="row">Ingen resultater for søkestreng «{{vm.searchQuery}}».</div>
-      </ion-item>
-
-      <div class="item item-icon-left assertive" ng-if="vm.error">
+      <div class="item item-icon-left item-text-wrap assertive" ng-if="vm.error">
         <i class="icon ion-close-circled"></i>
         Kunne ikke hente resultater:
         {{ vm.error || 'Det oppsto en ukjent feil.' }}
