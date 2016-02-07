@@ -120,7 +120,7 @@
               });
 
               return icons;
-            }
+            };
 
             // Decide which icon to use.
             book.icons = whichIcons(book.material);

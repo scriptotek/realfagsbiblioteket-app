@@ -37,7 +37,9 @@
     "gulp-util": "^3.0.7",
     "path": "^0.12.7",
     "plist": "^1.2.0",
-    "shelljs": "^0.5.3"
+    "shelljs": "^0.5.3",
+    "jshint": "^2.9.1",
+    "async": "^1.5.2"
   },
   "dependencies": {
     "lodash": "^4.2.1"
