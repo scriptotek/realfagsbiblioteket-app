@@ -42,11 +42,11 @@
       <!-- Print holdings -->
       <div ng-repeat="holding in book.holdings">
 
-        <div class="item item-icon-left balanced" ng-if="holding.available">
+        <div class="item item-icon-left item-text-wrap balanced" ng-if="holding.available">
           <i class="icon ion-checkmark-circled"></i>
           {{ holding.statusMessage }}
         </div>
-        <div class="item item-icon-left assertive" ng-if="!holding.available">
+        <div class="item item-icon-left item-text-wrap assertive" ng-if="!holding.available">
           <i class="icon ion-close-circled"></i>
           {{ holding.statusMessage }}
         </div>
