@@ -16,7 +16,8 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-appinfo",
     "cordova-plugin-network-information",
-    "cordova-plugin-inappbrowser"
+    "cordova-plugin-inappbrowser",
+    "cordova-sqlite-storage"
   ],
   "cordovaPlatforms": [
     "android",
@@ -40,8 +41,5 @@
     "shelljs": "^0.5.3",
     "jshint": "^2.9.1",
     "async": "^1.5.2"
-  },
-  "dependencies": {
-    "lodash": "^4.2.1"
   }
 }

@@ -18,9 +18,17 @@
 
     // ------------------------------------------------------------------------
 
-    function FavoritesCtrl(SearchFactory) {
+    function FavoritesCtrl($scope, FavoriteFactory) {
       var vm = this;
-      vm.results = SearchFactory.favorites;
+      vm.results = [];
+
+      $scope.$on('$ionicView.enter', activate);
+
+      function activate() {
+        FavoriteFactory.ls().then(function(res) {
+          vm.results = res.map(function(row) { return row.data; });
+        });
+      }
     }
 
     // add it to our controllers module
@@ -307,7 +315,7 @@ function GroupCtrl(SearchFactory, $stateParams) {
 
     // ------------------------------------------------------------------------
 
-    function BookCtrl($stateParams, SearchFactory, $ionicLoading) {
+    function BookCtrl($stateParams, SearchFactory, $ionicLoading, FavoriteFactory) {
       var vm = this;
 
       vm.book = null;
@@ -361,8 +369,9 @@ function GroupCtrl(SearchFactory, $stateParams) {
           vm.busy = false;
 
           // Did we have the book stored in favorites?
-          // @TODO: Move to factory
-          data.isFavorite = SearchFactory.isBookInFavorites(data.id);
+          FavoriteFactory.get(data.id).then(function(res) {
+            data.isFavorite = (res !== null);
+          });
 
           vm.books = [data];
         }, function(error) {
@@ -373,11 +382,15 @@ function GroupCtrl(SearchFactory, $stateParams) {
       }
 
       function toggleFavorite(book) {
-        // Update in localForage
-        SearchFactory.toggleFavorite(book);
-        // Update in view
-        if (book.isFavorite) book.isFavorite = false;
-        else book.isFavorite = true;
+        // Update view
+        book.isFavorite = !book.isFavorite;
+
+        // Update storage
+        if (book.isFavorite) {
+          FavoriteFactory.put(book.id, book);
+        } else {
+          FavoriteFactory.rm(book.id);
+        }
       }
     }
 

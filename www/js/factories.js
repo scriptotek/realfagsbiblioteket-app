@@ -7,7 +7,7 @@
 
     // ------------------------------------------------------------------------
 
-    function SearchFactory($http, $filter, $localForage, $q, $sce, $ionicPopup) {
+    function SearchFactory($http, $filter, $q, $sce, $ionicPopup, FavoriteFactory) {
 
       var searchResult = {}; // Datastructure like:
       /*
@@ -33,19 +33,12 @@
         });
       }
 
-      var favorites = [];
-
       var factory = {
         search: search,
         lookUpGroup: lookUpGroup,
         searchResult: searchResult,
-        favorites: favorites,
-        loadFavorites: loadFavorites,
-        toggleFavorite: toggleFavorite,
-        isBookInFavorites: isBookInFavorites,
         getBookDetails: getBookDetails,
         addHoldingLocation: addHoldingLocation,
-        updateBookInFavorites: updateBookInFavorites,
         checkInternetConnection: checkInternetConnection
       };
 
@@ -180,54 +173,6 @@
         });
 
         return deferred.promise;
-      }
-
-      function loadFavorites() {
-        // Load stored favorites from localForage.
-
-        return $localForage.getItem('favorites')
-        .then(function(data) {
-          if (data) factory.favorites = data;
-        }, function() {
-          console.log('error in loadFavorites');
-        });
-      }
-
-      function toggleFavorite(book) {
-        // Add book if not already favorite, remove if already favorite.
-
-        if (book.isFavorite) {
-          // remove book from here
-          factory.favorites.splice(factory.favorites.indexOf(book),1);
-        }else{
-          // add book
-          factory.favorites.push(book);
-        }
-        // update storage
-        $localForage.setItem('favorites', factory.favorites);
-      }
-
-      function isBookInFavorites(id) {
-        // Determine whether the bookId is a book we can find in the stored favorites.
-
-        // @TODO: Decide whether to remove this function. Not used as of 16.dec
-
-        if (factory.favorites.length){
-          var found = $filter('filter')(factory.favorites, {id: id}, true);
-          if (found.length) return true;
-        }
-
-        // The book was not found
-        return false;
-      }
-
-      function updateBookInFavorites(book) {
-        // Removes current version in favorites and replaces with new
-
-        // remove old
-        factory.favorites.splice(factory.favorites.indexOf(book),1);
-        // add new
-        factory.favorites.push(book);
       }
 
       function getBestHoldings(holdings, config) {
@@ -393,7 +338,9 @@
           book.authors = book.creators.join(", ");
 
           // Since the book may have been updated in the backend since the last load, update the book in localForage.favorites if it's a favorite
-          if (isBookInFavorites(book.id)) updateBookInFavorites(book);
+          FavoriteFactory.get(book.id).then(function(res) {
+            if (res) FavoriteFactory.put(book.id, book);
+          });
 
           cacheBookCover(book.links.cover).then(function() {
             // Get location
@@ -506,6 +453,157 @@
     angular
       .module('factories')
       .factory('XisbnFactory', XisbnFactory);
+
+    // ------------------------------------------------------------------------
+
+    function FavoriteFactory($q, $timeout, $cordovaSQLite) {
+
+      var db;
+      var dbReady = false;
+
+      var factory = {
+        init: init,  // Initialize the connection, create tables if necessary
+        get: get,    // Get a single row by mms_id
+        put: put,    // Upsert a single row
+        rm: rm,      // Delete a single row
+        ls: ls       // Get all rows
+      };
+
+      return factory;
+
+      /////
+
+      /**
+       * Be careful to not call this before deviceReady / $ionicPlatform.ready
+       * to avoid a race condition.
+       */
+      function init() {
+        if (!ionic.Platform.isWebView()) return;  // Not on a device
+
+        db = $cordovaSQLite.openDB({ name: 'realfagsbiblioteket.db' });
+
+        // Queries are queued
+        $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS favorites (id INTEGER PRIMARY KEY, mms_id TEXT, created_at DATETIME DEFAULT CURRENT_TIMESTAMP, data BLOB)');
+        $cordovaSQLite.execute(db, 'CREATE UNIQUE INDEX IF NOT EXISTS mms_id_idx ON favorites (mms_id)').then(function(res) {
+          dbReady = true;
+        }, function(err) {
+          console.error('Query failed:', err);
+        });
+      }
+
+      function query(queryStr, args) {
+        var deferred = $q.defer();
+
+        if (!ionic.Platform.isWebView()) {
+          $timeout(deferred.resolve(null));
+          return deferred.promise;
+        }
+
+        if (!dbReady) {
+          $timeout(deferred.reject('Database is not ready'));
+          return deferred.promise;
+        }
+
+        $cordovaSQLite.execute(db, queryStr, args).then(function(res) {
+          deferred.resolve(res);
+        }, function(err) {
+          console.error('error in FavoriteFactory.query', err);
+          deferred.reject();
+        });
+
+        return deferred.promise;
+      }
+
+      function get(mmsId) {
+        var deferred = $q.defer();
+
+        query('SELECT data, created_at FROM favorites WHERE mms_id=?', [mmsId]).then(function(res) {
+          if (res.rows.length === 0) {
+            return deferred.resolve(null);
+          }
+          deferred.resolve({
+            data: JSON.parse(res.rows.item(0).data),
+            created_at: res.rows.item(0).created_at
+          });
+        }, function(err) {
+          deferred.reject();
+        });
+
+        return deferred.promise;
+      }
+
+      function ls() {
+        var deferred = $q.defer();
+
+        query('SELECT data, created_at FROM favorites', []).then(function(res) {
+          var rows = [];
+          for (var i = 0; i < res.rows.length; i++) {
+            rows.push({
+              data: JSON.parse(res.rows.item(i).data),
+              created_at: res.rows.item(i).created_at
+            });
+          }
+          deferred.resolve(rows);
+        }, function(err) {
+          console.error('error in FavoriteFactory.ls', err);
+          deferred.reject();
+        });
+
+        return deferred.promise;
+      }
+
+      function rm(mmsId) {
+        var deferred = $q.defer();
+
+        console.log('Delete:' , mmsId);
+        query('DELETE FROM favorites WHERE mms_id=?', [mmsId]).then(function(res) {
+          deferred.resolve(true);
+        }, function(err) {
+          console.error('error in FavoriteFactory.rm', err);
+          deferred.reject();
+        });
+
+        return deferred.promise;
+      }
+
+      function put(mmsId, data) {
+        var deferred = $q.defer();
+
+        data = JSON.stringify(data);
+
+        get(mmsId).then(function(row) {
+          if (row === null) {
+
+            console.log('Insert:' , mmsId);
+            query('INSERT INTO favorites (mms_id, data) VALUES (?, ?)', [mmsId, data]).then(function(res) {
+              deferred.resolve(true);
+            }, function(err) {
+              console.error('error in FavoriteFactory.put.INSERT', err);
+              deferred.reject();
+            });
+
+          } else {
+
+            console.log('Update:' , mmsId);
+            query('UPDATE favorites SET data=? WHERE mms_id=?', [data, mmsId]).then(function(res) {
+              deferred.resolve(true);
+            }, function(err) {
+              console.error('error in FavoriteFactory.put.UPDATE', err);
+              deferred.reject();
+            });
+
+          }
+
+        });
+        return deferred.promise;
+      }
+
+    }
+
+    // add it to our factories module
+    angular
+      .module('factories')
+      .factory('FavoriteFactory', FavoriteFactory);
 
     // ------------------------------------------------------------------------
 

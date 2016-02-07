@@ -8,10 +8,9 @@
     'factories',
     'controllers',
     'constants',
-    'LocalForageModule',
     'ngCordova'])
 
-  .run(function($ionicPlatform, $ionicPopup) {
+  .run(function($ionicPlatform, $ionicPopup, FavoriteFactory) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -49,6 +48,9 @@
             console.log(err);
         });
       }
+
+      FavoriteFactory.init();
+
     });
   })
 
@@ -63,13 +65,7 @@
         abstract: true,
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl',
-        controllerAs: 'vm',
-        resolve: {
-          loadFavorites: function(SearchFactory) {
-              // load any favorites stored
-              return SearchFactory.loadFavorites();
-          }
-        }
+        controllerAs: 'vm'
       })
       .state('app.intro', {
         url: '/intro',
