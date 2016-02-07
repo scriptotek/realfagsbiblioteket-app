@@ -72,7 +72,7 @@
         var deferred = $q.defer();
 
         $http({
-          url: 'http://app.uio.no/ub/bdi/realfagsbiblioteket/search.php',
+          url: 'https://bibapp.biblionaut.net/search.php',
           method: 'GET',
           cache: true,
           params: {
