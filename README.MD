@@ -6,6 +6,7 @@ Former https://github.com/saqimtiaz/BibSearch/
 
 ### Development
 
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/acfe39f1875f42849e0b92c1a052afc7)](https://www.codacy.com/app/danmichaelo/realfagsbiblioteket-app)
 [![Stories in Ready](https://badge.waffle.io/scriptotek/realfagsbiblioteket-app.svg?label=ready&title=Ready)](http://waffle.io/scriptotek/realfagsbiblioteket-app)
 
 * To build for Android you need Java and Android Studio. Use the SDK manager to fetch a recent SDK. Remember to set the `ANDROID_HOME` environment variable.
