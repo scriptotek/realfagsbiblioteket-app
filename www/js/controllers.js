@@ -367,7 +367,7 @@ function GroupCtrl(SearchFactory, $stateParams) {
           title: "Kart",
           content: "Denne appen krever en aktiv internett-tilkobling for å fungere.",
           buttons: [{ text: 'Tilbake' }]
-        })
+        });
       }
 
       // @TODO: Finish modal
