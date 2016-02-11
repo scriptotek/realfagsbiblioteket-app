@@ -7,7 +7,7 @@
 
     // ------------------------------------------------------------------------
 
-    function SearchFactory($http, $filter, $q, $sce, $ionicPopup, FavoriteFactory) {
+    function SearchFactory($http, $filter, $q, $sce, $ionicPopup, $ionicPlatform, FavoriteFactory) {
 
       var searchResult = {}; // Datastructure like:
       /*
@@ -19,19 +19,7 @@
         results: array of the actual books
       }
       */
-
-
-      var platform = ionic.Platform.platform();
-      var deviceInfo = ionic.Platform.device();
-      var appVersion = '';
-
-      if (navigator.appInfo !== undefined) {
-        navigator.appInfo.getAppInfo(function(appInfo) {
-          appVersion = appInfo.version;
-        }, function(err) {
-            console.log(err);
-        });
-      }
+      var platform, deviceInfo = {}, appVersion;
 
       var factory = {
         search: search,
@@ -42,9 +30,25 @@
         checkInternetConnection: checkInternetConnection
       };
 
+      activate();
+
       return factory;
 
       /////
+
+      function activate() {
+        $ionicPlatform.ready(function() {
+          platform = ionic.Platform.platform();
+          deviceInfo = ionic.Platform.device();
+          if (navigator.appInfo !== undefined) {
+            navigator.appInfo.getAppInfo(function(appInfo) {
+              appVersion = appInfo.version;
+            }, function(err) {
+                console.log(err);
+            });
+          }
+        });
+      }
 
       function checkInternetConnection() {
         // Give the user a warning if we can't see an internet connection
