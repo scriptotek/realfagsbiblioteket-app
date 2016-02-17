@@ -1,3 +1,18 @@
+<script id="book-map-modal.html" type="text/ng-template">
+  <ion-modal-view class="image-modal" ng-click="closeModal()">
+    <ion-scroll
+          zooming="true"
+          direction="xy" 
+          delegate-handle="zoom-pane" 
+          class="zoom-pane"
+          scrollbar-x="false" 
+          scrollbar-y="false" 
+          overflow-scroll="false">
+      <img ng-src="{{vm.imageUrl}}" >
+    </ion-scroll> 
+  </ion-modal-view>
+</script>
+
 <div>
     <div class="book card">
 
@@ -71,7 +86,7 @@
           </div>
 
           <div class="item" ng-if="holding.map_url_image">
-              <img ng-click="vm.mapPopup(holding)" ng-src="{{holding.map_url_image}}" alt="Kart" class="full-image">
+              <img ng-click="vm.mapModal(holding)" ng-src="{{holding.map_url_image}}" alt="Kart" class="full-image">
           </div>
 
         </div>

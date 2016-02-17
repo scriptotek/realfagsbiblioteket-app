@@ -316,13 +316,12 @@ function GroupCtrl(SearchFactory, $stateParams) {
 
     // ------------------------------------------------------------------------
 
-    function BookCtrl($stateParams, SearchFactory, $ionicLoading, $ionicPopup, $ionicModal, FavoriteFactory) {
+    function BookCtrl($stateParams, SearchFactory, $ionicLoading, $ionicPopup, $ionicModal, FavoriteFactory, $scope) {
       var vm = this;
 
       vm.book = null;
       vm.busy = true;
-      vm.mapPopup = mapPopup;
-      // vm.mapModal = mapModal; // un-comment when mapModal() is done
+      vm.mapModal = mapModal;
 
       // List of local libraries in preferred order.
       // @TODO: Get from some global config
@@ -361,29 +360,39 @@ function GroupCtrl(SearchFactory, $stateParams) {
 
       /////
 
-      function mapPopup(holding) {
-        $ionicPopup.confirm({
-          template: '<img src="' + encodeURI(holding.map_url_image + '&orientation=f') + '" alt="Kart" class="full-image">',
-          title: "Kart",
-          content: "Denne appen krever en aktiv internett-tilkobling for å fungere.",
-          buttons: [{ text: 'Tilbake' }]
+      function mapModal(holding) {
+
+        vm.imageUrl = encodeURI(holding.map_url_image + '&orientation=f');
+
+        $ionicModal.fromTemplateUrl('book-map-modal.html', {
+          scope: $scope,
+          animation: 'slide-in-up'
+        }).then(function(modal) {
+          $scope.modal = modal;
+          
+          $scope.openModal();
         });
+
+        $scope.openModal = function() {
+          $scope.modal.show();
+        };
+        $scope.closeModal = function() {
+          $scope.modal.hide();
+        };
+        //Cleanup the modal when we're done with it!
+        $scope.$on('$destroy', function() {
+          $scope.modal.remove();
+        });
+        // Execute action on hide modal
+        $scope.$on('modal.hidden', function() {
+          // Execute action
+        });
+        // Execute action on remove modal
+        $scope.$on('modal.removed', function() {
+          // Execute action
+        });
+
       }
-
-      // @TODO: Finish modal
-      // function mapModal(holding) {
-      //   console.log(42);
-      //   console.log($ionicModal.fromTemplate)
-
-      //   var modaltemplate = '<div><img src="' + encodeURI(holding.map_url_image + '&orientation=f') + '" alt="Kart"></div>';
-
-      //   var modal = $ionicModal.fromTemplate(modaltemplate, {
-      //     animation: 'slide-in-up'
-      //   });
-      //   modal.show()
-
-      //   console.log(modal)
-      // }
 
       function activate() {
         $ionicLoading.show({
