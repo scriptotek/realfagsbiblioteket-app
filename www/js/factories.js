@@ -377,7 +377,7 @@
 
         var deferred = $q.defer();
 
-        $http.get('http://app.uio.no/ub/bdi/bibsearch/loc2.php', {
+        $http.get('https://app.uio.no/ub/bdi/bibsearch/loc2.php', {
           params: {
             collection: holding.collection_code,
             callnumber: holding.callcode
@@ -394,7 +394,7 @@
           // If we have a floor_text, we can store map_position and map_url_image
           if (holding.floor_text!=="") {
             holding.map_position = data[0];
-            holding.map_url_image = "http://app.uio.no/ub/bdi/bibsearch/new.php?collection=" + holding.collection_code + "&callnumber=" + holding.callcode;
+            holding.map_url_image = "https://app.uio.no/ub/bdi/bibsearch/new.php?collection=" + holding.collection_code + "&callnumber=" + holding.callcode;
           }else{
             holding.map_position = "";
             holding.map_url_image = "";
