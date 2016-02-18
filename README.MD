@@ -66,3 +66,5 @@ The app originates from a 2012 user driven innovation student project [“Bookwo
 The app icon and related graphics was made by [Yvonne Edvartsen](https://github.com/trekkoppmus).
 
 The icons used in search results are made by [Freepik](http://www.freepik.com) from [www.flaticon.com](http://www.flaticon.com), and are licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/). The maps used are © OpenStreetMap contributors ([CC-BY-SA 2.0](http://creativecommons.org/licenses/by-sa/2.0/)).
+
+The social sharing icons used are [from here](http://www.graphicsfuel.com/2013/06/simple-flat-social-media-icons-psd-png/).
