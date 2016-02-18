@@ -363,8 +363,6 @@ function GroupCtrl(SearchFactory, $stateParams) {
       /////
 
       function shareBook(id, title, link) {
-        console.log(42);
-
         var subject = "Hei!";
         var message = "Sjekk ut denne boka: " +
           title;
