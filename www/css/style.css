@@ -45,6 +45,17 @@
   left: 0 !important;
   background: black !important;
 }
+.map-tag {
+   float: left;
+   position: fixed;
+   left: 0;
+   top: 0;
+   z-index: 1000;
+   background-color: #ff9800;
+   padding: 5px;
+   color: #FFFFFF;
+   font-weight: bold;
+}
 
 /* Fix modal backdrop for smaller devices */
 @media (max-width: 679px) {
