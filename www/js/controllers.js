@@ -316,12 +316,14 @@ function GroupCtrl(SearchFactory, $stateParams) {
 
     // ------------------------------------------------------------------------
 
-    function BookCtrl($stateParams, SearchFactory, $ionicLoading, $ionicPopup, $ionicModal, FavoriteFactory, $scope) {
+    function BookCtrl($stateParams, SearchFactory, $ionicLoading, $ionicPopup, $ionicModal, FavoriteFactory, $scope, $cordovaSocialSharing) {
       var vm = this;
 
       vm.book = null;
       vm.busy = true;
       vm.mapModal = mapModal;
+      vm.shareBook = shareBook;
+      vm.onDevice = false;
 
       // List of local libraries in preferred order.
       // @TODO: Get from some global config
@@ -359,6 +361,16 @@ function GroupCtrl(SearchFactory, $stateParams) {
       activate();
 
       /////
+
+      function shareBook(id, title, link) {
+        console.log(42);
+
+        var subject = "Hei!";
+        var message = "Sjekk ut denne boka: " +
+          title;
+
+        $cordovaSocialSharing.share(message, subject, null, link);
+      }
 
       function mapModal(holding) {
 
@@ -416,6 +428,11 @@ function GroupCtrl(SearchFactory, $stateParams) {
           vm.busy = false;
           vm.error = error;
         });
+
+        // Helper variable
+        if (window.cordova) {
+          vm.onDevice = true;
+        }
       }
 
       function toggleFavorite(book) {

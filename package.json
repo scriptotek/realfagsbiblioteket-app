@@ -17,7 +17,8 @@
     "cordova-plugin-appinfo",
     "cordova-plugin-network-information",
     "cordova-plugin-inappbrowser",
-    "cordova-sqlite-storage"
+    "cordova-sqlite-storage",
+    "cordova-plugin-x-socialsharing"
   ],
   "cordovaPlatforms": [
     "android",
