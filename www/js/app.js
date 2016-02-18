@@ -10,7 +10,7 @@
     'constants',
     'ngCordova'])
 
-  .run(function($ionicPlatform, $ionicPopup, $cordovaKeyboard, $cordovaStatusbar, FavoriteFactory) {
+  .run(function($ionicPlatform, $ionicPopup, $cordovaKeyboard, $cordovaStatusbar, FavoriteFactory, $http) {
     $ionicPlatform.ready(function() {
 
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -48,6 +48,34 @@
           // console.log('identifier: %s', appInfo.identifier);
           // console.log('version: %s', appInfo.version);
           // console.log('build: %s', appInfo.build);
+          // console.log('platform: %s', device.platform);
+
+          // appInfo.version device.platform
+
+          $http({
+            url: 'https://app.uio.no/ub/bdi/realfagsbiblioteket/status.php',
+            method: 'GET',
+            cache: false,
+            params: {
+              platform: device.platform,
+              version: appInfo.version
+            }
+          }).then(function(data) {
+            console.log("success in appjs checkstatus:");
+            console.log(data.data.message);
+          }, function(error) {
+            console.log("error in appjs checkstatus:");
+            console.log(error);
+            $ionicPopup.confirm({
+              title: "Server error",
+              content: "Det har oppstått en feil på serveren. Vennligst prøv igjen senere."
+            })
+            .then(function(result) {
+              if(!result) {
+                ionic.Platform.exitApp();
+              }
+            });
+          });
         }, function(err) {
             console.log(err);
         });
