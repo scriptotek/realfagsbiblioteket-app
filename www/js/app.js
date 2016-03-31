@@ -10,7 +10,7 @@
     'constants',
     'ngCordova'])
 
-  .run(function($ionicPlatform, $ionicPopup, $cordovaKeyboard, $cordovaStatusbar, FavoriteFactory, $http) {
+  .run(function($ionicPlatform, $ionicPopup, $cordovaKeyboard, $cordovaStatusbar, FavoriteFactory, $http, $rootScope) {
     $ionicPlatform.ready(function() {
 
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -83,10 +83,37 @@
 
       FavoriteFactory.init();
 
+      // Create a global error handler function on the window
+      // Instead of doing this, we might want to create a service that will handle logging. See http://www.bennadel.com/blog/2542-logging-client-side-errors-with-angularjs-and-stacktrace-js.htm for an example.
+      window.globalErrorHandler = function(error) {
+        console.log("globalErrorHandler got something");
+        // send to the server or something..
+      }
+
     });
   })
 
-  .config(function($stateProvider, $urlRouterProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $provide) {
+
+    // Decorate the default error handler to make use of the globalErrorHandler
+    $provide.decorator("$exceptionHandler", function($delegate){
+      return function(exception, cause){
+        // Our custom function on the window gets information about the exception:
+        window.globalErrorHandler({message:"Exception", reason:exception});
+        // Let the original $exceptionHandler do what it would do normally:
+        $delegate(exception, cause);
+      };
+    });
+
+    // The angular $exceptionHandler will only get errors that happens within angular. To also catch exception outside of the normal angular exceptions we will use window.onerror:
+    window.onerror = function(message, url, line, col, error) {
+      // Remember: if our scripts are minified, then the line number will not be very useful
+
+      console.log("Error in window.onerror:", message)
+
+      // Call our globalErrorHandler with the error object
+      window.globalErrorHandler(error);
+    }
 
     // set default route
     $urlRouterProvider.otherwise('/app/home');
@@ -106,7 +133,7 @@
             templateUrl: 'templates/intro.html'
           }
         }
-          
+
       })
       .state('app.home', {
           url: '/home',
@@ -176,7 +203,7 @@
           }
         }
       });
-    
+
   });
 
 })();
