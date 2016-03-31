@@ -3,6 +3,10 @@
   height: 2em;
 }
 
+.sortBySelected {
+  font-weight: bold;
+}
+
 /* Full screen image modal classes */
 .zoom-pane {
   width: 100% !important;

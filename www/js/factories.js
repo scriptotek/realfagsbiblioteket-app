@@ -63,11 +63,13 @@
         }
       }
 
-      function search(query, start) {
+      function search(query, start, sort) {
         // Fetch records from API for the given query
 
         // Set default value for start
         start = typeof start !== 'undefined' ? start : 1;
+        // Set default value for sortBy
+        sort = typeof sort !== 'undefined' ? sort : "date";
 
         var deferred = $q.defer();
 
@@ -81,7 +83,8 @@
             app_version: appVersion,
             device: deviceInfo.manufacturer + ' ' + deviceInfo.model,
             query: query,
-            start: start
+            start: start,
+            sort: sort
           }
         }).then(function(data) {
 

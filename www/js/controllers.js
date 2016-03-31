@@ -171,6 +171,7 @@
       vm.results = [];
       vm.search = search;
       vm.showEbooks = true;
+      vm.searchQuerySort = "date";
 
       // Total number of results (undefined until search carried out)
       vm.totalResults = undefined;
@@ -188,6 +189,7 @@
       vm.clickResult = clickResult;
       vm.loadMore = loadMore;
       vm.searchQueryUpdated = searchQueryUpdated;
+      vm.sortBy = sortBy;
 
       activate();
 
@@ -196,6 +198,16 @@
       function activate() {
         vm.searchQuery = $stateParams.query;
         vm.search();
+      }
+
+      function sortBy(sort) {
+        // Let's the user sort search results. This does not mean sorting the
+        // results already displayed. This performs a new search with the sort
+        // parameter updates
+        if (vm.searchQuerySort !== sort) {
+          vm.searchQuerySort = sort;
+          vm.search();
+        }
       }
 
       function searchQueryUpdated() {
@@ -214,7 +226,7 @@
         // console.log('> loadMore, starting from ' + (vm.results.length+1));
 
         vm.error = null;
-        SearchFactory.search(vm.searchQuery, vm.results.length+1)
+        SearchFactory.search(vm.searchQuery, vm.results.length+1, vm.searchQuerySort)
         .then(function(data) {
           vm.results = vm.results.concat(data.results);
           vm.totalResults = SearchFactory.searchResult.total_results;

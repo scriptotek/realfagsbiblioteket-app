@@ -15,8 +15,31 @@
         </label>
       </form>
 
-      <div ng-if="vm.totalResults !== undefined" class="item item-divider">
-        {{ vm.totalResults ? 'Fant ' + vm.totalResults + ' dokumenter' : 'Fant ingen dokumenter' }}
+      <div ng-if="vm.totalResults !== undefined">
+
+        <div class="item item-divider">
+          <div ng-if="vm.totalResults">
+            Fant {{vm.totalResults}} dokumenter.
+            <div class="text-right" style="float:right;">Sortér etter:
+              <span ng-click="vm.sortBy('date')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'date']">
+                dato
+              </span> -
+              <span ng-click="vm.sortBy('title')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'title']">
+                tittel
+              </span> -
+              <span ng-click="vm.sortBy('author')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'author']">
+                forfatter
+              </span> -
+              <span ng-click="vm.sortBy('popularity')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'popularity']">
+                popularitet
+              </span>
+            </div>
+          </div>
+          <div ng-if="!vm.totalResults">
+            Fant ingen dokumenter
+          </div>
+        </div>
+
         <!-- TODO: Toggle ebooks for v2.0
         <div ng-click="vm.toggleEbooks()" class="text-right" style="float:right">
           Show E-books
