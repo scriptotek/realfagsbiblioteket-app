@@ -211,7 +211,7 @@
       }
 
       function loadMore() {
-        console.log('> loadMore, starting from ' + (vm.results.length+1));
+        // console.log('> loadMore, starting from ' + (vm.results.length+1));
 
         vm.error = null;
         SearchFactory.search(vm.searchQuery, vm.results.length+1)
@@ -380,7 +380,7 @@ function GroupCtrl(SearchFactory, $stateParams) {
           animation: 'slide-in-up'
         }).then(function(modal) {
           $scope.modal = modal;
-          
+
           $scope.openModal();
         });
 
