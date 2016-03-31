@@ -384,7 +384,7 @@ function GroupCtrl(SearchFactory, $stateParams) {
 
       function mapModal(holding) {
 
-        vm.imageUrl = encodeURI(holding.map_url_image + '&orientation=f');
+        vm.imageUrl = holding.map_url_image + '&orientation=f';
         vm.callcode = holding.callcode;
 
         $ionicModal.fromTemplateUrl('book-map-modal.html', {
