@@ -487,7 +487,7 @@
       function init() {
         if (!ionic.Platform.isWebView()) return;  // Not on a device
 
-        db = $cordovaSQLite.openDB({ name: 'realfagsbiblioteket.db' });
+        db = $cordovaSQLite.openDB({ location: 'default', name: 'realfagsbiblioteket.db' });
 
         // Queries are queued
         $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS favorites (id INTEGER PRIMARY KEY, mms_id TEXT, created_at DATETIME DEFAULT CURRENT_TIMESTAMP, data BLOB)');
