@@ -13,8 +13,12 @@
         {{ vm.error || 'Det oppsto en ukjent feil.' }}
       </div>
 
-      <div class="item">
+      <div class="item" ng-if="!vm.cameraDenied">
         <button class="button button-full button-balanced" ng-click="vm.scan()">Prøv på nytt</button>
+      </div>
+
+      <div class="item" ng-if="vm.cameraDenied">
+        <button class="button button-full button-balanced" ng-click="vm.openPermissionSettings()">Gi tilgang</button>
       </div>
     </div>
 

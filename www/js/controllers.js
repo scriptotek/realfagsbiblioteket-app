@@ -53,7 +53,8 @@
       var vm = this;
 
       vm.authorTitleSearch = authorTitleSearch;
-      vm.scan = scan;
+      vm.scan = checkPermissions;
+      vm.openPermissionSettings = openPermissionSettings;
 
       $scope.$on('$ionicView.enter', activate);
 
@@ -66,6 +67,67 @@
         $ionicHistory.currentView($ionicHistory.backView());
 
         $state.go('app.search', {query: vm.title + ' ' + vm.author});
+      }
+
+      function notAuthorized() {
+        vm.error = 'Du må gi appen tilgang til kameraet hvis du ønsker å bruke strekkodelesing.';
+        vm.cameraDenied = true;
+      }
+
+      function checkPermissions() {
+
+        var diag = window.cordova.plugins.diagnostic;
+
+        console.log('Checking camera authorization status...');
+        diag.getPermissionAuthorizationStatus(function(status){
+          if (status === diag.permissionStatus.NOT_REQUESTED) {
+
+            console.log(' > Not requested yet. Requesting camera authorization...');
+            requestCameraPermission();
+          } else if (status === diag.permissionStatus.GRANTED) {
+            console.log(' > Camera use permission has been granted.');
+            scan();
+          } else if (status === diag.permissionStatus.DENIED) {
+            console.log(' > Camera use permission has been denied.');
+            if (window.device.platform == 'Android') {
+              // User denied access to this permission (without checking "Never Ask Again" box).
+              // App can request permission again and user will be prompted again to allow/deny again.
+              requestCameraPermission();
+            }
+            notAuthorized();
+          } else {
+            console.log(' > Camera use permission status is: ' + status);
+            notAuthorized();
+          }
+        }, function(error){
+          console.error('Failed to get camera authorization status: ' + error);
+          vm.error = error;
+        }, diag.permission.CAMERA);
+      }
+
+      function requestCameraPermission() {
+        var diag = window.cordova.plugins.diagnostic;
+        diag.requestRuntimePermission(function(status){
+          if (status == diag.permissionStatus.GRANTED) {
+            console.log(' > Authorization granted.');
+            scan();
+          } else {
+            console.log(' > Authorization denied.');
+            notAuthorized();
+          }
+        }, function(error){
+          console.error(error);
+          vm.error = error;
+        }, diag.permission.CAMERA);
+      }
+
+      function openPermissionSettings() {
+        var diag = window.cordova.plugins.diagnostic;
+        diag.switchToSettings(function(){
+          console.log('Successfully switched to Settings app');
+        }, function(error){
+          console.error('Failed switching to Settings app: ' + error);
+        });
       }
 
       function scan() {
@@ -85,6 +147,7 @@
         vm.title = undefined;
         vm.isbn = undefined;
         vm.error = undefined;
+        vm.cameraDenied = false;
       }
 
       function activate() {
