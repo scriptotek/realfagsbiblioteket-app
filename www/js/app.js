@@ -88,7 +88,7 @@
       window.globalErrorHandler = function(error) {
         console.log("globalErrorHandler got something");
         // send to the server or something..
-      }
+      };
 
     });
   })
@@ -109,11 +109,11 @@
     window.onerror = function(message, url, line, col, error) {
       // Remember: if our scripts are minified, then the line number will not be very useful
 
-      console.log("Error in window.onerror:", message)
+      console.log("Error in window.onerror:", message);
 
       // Call our globalErrorHandler with the error object
       window.globalErrorHandler(error);
-    }
+    };
 
     // set default route
     $urlRouterProvider.otherwise('/app/home');
