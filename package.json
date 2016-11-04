@@ -7,19 +7,6 @@
     "url": "git+https://github.com/scriptotek/realfagsbiblioteket-app.git"
   },
   "license": "MIT",
-  "cordovaPlugins": [
-    "cordova-plugin-device",
-    "cordova-plugin-console",
-    "cordova-plugin-whitelist",
-    "cordova-plugin-splashscreen",
-    "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard",
-    "cordova-plugin-appinfo",
-    "cordova-plugin-network-information",
-    "cordova-plugin-inappbrowser",
-    "cordova-sqlite-storage",
-    "cordova-plugin-x-socialsharing"
-  ],
   "cordovaPlatforms": [
     "android",
     "ios"
