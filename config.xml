@@ -11,14 +11,6 @@
       Scriptoteket
     </author>
     <content src="index.html" />
-    <access origin="http://app.uio.no" />
-    <access origin="https://app.uio.no" />
-    <access origin="https://bibapp.biblionaut.net" />
-    <access origin="https://lsm.biblionaut.net" />
-    <access origin="http://innhold.bibsys.no" />
-    <access origin="https://innhold.bibsys.no" />
-    <access origin="http://xisbn.worldcat.org" />
-    <access origin="https://exlibrisgroup.com" subdomains="true" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
