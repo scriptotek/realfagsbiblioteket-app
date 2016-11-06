@@ -129,7 +129,7 @@
         }
       })
       .state('app.search', {
-        url: '/search/:query',
+        url: '/search?query',
         views: {
           'menuContent': {
             templateUrl: 'templates/search.html',
