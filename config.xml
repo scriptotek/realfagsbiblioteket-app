@@ -19,9 +19,6 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="StatusBarBackgroundColor" value="#F57C00" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
-    <feature name="Keyboard">
-        <param name="ios-package" onload="true" value="IonicKeyboard" />
-    </feature>
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
@@ -83,7 +80,6 @@
     <plugin name="cordova-plugin-whitelist" spec="~1.3.0" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.0" />
     <plugin name="cordova-plugin-statusbar" spec="~2.2.0" />
-    <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
     <plugin name="cordova-plugin-appinfo" spec="~2.0.3" />
     <plugin name="cordova-plugin-network-information" spec="~1.3.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="~1.5.0" />
