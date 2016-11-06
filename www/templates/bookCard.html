@@ -28,7 +28,7 @@
           </a>
         </span>
 
-        <h2 style="white-space: normal">{{book.title}}</h2>
+        <h2>{{book.title}}</h2>
         <p>{{book.authors}}</p>
       </div>
 
@@ -106,6 +106,11 @@
         </div>
 -->
 
+      <div class="item item-footer item-icon-left" ng-click="vm.shareBook(book)">
+        <i class="icon ion-share"></i>
+        Del denne boka
+      </div>
+
     </div><!-- End of card -->
 
     <!-- @TODO: Make subject search work -->
@@ -120,19 +125,7 @@
           </span>
         </p>
       </div>
-    </div><!-- End of card -->
 
-    <div class="card" ng-if="vm.onDevice">
-      <div class="item item-text-wrap">
-        <p>
-          <div class="label" style="padding-bottom:.6em;">Del denne boka</div>
-          <img class="shareIcon" src="img/twitter.png" alt="Del via Twitter" ng-click="vm.shareBook(book.id, book.title, book.links.primo)">
-          <img class="shareIcon" src="img/facebook.png" alt="Del via Facebook" ng-click="vm.shareBook(book.id, book.title, book.links.primo)">
-          <img class="shareIcon" src="img/google-plus.png" alt="Del via Google+" ng-click="vm.shareBook(book.id, book.title, book.links.primo)">
-          <!-- <img class="shareIcon" src="img/instagram.png" alt="Del via Instagram" ng-click="vm.shareBook(book.id, book.title, book.links.primo)"> -->
-          <img class="shareIcon" src="img/email.png" alt="Del via E-post" ng-click="vm.shareBook(book.id, book.title, book.links.primo)">
-        </p>
-      </div>
     </div><!-- End of card -->
 
 </div>

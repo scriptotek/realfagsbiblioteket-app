@@ -1,6 +1,19 @@
-.shareIcon {
-  width: 2em;
-  height: 2em;
+.platform-android .ion-share:before {
+  content: '\f2f8';
+}
+
+.platform-ios .ion-share:before {
+  content: '\f220';
+}
+
+.book.card h2 {
+  white-space: normal;
+  padding-top: 4px;
+  padding-bottom: 6px;
+}
+
+.item-footer {
+  border-top: 1px solid #ddd;
 }
 
 .sortBySelected {

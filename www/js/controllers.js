@@ -499,12 +499,16 @@ function GroupCtrl(SearchFactory, $stateParams) {
 
       /////
 
-      function shareBook(id, title, link) {
+      function shareBook(book) {
         var subject = "Hei!";
         var message = "Sjekk ut denne boka: " +
-          title;
+          book.title;
 
-        $cordovaSocialSharing.share(message, subject, null, link);
+        if (vm.onDevice) {
+          $cordovaSocialSharing.share(message, subject, null, book.links.primo);
+        } else {
+          alert('Not running on a device');
+        }
       }
 
       function mapModal(holding) {
