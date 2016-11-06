@@ -53,7 +53,7 @@
       var vm = this;
 
       vm.authorTitleSearch = authorTitleSearch;
-      vm.scan = checkPermissions;
+      vm.scan = checkCamera;
       vm.openPermissionSettings = openPermissionSettings;
 
       $scope.$on('$ionicView.enter', activate);
@@ -69,9 +69,27 @@
         $state.go('app.search', {query: vm.title + ' ' + vm.author});
       }
 
+      function setError(msg) {
+        vm.error = msg;
+      }
+
       function notAuthorized() {
-        vm.error = 'Du må gi appen tilgang til kameraet hvis du ønsker å bruke strekkodelesing.';
         vm.cameraDenied = true;
+        $scope.$apply(setError('Du må gi appen tilgang til kameraet hvis du ønsker å bruke strekkodelesing.'));
+      }
+
+      function checkCamera() {
+        var diag = window.cordova.plugins.diagnostic;
+        diag.isCameraPresent(function(present) {
+          if (present) {
+            checkPermissions();
+          } else {
+            $scope.$apply(setError('No camera found on this device.'));
+          }
+        }, function(error) {
+          console.error('Failed to get camera status: ' + error);
+          $scope.$apply(setError(error));
+        });
       }
 
       function checkPermissions() {
