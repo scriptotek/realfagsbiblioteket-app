@@ -5,4 +5,10 @@ node_modules/
 platforms/
 plugins/
 www/build/
-scandit-barcodescanner-community-phonegap_4.11.0/
+scandit-barcodescanner-community-phonegap*
+yarn.lock
+*.mobileprovision
+*.apk
+*.cer
+*.log
+*.key
