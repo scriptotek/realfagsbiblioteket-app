@@ -4,6 +4,18 @@ Ionic-based app (Android, iOs) for searching and navigating the UiO Science Libr
 
 Former https://github.com/saqimtiaz/BibSearch/
 
+Useful adb commands:
+
+    adb shell am start -a android.intent.action.DELETE -d package:no.uio.ub.realfagsbiblioteket
+    adb shell pm revoke no.uio.ub.realfagsbiblioteket android.permission.CAMERA
+
+
+### Server dependencies
+
+- bibapp.biblionaut.net (just a proxy for lsm)
+- lsm.biblionaut.net
+- https://app.uio.no/ub/bdi/realfagsbiblioteket/status.php
+
 ### Development
 
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/acfe39f1875f42849e0b92c1a052afc7)](https://www.codacy.com/app/danmichaelo/realfagsbiblioteket-app)
@@ -30,7 +42,16 @@ A few useful commands:
 
 #### Preparing a release
 
-Remember to bump version in `config.xml`.
+Remember to
+
+- `config.xml`: Bump version.
+- `config.xml`: Remove this:
+  ```xml
+    <gap:config-file parent="/manifest" platform="android">
+      <application android:debuggable="true"/>
+    </gap:config-file>
+  ```
+- `index.html`: Switch to production Content Security Policy
 
 Android:
 
@@ -58,6 +79,27 @@ Additional notes for iOs/XCode:
 * UiO has a organization membership to Apple Developer, so you need to be added to the organization.
 * Once added, you can request a certificate (press the plus button under `iOs certificates` at https://developer.apple.com/membercenter/). Follow the instructions and add the certificate to your keychain.
 * In XCode: log in to your Apple ID under `Preferences → Accounts` and download the provisioning profile under `View details`.
+
+
+## Tips
+
+* Using Ionic CLI 2.1.4 and iOs 10.1, running
+
+    ionic emulate ios --livereload --consolelogs --serverlogs
+
+gave me
+
+    0     657911   log      deviceready has not fired after 5 seconds.
+    1     657940   log      Channel not fired: onAppInfoReady
+    2     657941   log      Channel not fired: onCordovaInfoReady
+    3     657944   log      Channel not fired: onCordovaConnectionReady
+
+Turned out to be caused by my development Content-Security-Policy, and fixed
+by adding `default-src gap://ready *`. This led to the status page failing with
+status 0, though, which I first thought was related, but it was not. This turned
+out to be an issue with an outdated ssl configuration (cipher set or something)
+at app.uio.no. Moving the status page to another server solved the problem.
+
 
 ### Credits
 
