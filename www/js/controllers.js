@@ -349,8 +349,8 @@
         vm.error = null;
         SearchFactory.search(vm.searchQuery, vm.results.length+1, vm.searchQuerySort)
         .then(function(data) {
-          vm.results = vm.results.concat(data.results);
-          vm.totalResults = SearchFactory.searchResult.total_results;
+          vm.results = data.results;
+          vm.totalResults = data.total_results;
 
           vm.noResults = (vm.results.length===0);
           searchCompleted();

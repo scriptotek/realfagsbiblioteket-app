@@ -67,6 +67,29 @@
         }
       }
 
+      function processSearchResults(results) {
+        return results.map(function(book) {
+          // Create a display-friendly authors-variable
+          book.authors = book.creators.join(", ");
+
+          function reduceMaterial(book) {
+            if (book.type == 'group') {
+              return 'flere utgaver';
+            }
+            if (book.material.indexOf('e-books') !== -1) {
+              return 'e-bok';
+            }
+            if (book.material.indexOf('print-books') !== -1) {
+              return 'trykt bok';
+            }
+          }
+
+          book.material = reduceMaterial(book);
+
+          return book;
+        });
+      }
+
       function search(query, start, sort) {
         // Fetch records from API for the given query
 
@@ -77,7 +100,10 @@
 
         var deferred = $q.defer();
 
+        var device = deviceInfo.manufacturer ? deviceInfo.manufacturer + ' ' + deviceInfo.model : null;
+
         $http({
+          // url: 'https://ub-www01.uio.no/realfagsbiblioteket-app/search',
           url: 'https://bibapp.biblionaut.net/search.php',
           method: 'GET',
           cache: true,
@@ -85,59 +111,32 @@
             platform: platform,
             platform_version: deviceInfo.version,
             app_version: appVersion,
-            device: deviceInfo.manufacturer + ' ' + deviceInfo.model,
+            device: device,
             query: query,
             start: start,
             sort: sort
           }
-        }).then(function(data) {
+        }).then(function(response) {
 
-          var newResult = data.data;
-
-          // Do some preprocessing for each book
-          angular.forEach(newResult.results, function(book) {
-            // Create a display-friendly authors-variable
-            book.authors = book.creators.join(", ");
-
-            var whichIcons = function(material) {
-              // Figure out which icons should be shown for this search result
-
-              var availableIcons = ["ebook", "book", "other"];
-              var icons = [];
-              angular.forEach(material, function(value, index, array) {
-                // electronic
-                if (value.indexOf("e-") != -1) {
-                  if (icons.indexOf("ebook") === -1) icons.push("ebook");
-                }
-                // book
-                else if (value.indexOf("print-books") != -1) {
-                  if (icons.indexOf("book") === -1) icons.push("book");
-                }
-                // other
-                else if (value.indexOf("books") === -1) {
-                  if (icons.indexOf("other") === -1) icons.push("other");
-                }
-              });
-
-              return icons;
-            };
-
-            // Decide which icon to use.
-            book.icons = whichIcons(book.material);
-          });
+          var results = processSearchResults(response.data.results);
 
           // New search?
           if (start === 1) {
-            factory.searchResult = newResult;
+            factory.searchResult = {
+              total_results: response.data.total_results,
+              results: results,
+              first: response.data.first,
+              next: response.data.next,
+            };
           } else {
             // Need to concat newResults and update variables
-            factory.searchResult.results = factory.searchResult.results.concat(newResult.results);
-            factory.searchResult.first = newResult.first;
-            factory.searchResult.next = newResult.next;
+            factory.searchResult.results = factory.searchResult.results.concat(results);
+            factory.searchResult.first = response.data.first;
+            factory.searchResult.next = response.data.next;
           }
 
           // Resolve the promise. This will send the (new) search results to the success function in the controller
-          deferred.resolve(newResult);
+          deferred.resolve(factory.searchResult);
 
         }, function(error) {
           console.log('error in search factory');
@@ -149,29 +148,27 @@
       }
 
       function lookUpGroup(id) {
-        // @TODO: Remove? If not, update to use new factory.searchResult structure.
-
         // Fetch group records from API for the given id
 
-        factory.searchResults = [];
         var deferred = $q.defer();
 
-        // @TODO: Remove hard dependency on *.biblionaut.net by using `links.group` URL from search result
+        var url = 'https://lsm.biblionaut.net/primo/groups/' + id;
+        // var url = 'https://ub-lsm.uio.no/primo/groups/' + id;
+
         $http({
-          url: 'https://lsm.biblionaut.net/primo/groups/' + id,
+          url: url,
           method: 'GET',
           cache: true,
-        }).then(function(data) {
+        }).then(function(response) {
 
-          factory.searchResults = data.data.result.records;
+          var results = processSearchResults(response.data.result.records);
 
-          angular.forEach(factory.searchResults, function(book) {
-            // Create a display-friendly authors-variable
-            book.authors = book.creators.join(", ");
-          });
+          factory.searchResult = {
+            results: results
+          };
 
           // Resolve the promise. This will send the search results to the success function in the controller
-          deferred.resolve(factory.searchResults);
+          deferred.resolve(results);
 
         }, function(error) {
           console.log('error in search factory');
@@ -329,11 +326,13 @@
       function getBookDetails(id, config) {
         // Find details for the book(s) with given id
 
+        var url = 'https://lsm.biblionaut.net/primo/records/' + id;
+        // var url = 'https://ub-lsm.uio.no/primo/records/' + id;
+
         // We'll return a promise, which will resolve with a book if found, or with an error if not.
         var deferred = $q.defer();
 
-        // @TODO: Remove hard dependency on *.biblionaut.net by using `links.self` URL from search result
-        $http.get('https://lsm.biblionaut.net/primo/records/' + id)
+        $http.get(url)
         .then(function(data) {
           book = data.data.result;
 
