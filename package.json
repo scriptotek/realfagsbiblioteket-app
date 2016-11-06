@@ -15,6 +15,7 @@
     "postinstall": "bower i && gulp && ionic state reset && ionic config build"
   },
   "devDependencies": {
+    "async": "^1.5.2",
     "bower": "^1.7.7",
     "elementtree": "^0.1.6",
     "gulp": "^3.9.0",
@@ -24,10 +25,9 @@
     "gulp-replace-task": "^0.11.0",
     "gulp-sass": "^2.2.0",
     "gulp-util": "^3.0.7",
+    "jshint": "^2.9.1",
     "path": "^0.12.7",
     "plist": "^1.2.0",
-    "shelljs": "^0.5.3",
-    "jshint": "^2.9.1",
-    "async": "^1.5.2"
+    "shelljs": "^0.5.3"
   }
 }
