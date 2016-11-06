@@ -1,13 +1,16 @@
 <ion-view view-title="Bok">
   <ion-content>
 
-    <ion-slide-box show-pager="false" ng-if="vm.books">
+<!--    <ion-slide-box show-pager="false" ng-if="vm.books">
       <ion-slide ng-repeat="book in vm.books">
 
         <div ng-include src="'templates/bookCard.html'"></div>
 
       <ion-slide>
     </ion-slide-box>
+-->
+    <div ng-repeat="book in vm.books" ng-include src="'templates/bookCard.html'"></div>
+
 
     <div class="book card" ng-if="!vm.busy && !vm.books">
       <div class="item item-icon-left assertive">
