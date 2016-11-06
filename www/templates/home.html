@@ -1,6 +1,13 @@
 <ion-view view-title="Realfagsbiblioteket">
   <ion-content padding="true">
 
+    <div class="card" ng-if="vm.status">
+      <div class="item item-icon-left item-text-wrap assertive">
+        <i class="icon ion-alert-circled"></i>
+        {{ vm.status }}
+      </div>
+    </div>
+
 
     <div class="card">
 
