@@ -30,6 +30,11 @@ filestocopy.forEach(function(obj) {
         console.log('Copying ' + srcfile + ' to ' + destdir);
 
         if (!fs.existsSync(destdir)) {
+
+            if (!fs.existsSync(path.dirname(destdir))) {
+                console.log('Skipping, seems like the entire platform is missing...');
+                return;
+            }
             fs.mkdirSync(destdir);
         }
 
