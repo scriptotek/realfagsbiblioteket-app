@@ -247,7 +247,13 @@
             // @TODO: Remove if https://github.com/driftyco/ionic/pull/3811 get merged
             $ionicHistory.currentView($ionicHistory.backView());
 
-            $state.go('app.single', {id: data.results[0].id});
+            var result = data.results[0];
+
+            if (result.type == 'group') {
+              $state.go('app.group', {id: result.id});
+            } else {
+              $state.go('app.single', {id: result.id});
+            }
 
           } else {
 
@@ -408,8 +414,6 @@
     // ------------------------------------------------------------------------
 
 function GroupCtrl(SearchFactory, $stateParams) {
-      // @TODO: Remove?
-
       var vm = this;
 
       // Variables
