@@ -25,8 +25,8 @@
       $scope.$on('$ionicView.enter', activate);
 
       function activate() {
-        FavoriteFactory.ls().then(function(res) {
-          vm.results = res.map(function(row) { return row.data; });
+        FavoriteFactory.ls().then(function(results) {
+          vm.results = results.map(function(row) { return row.book; });
         });
       }
     }
@@ -580,9 +580,9 @@ function GroupCtrl(SearchFactory, $stateParams) {
 
         // Update storage
         if (book.isFavorite) {
-          FavoriteFactory.put(book.id, book);
+          FavoriteFactory.put(book);
         } else {
-          FavoriteFactory.rm(book.id);
+          FavoriteFactory.rm(book);
         }
       }
     }

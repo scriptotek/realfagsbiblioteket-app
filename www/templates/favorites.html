@@ -1,7 +1,7 @@
 <ion-view view-title="Favoritter">
   <ion-content>
     <ion-list>
-      <ion-item ng-repeat="book in vm.results track by book.id" href="#/app/view/{{book.id}}">
+      <ion-item ng-repeat="book in vm.results track by book.id" ui-sref="app.single({id: book.id})">
         <div ng-include src="'templates/listResults.html'"></div>
       </ion-item>
     </ion-list>

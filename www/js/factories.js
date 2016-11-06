@@ -5,9 +5,67 @@
     // define the module that will hold all the factories we're gonna use
     angular.module('factories', []);
 
+
     // ------------------------------------------------------------------------
 
-    function SearchFactory($http, $filter, $q, $sce, $ionicPopup, $ionicPlatform, FavoriteFactory) {
+    function BookFactory() {
+
+      function Book(data) {
+
+        // Store a clone of the original data
+        if (typeof data == 'string') {
+          this._data = data;
+        } else {
+          this._data = JSON.stringify(data);
+        }
+
+        var bookData = JSON.parse(this._data);
+
+        // Create a display-friendly authors-variable
+        bookData.authors = bookData.creators.join(", ");
+
+        function reduceMaterial(book) {
+          if (book.type == 'group') {
+            return 'flere utgaver';
+          }
+          if (book.material.indexOf('e-books') !== -1) {
+            return 'e-bok';
+          }
+          if (book.material.indexOf('print-books') !== -1) {
+            return 'trykt bok';
+          }
+        }
+
+        if (typeof bookData.material == 'object') {
+          bookData.material = reduceMaterial(bookData);
+        }
+
+        var that = this;
+        Object.keys(bookData).forEach(function(key) {
+          that[key] = bookData[key];
+        });
+        console.log(this);
+      }
+      // Define the "instance" methods using the prototype
+      // and standard prototypal inheritance.
+      Book.prototype = {
+        getData: function() {
+          return JSON.parse(this._data);
+        }
+      };
+
+      return Book;
+    }
+
+
+    // add it to our factories module
+    angular
+      .module('factories')
+      .factory('Book', BookFactory);
+
+    // ------------------------------------------------------------------------
+
+    function SearchFactory($http, $filter, $q, $sce, $ionicPopup, $ionicPlatform, FavoriteFactory, Book) {
 
       var searchResult = {}; // Datastructure like:
       /*
@@ -68,25 +126,8 @@
       }
 
       function processSearchResults(results) {
-        return results.map(function(book) {
-          // Create a display-friendly authors-variable
-          book.authors = book.creators.join(", ");
-
-          function reduceMaterial(book) {
-            if (book.type == 'group') {
-              return 'flere utgaver';
-            }
-            if (book.material.indexOf('e-books') !== -1) {
-              return 'e-bok';
-            }
-            if (book.material.indexOf('print-books') !== -1) {
-              return 'trykt bok';
-            }
-          }
-
-          book.material = reduceMaterial(book);
-
-          return book;
+        return results.map(function(bookData) {
+          return new Book(bookData);
         });
       }
 
@@ -334,18 +375,18 @@
 
         $http.get(url)
         .then(function(data) {
-          book = data.data.result;
+          book = new Book(data.data.result);
 
           // Add display-friendly variables for displaying availability
           processPrintAvailability(book, config);
           processElectronicAvailability(book);
 
-          // Create display-friendly authors-variable
-          book.authors = book.creators.join(", ");
-
-          // Since the book may have been updated in the backend since the last load, update the book in localForage.favorites if it's a favorite
           FavoriteFactory.get(book.id).then(function(res) {
-            if (res) FavoriteFactory.put(book.id, book);
+            if (res) {
+              // Since the book may have been updated in the backend since the last load,
+              // update the local copy.
+              FavoriteFactory.put(book);
+            }
           });
 
           cacheBookCover(book.links.cover).then(function() {
@@ -462,7 +503,7 @@
 
     // ------------------------------------------------------------------------
 
-    function FavoriteFactory($q, $timeout, $cordovaSQLite) {
+    function FavoriteFactory($q, $timeout, $cordovaSQLite, Book) {
 
       var db;
       var dbReady = false;
@@ -518,7 +559,7 @@
           $timeout(function() {
             var q = sessionStorage.getItem(mmsId);
             if (q) q = {
-              data: JSON.parse(sessionStorage.getItem(mmsId)),
+              book: new Book(sessionStorage.getItem(mmsId)),
               created_at: null
             };
             deferred.resolve(q);
@@ -531,7 +572,7 @@
             return deferred.resolve(null);
           }
           deferred.resolve({
-            data: JSON.parse(res.rows.item(0).data),
+            book: new Book(res.rows.item(0).data),
             created_at: res.rows.item(0).created_at
           });
         }, function(err) {
@@ -550,7 +591,7 @@
             var rows = [];
             for (var i = 0; i < sessionStorage.length; i++){
                 rows.push({
-                  data: JSON.parse(sessionStorage.getItem(sessionStorage.key(i))),
+                  book: new Book(sessionStorage.getItem(sessionStorage.key(i))),
                   created_at: null
                 });
             }
@@ -563,7 +604,7 @@
           var rows = [];
           for (var i = 0; i < res.rows.length; i++) {
             rows.push({
-              data: JSON.parse(res.rows.item(i).data),
+              book: new Book(res.rows.item(i).data),
               created_at: res.rows.item(i).created_at
             });
           }
@@ -576,17 +617,17 @@
         return deferred.promise;
       }
 
-      function rm(mmsId) {
+      function rm(book) {
         var deferred = $q.defer();
 
         if (!ionic.Platform.isWebView()) {
           // Not on a device. Use SessionStorage for testing
-          $timeout(function() { deferred.resolve(sessionStorage.removeItem(mmsId)); });
+          $timeout(function() { deferred.resolve(sessionStorage.removeItem(book.id)); });
           return deferred.promise;
         }
 
-        console.log('Delete:' , mmsId);
-        query('DELETE FROM favorites WHERE mms_id=?', [mmsId]).then(function(res) {
+        console.log('Favorites: Delete:' , book.id);
+        query('DELETE FROM favorites WHERE mms_id=?', [book.id]).then(function(res) {
           deferred.resolve(true);
         }, function(err) {
           console.error('error in FavoriteFactory.rm', err);
@@ -596,22 +637,21 @@
         return deferred.promise;
       }
 
-      function put(mmsId, data) {
+      function put(book) {
         var deferred = $q.defer();
-
-        data = JSON.stringify(data);
+        var data = JSON.stringify(book.getData());
 
         if (!ionic.Platform.isWebView()) {
           // Not on a device. Use SessionStorage for testing
-          $timeout(function() { deferred.resolve(sessionStorage.setItem(mmsId, data)); });
+          $timeout(function() { deferred.resolve(sessionStorage.setItem(book.id, data)); });
           return deferred.promise;
         }
 
-        get(mmsId).then(function(row) {
+        get(book.id).then(function(row) {
           if (row === null) {
 
-            console.log('Insert:' , mmsId);
-            query('INSERT INTO favorites (mms_id, data) VALUES (?, ?)', [mmsId, data]).then(function(res) {
+            console.log('Insert:' , book.id);
+            query('INSERT INTO favorites (mms_id, data) VALUES (?, ?)', [book.id, data]).then(function(res) {
               deferred.resolve(true);
             }, function(err) {
               console.error('error in FavoriteFactory.put.INSERT', err);
@@ -620,8 +660,8 @@
 
           } else {
 
-            console.log('Update:' , mmsId);
-            query('UPDATE favorites SET data=? WHERE mms_id=?', [data, mmsId]).then(function(res) {
+            console.log('Update:' , book.id);
+            query('UPDATE favorites SET data=? WHERE mms_id=?', [data, book.id]).then(function(res) {
               deferred.resolve(true);
             }, function(err) {
               console.error('error in FavoriteFactory.put.UPDATE', err);
