@@ -4,12 +4,6 @@ Ionic-based app (Android, iOs) for searching and navigating the UiO Science Libr
 
 Former https://github.com/saqimtiaz/BibSearch/
 
-Useful adb commands:
-
-    adb shell am start -a android.intent.action.DELETE -d package:no.uio.ub.realfagsbiblioteket
-    adb shell pm revoke no.uio.ub.realfagsbiblioteket android.permission.CAMERA
-
-
 ### Server dependencies
 
 - bibapp.biblionaut.net (just a proxy for lsm)
@@ -39,6 +33,11 @@ A few useful commands:
 * `ionic serve` to start a dev server
 * `ionic run android --device` to run on a connected Android device with USB debugging enabled
 * `ionic emulate --target="iPhone-4s" ios` (`ios-sim showdevicetypes` to list available devices)
+
+Useful adb commands:
+
+* `adb shell am start -a android.intent.action.DELETE -d package:no.uio.ub.realfagsbiblioteket`
+* `adb shell pm revoke no.uio.ub.realfagsbiblioteket android.permission.CAMERA`
 
 #### Preparing a release
 
@@ -100,6 +99,8 @@ status 0, though, which I first thought was related, but it was not. This turned
 out to be an issue with an outdated ssl configuration (cipher set or something)
 at app.uio.no. Moving the status page to another server solved the problem.
 
+
+Ran into https://github.com/driftyco/ionic-cli/issues/1608
 
 ### Credits
 
