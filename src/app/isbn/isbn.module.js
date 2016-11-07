@@ -30,9 +30,14 @@
       vm.error = msg;
     }
 
+    function diagnosticError(error) {
+      console.error(error);
+      $scope.$apply(setError(error));
+    }
+
     function notAuthorized() {
       vm.cameraDenied = true;
-      $scope.$apply(setError('Du må gi appen tilgang til kameraet hvis du ønsker å bruke strekkodelesing.'));
+      $scope.$apply(setError('Du må gi appen tilgang til å bruke kameraet hvis du ønsker å lese strekkoder.'));
     }
 
     function checkCamera() {
@@ -43,57 +48,58 @@
         } else {
           $scope.$apply(setError('No camera found on this device.'));
         }
-      }, function(error) {
-        console.error('Failed to get camera status: ' + error);
-        $scope.$apply(setError(error));
-      });
+      }, diagnosticError);
     }
 
     function checkPermissions() {
-
       var diag = window.cordova.plugins.diagnostic;
-
       console.log('Checking camera authorization status...');
-      diag.getPermissionAuthorizationStatus(function(status){
-        if (status === diag.permissionStatus.NOT_REQUESTED) {
+      if (window.device.platform === 'Android') {
+        // We won't use diag.getCameraAuthorizationStatus, since it also asks
+        // for READ_EXTERNAL_STORAGE, which we don't need.
+        diag.getPermissionAuthorizationStatus(checkAuthorizationStatus, diagnosticError, diag.permission.CAMERA);
+      } else {
+        diag.getCameraAuthorizationStatus(checkAuthorizationStatus, diagnosticError);
+      }
+    }
 
-          console.log(' > Not requested yet. Requesting camera authorization...');
-          requestCameraPermission();
-        } else if (status === diag.permissionStatus.GRANTED) {
-          console.log(' > Camera use permission has been granted.');
-          scan();
-        } else if (status === diag.permissionStatus.DENIED) {
-          console.log(' > Camera use permission has been denied.');
-          if (window.device.platform == 'Android') {
-            // User denied access to this permission (without checking "Never Ask Again" box).
-            // App can request permission again and user will be prompted again to allow/deny again.
-            requestCameraPermission();
-          }
-          notAuthorized();
-        } else {
-          console.log(' > Camera use permission status is: ' + status);
-          notAuthorized();
-        }
-      }, function(error){
-        console.error('Failed to get camera authorization status: ' + error);
-        vm.error = error;
-      }, diag.permission.CAMERA);
+    function checkAuthorizationStatus(status) {
+      var diag = window.cordova.plugins.diagnostic;
+      if (status === diag.permissionStatus.GRANTED) {
+        console.log(' > Camera use permission has been granted.');
+        scan();
+      } else if (status === diag.permissionStatus.NOT_REQUESTED || status === diag.permissionStatus.NOT_DETERMINED) {
+        console.log(' > Not requested yet. Requesting camera authorization...');
+        requestCameraPermission();
+      } else if (status === diag.permissionStatus.DENIED && window.device.platform == 'Android') {
+        console.log(' > Camera use permission has been denied once.');
+        // User denied access to this permission (without checking "Never Ask Again" box).
+        // App can request permission again and user will be prompted again to allow/deny again.
+        requestCameraPermission();
+      } else {
+        console.log(' > Camera use permission status is: ' + status);
+        notAuthorized();
+      }
     }
 
     function requestCameraPermission() {
       var diag = window.cordova.plugins.diagnostic;
-      diag.requestRuntimePermission(function(status){
-        if (status == diag.permissionStatus.GRANTED) {
-          console.log(' > Authorization granted.');
-          scan();
-        } else {
-          console.log(' > Authorization denied.');
-          notAuthorized();
-        }
-      }, function(error){
-        console.error(error);
-        vm.error = error;
-      }, diag.permission.CAMERA);
+      if (window.device.platform === 'Android') {
+        diag.requestRuntimePermission(requestCameraPermissionCallback, diagnosticError, diag.permission.CAMERA);
+      } else {
+        diag.requestCameraAuthorization(requestCameraPermissionCallback, diagnosticError);
+      }
+    }
+
+    function requestCameraPermissionCallback(status) {
+      var diag = window.cordova.plugins.diagnostic;
+      if (status == diag.permissionStatus.GRANTED) {
+        console.log(' > Authorization granted.');
+        scan();
+      } else {
+        console.log(' > Authorization denied.');
+        notAuthorized();
+      }
     }
 
     function openPermissionSettings() {
