@@ -2,11 +2,11 @@
   "name": "realfagsbiblioteket-app",
   "app_id": "",
   "gulpStartupTasks": [
-    "sass",
     "watch"
   ],
+  "documentRoot": "src",
   "watchPatterns": [
-    "www/**/*",
-    "!www/lib/**/*"
+    "src/**/*",
+    "!src/lib/**/*"
   ]
 }

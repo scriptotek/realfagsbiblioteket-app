@@ -4,7 +4,8 @@
 node_modules/
 platforms/
 plugins/
-www/build/
+www/
+src/lib/
 scandit-barcodescanner-community-phonegap*
 yarn.lock
 *.mobileprovision

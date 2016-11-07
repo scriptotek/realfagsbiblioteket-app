@@ -1,0 +1,81 @@
+<ion-view view-title="Søk">
+  <ion-content>
+    <ion-list>
+
+      <!-- Form needed to search on enter keypress -->
+      <form ng-submit="vm.search()">
+        <label class="item item-input item-button-right">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input
+            ubo-focus="!vm.searchQuery.length"
+            type="text"
+            placeholder="Tittel, forfatter eller ISBN"
+            ng-model="vm.searchQuery"
+            ng-change="vm.searchQueryUpdated()">
+        </label>
+      </form>
+
+      <div ng-if="vm.totalResults !== undefined">
+
+        <div class="item item-divider">
+          <div ng-if="vm.totalResults">
+            Fant {{vm.totalResults}} dokumenter.
+            <div class="text-right" style="float:right;">Sortér etter:
+              <span ng-click="vm.sortBy('date')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'date']">
+                dato
+              </span> -
+              <span ng-click="vm.sortBy('title')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'title']">
+                tittel
+              </span> -
+              <span ng-click="vm.sortBy('author')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'author']">
+                forfatter
+              </span> -
+              <span ng-click="vm.sortBy('popularity')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'popularity']">
+                popularitet
+              </span>
+            </div>
+          </div>
+          <div ng-if="!vm.totalResults">
+            Fant ingen dokumenter
+          </div>
+        </div>
+
+        <!-- TODO: Toggle ebooks for v2.0
+        <div ng-click="vm.toggleEbooks()" class="text-right" style="float:right">
+          Show E-books
+          <label class="toggle toggle-assertive">
+            <input ng-model="vm.showEbooks" type="checkbox">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </div> -->
+      </div>
+
+      <!-- The ng-hide will hide any book from the results if the viewmodel variable showEbooks is set to false AND the book.material property has the word "electronic" in it. -->
+      <!-- <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}" ng-hide="book.material.indexOf('electronic') !== -1 && vm.showEbooks === false"> -->
+
+      <ion-item ng-repeat="book in vm.results" ng-click="vm.clickResult(book)">
+        <div ng-include src="'app/search/result.html'"></div>
+      </ion-item>
+
+      <ion-infinite-scroll
+        on-infinite="vm.loadMore()"
+        distance="1%"
+        immediate-check="false"
+        ng-if="!vm.error && vm.canLoadMoreResults">
+      </ion-infinite-scroll>
+
+      <div class="item item-icon-left item-text-wrap assertive" ng-if="vm.error">
+        <i class="icon ion-close-circled"></i>
+        Kunne ikke hente resultater:
+        {{ vm.error || 'Det oppsto en ukjent feil.' }}
+      </div>
+
+      <div class="item" ng-if="vm.error">
+        <button class="button button-full button-balanced" ng-click="vm.loadMore()">Prøv på nytt</button>
+      </div>
+
+    </ion-list>
+  </ion-content>
+</ion-view>
