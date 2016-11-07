@@ -20,6 +20,15 @@
   font-weight: bold;
 }
 
+.loading ion-spinner {
+  display: inline-block;
+  vertical-align: middle;
+}
+.loading ion-spinner svg {
+  height: 40px;
+  width: 40px;
+}
+
 /* Full screen image modal classes */
 .zoom-pane {
   width: 100% !important;

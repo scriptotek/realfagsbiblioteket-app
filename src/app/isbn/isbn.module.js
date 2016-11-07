@@ -151,7 +151,9 @@
 
     function search(isbn) {
       $ionicLoading.show({
-        template: '<ion-spinner></ion-spinner> Søker...'
+        template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> Søker...',
+        noBackdrop: true,
+        delay: 500,
       });
 
       SearchFactory.search(isbn)

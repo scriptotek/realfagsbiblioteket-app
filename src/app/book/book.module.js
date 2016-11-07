@@ -155,7 +155,9 @@
 
     function activate() {
       $ionicLoading.show({
-        template: '<ion-spinner></ion-spinner> Laster...'
+        template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> Henter...',
+        noBackdrop: true,
+        delay: 1000,
       });
 
       SearchFactory.getBookDetails($stateParams.id, config)

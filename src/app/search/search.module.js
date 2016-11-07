@@ -94,7 +94,9 @@
       document.activeElement.blur();
 
       $ionicLoading.show({
-        template: '<ion-spinner></ion-spinner> Søker...'
+        template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> Søker...',
+        noBackdrop: true,
+        delay: 0,
       });
 
       // If the url is not currently set to this query, update it
