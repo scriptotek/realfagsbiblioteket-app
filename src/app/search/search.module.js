@@ -8,7 +8,7 @@
 
   // --------------------------------------------------------------------------
 
-  function SearchCtrl(SearchFactory, $state, $stateParams, $ionicLoading, $scope) {
+  function SearchCtrl(SearchFactory, $state, $stateParams, $ionicLoading, $scope, $cordovaNetwork) {
     var vm = this;
 
     // Variables
@@ -81,7 +81,11 @@
         searchCompleted();
       }, function(error) {
         console.log("error in search ctrl: ", error);
-        vm.error = error.statusText ? error.statusText : 'Ingen nettverksforbindelse';
+        if (window.cordova && $cordovaNetwork.isOffline()) {
+          vm.error = 'Ingen internettforbindelse :(';
+        } else {
+          vm.error = error.statusText ? error.statusText : 'Det oppsto en ukjent feil :(';
+        }
         searchCompleted();
       });
 
@@ -129,7 +133,7 @@
 
   // ------------------------------------------------------------------------
 
-  function EditionsCtrl(SearchFactory, $stateParams) {
+  function EditionsCtrl(SearchFactory, $stateParams, $cordovaNetwork) {
     var vm = this;
 
     // Variables
@@ -157,6 +161,11 @@
         vm.results = data;
       }, function() {
         console.log("error in group search ctrl");
+        if (window.cordova && $cordovaNetwork.isOffline()) {
+          vm.error = 'Ingen internettforbindelse :(';
+        } else {
+          vm.error = 'Det oppsto en ukjent feil :(';
+        }
       });
     }
 
@@ -183,9 +192,10 @@
       search: search,
       lookUpGroup: lookUpGroup,
       searchResult: searchResult,
+
+      // @TODO: Move to book.module.js
       getBookDetails: getBookDetails,
       addHoldingLocation: addHoldingLocation,
-      checkInternetConnection: checkInternetConnection
     };
 
     activate();
@@ -206,21 +216,6 @@
           });
         }
       });
-    }
-
-    function checkInternetConnection() {
-      // Give the user a warning if we can't see an internet connection
-      if ($cordovaNetwork && $cordovaNetwork.isOffline()) {
-        $ionicPopup.confirm({
-          title: "Ingen internettilgang",
-          content: "Denne appen krever en aktiv internett-tilkobling for å fungere."
-        })
-        .then(function(result) {
-          if(!result) {
-            ionic.Platform.exitApp();
-          }
-        });
-      }
     }
 
     function processSearchResults(results) {
@@ -279,7 +274,6 @@
 
       }, function(error) {
         console.log('error in search factory');
-        checkInternetConnection();
         deferred.reject(error);
       });
 
@@ -311,7 +305,6 @@
 
       }, function(error) {
         console.log('error in search factory');
-        checkInternetConnection();
         deferred.reject(error);
       });
 
@@ -506,7 +499,6 @@
 
       }, function(response) {
         console.log("error in getBookDetails factory");
-        checkInternetConnection();
         if (response.data && response.data.error) {
           deferred.reject(response.data.error);
         } else {

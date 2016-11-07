@@ -60,7 +60,7 @@
 
   // ------------------------------------------------------------------------
 
-  function BookCtrl($stateParams, $ionicLoading, $ionicPopup, $ionicModal, $scope, $cordovaSocialSharing, SearchFactory, FavoriteFactory) {
+  function BookCtrl($stateParams, $ionicLoading, $ionicPopup, $ionicModal, $scope, $cordovaSocialSharing, $cordovaNetwork, SearchFactory, FavoriteFactory) {
     var vm = this;
 
     vm.book = null;
@@ -174,7 +174,12 @@
       }, function(error) {
         $ionicLoading.hide();
         vm.busy = false;
-        vm.error = error;
+
+        if (window.cordova && $cordovaNetwork.isOffline()) {
+          vm.error = 'Ingen internettforbindelse :(';
+        } else {
+          vm.error = error;
+        }
       });
 
       // Helper variable
