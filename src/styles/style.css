@@ -16,7 +16,15 @@
   border-top: 1px solid #ddd;
 }
 
-.sortBySelected {
+.sortBy {
+  float:right;
+  font-weight: normal;
+}
+.sortBy span {
+  color: #aaa;
+}
+.sortBy span.sortBySelected {
+  color: #000;
   font-weight: bold;
 }
 

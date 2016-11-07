@@ -19,24 +19,26 @@
 
         <div class="item item-divider">
           <div ng-if="vm.totalResults">
-            Fant {{vm.totalResults}} dokumenter.
-            <div class="text-right" style="float:right;">Sortér etter:
+            {{vm.totalResults}} treff
+            <div class="text-right sortBy">Sortering:
               <span ng-click="vm.sortBy('date')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'date']">
                 dato
-              </span> -
-              <span ng-click="vm.sortBy('title')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'title']">
+              </span>
+              /
+              <!--<span ng-click="vm.sortBy('title')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'title']">
                 tittel
               </span> -
               <span ng-click="vm.sortBy('author')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'author']">
                 forfatter
               </span> -
-              <span ng-click="vm.sortBy('popularity')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'popularity']">
-                popularitet
+              -->
+              <span ng-click="vm.sortBy('relevance')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'relevance']">
+                relevans
               </span>
             </div>
           </div>
           <div ng-if="!vm.totalResults">
-            Fant ingen dokumenter
+            Ingen treff
           </div>
         </div>
 
