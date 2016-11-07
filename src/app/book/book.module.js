@@ -67,6 +67,7 @@
     vm.busy = true;
     vm.mapModal = mapModal;
     vm.shareBook = shareBook;
+    vm.retry = retry;
     vm.onDevice = false;
 
     // List of local libraries in preferred order.
@@ -151,6 +152,12 @@
         // Execute action
       });
 
+    }
+
+    function retry() {
+      if (!vm.busy) {
+        activate();
+      }
     }
 
     function activate() {

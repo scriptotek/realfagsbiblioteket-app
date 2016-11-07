@@ -17,6 +17,11 @@
         <i class="icon ion-close-circled"></i>
         {{ vm.error || 'Det oppsto en ukjent feil.' }}
       </div>
+
+      <div class="item" ng-if="vm.error">
+        <button class="button button-full button-balanced" ng-click="vm.retry()">Prøv på nytt</button>
+      </div>
+
     </div>
 
   </ion-content>

@@ -23,6 +23,17 @@
         <div ng-include src="'app/search/result.html'"></div>
       </ion-item>
 
+
+      <div class="item item-icon-left item-text-wrap assertive" ng-if="vm.error">
+        <i class="icon ion-close-circled"></i>
+        Kunne ikke hente resultater:
+        {{ vm.error || 'Det oppsto en ukjent feil.' }}
+      </div>
+
+      <div class="item" ng-if="vm.error">
+        <button class="button button-full button-balanced" ng-click="vm.retry()">Prøv på nytt</button>
+      </div>
+
     </ion-list>
   </ion-content>
 </ion-view>

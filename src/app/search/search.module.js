@@ -83,6 +83,8 @@
         console.log("error in search ctrl: ", error);
         if (window.cordova && $cordovaNetwork.isOffline()) {
           vm.error = 'Ingen internettforbindelse :(';
+        } else if (error.status == -1) {
+          vm.error = 'Mistet forbindelsen :(';
         } else {
           vm.error = error.statusText ? error.statusText : 'Det oppsto en ukjent feil :(';
         }
@@ -141,6 +143,7 @@
     vm.results = [];
     vm.showEbooks = true;
     // Functions
+    vm.retry = retry;
     vm.search = search;
 
     activate();
@@ -152,6 +155,10 @@
       vm.search();
     }
 
+    function retry() {
+      vm.search();
+    }
+
     function search() {
       if (!vm.searchId || 0 === vm.searchId.length) return;
 
@@ -159,10 +166,12 @@
       .then(function(data) {
         // console.log("got data in search controller");
         vm.results = data;
-      }, function() {
-        console.log("error in group search ctrl");
+      }, function(error) {
+        console.log("error in group search ctrl: ", error.status);
         if (window.cordova && $cordovaNetwork.isOffline()) {
           vm.error = 'Ingen internettforbindelse :(';
+        } else if (error.status == -1) {
+          vm.error = 'Mistet forbindelsen :(';
         } else {
           vm.error = 'Det oppsto en ukjent feil :(';
         }
@@ -498,8 +507,12 @@
         });
 
       }, function(response) {
-        console.log("error in getBookDetails factory");
-        if (response.data && response.data.error) {
+        console.log("Error in getBookDetails factory: ", response.status);
+        if (window.cordova && $cordovaNetwork.isOffline()) {
+          deferred.reject('Ingen internettforbindelse :(');
+        } else if (response.status == -1) {
+          deferred.reject('Mistet forbindelsen :(');
+        } else if (response.data && response.data.error) {
           deferred.reject(response.data.error);
         } else {
           deferred.reject(response.statusText);
