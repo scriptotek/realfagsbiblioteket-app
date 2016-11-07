@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /** This hook updates platform configuration files based on preferences and config-file data defined in config.xml.
- Currently only the AndroidManifest.xml and IOS *-Info.plist file are supported.
+ Currently only the AndroidManifest.xml and IOS *-Info.plist file are supported
 
  Source: https://gist.github.com/marcocarnazzo/6f01a57d390e8fe3071f
 
@@ -96,10 +96,10 @@ var platformConfig = (function(){
             'android-manifest-hardwareAccelerated': {target: 'AndroidManifest.xml', parent: './', destination: 'android:hardwareAccelerated'},
             'android-installLocation': {target: 'AndroidManifest.xml', parent: './', destination: 'android:installLocation'},
             'android-activity-hardwareAccelerated': {target: 'AndroidManifest.xml', parent: 'application', destination: 'android:hardwareAccelerated'},
-            'android-configChanges': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'MainActivity\']', destination: 'android:configChanges'},
-            'android-launchMode': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'MainActivity\']', destination: 'android:launchMode'},
-            'android-theme': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'MainActivity\']', destination: 'android:theme'},
-            'android-windowSoftInputMode': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'MainActivity\']', destination: 'android:windowSoftInputMode'}
+            'android-configChanges': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'CordovaApp\']', destination: 'android:configChanges'},
+            'android-launchMode': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'CordovaApp\']', destination: 'android:launchMode'},
+            'android-theme': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'CordovaApp\']', destination: 'android:theme'},
+            'android-windowSoftInputMode': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'CordovaApp\']', destination: 'android:windowSoftInputMode'}
         },
         'ios': {}
     };
@@ -181,7 +181,7 @@ var platformConfig = (function(){
         getConfigFilesByTargetAndParent: function (platform) {
             var configFileData = this.getConfigXml().findall('platform[@name=\'' + platform + '\']/config-file');
 
-            return  _.indexBy(configFileData, function(item) {
+            return  _.keyBy(configFileData, function(item) {
                 var parent = item.attrib.parent;
                 //if parent attribute is undefined /* or */, set parent to top level elementree selector
                 if(!parent || parent === '/*' || parent === '*/') {
@@ -208,7 +208,7 @@ var platformConfig = (function(){
         parseConfigXml: function (platform) {
             var configData = {};
             this.parsePreferences(configData, platform);
-            //this.parseConfigFiles(configData, platform);
+            this.parseConfigFiles(configData, platform);
 
             return configData;
         },
@@ -338,6 +338,7 @@ var platformConfig = (function(){
 
             _.each(configItems, function (item) {
                 var key = item.parent;
+                console.log('[030_update_platform_config] Injecting "' + key + '" into Info.plist');
                 var plistXml = '<plist><dict><key>' + key + '</key>';
                 plistXml += platformConfig.eltreeToXmlString(item.data) + '</dict></plist>';
 
