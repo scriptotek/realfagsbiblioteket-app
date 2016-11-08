@@ -4,9 +4,9 @@
       {{book.date}}
     </span>
 
-  <p ng-if="book.edition">{{book.edition}}</p>
+  <p ng-if="book.edition && book.type != 'group'">{{book.edition}}</p>
   <p>
-    <span>{{book.material}} ○ </span>
+    <span>{{book.material}} av </span>
     {{book.creator_string || book.publisher}}
   </p>
 
