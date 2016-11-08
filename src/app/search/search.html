@@ -18,7 +18,7 @@
       <div ng-if="vm.totalResults !== undefined">
 
         <div class="item item-divider">
-          <div ng-if="vm.totalResults">
+          <div ng-if="vm.totalResults != 0">
             {{vm.totalResults}} treff
             <div class="text-right sortBy">Sortering:
               <span ng-click="vm.sortBy('date')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'date']">

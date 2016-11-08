@@ -227,6 +227,24 @@
       });
     }
 
+    function request(endpoint, params) {
+      var device = deviceInfo.manufacturer ? deviceInfo.manufacturer + ' ' + deviceInfo.model : null;
+      params = params ? params : {};
+      if (device) {
+        params.platform = platform;
+        params.platform_version = deviceInfo.version;
+        params.app_version = appVersion;
+        params.device = device;
+      }
+      return $http({
+        url: 'https://ub-www01.uio.no/realfagsbiblioteket-app/' + endpoint,
+        // url: 'https://bibapp.biblionaut.net/search.php',
+        method: 'GET',
+        cache: true,
+        params: params,
+      });
+    }
+
     function processSearchResults(results) {
       return results.map(function(bookData) {
         return new Book(bookData);
@@ -243,22 +261,10 @@
 
       var deferred = $q.defer();
 
-      var device = deviceInfo.manufacturer ? deviceInfo.manufacturer + ' ' + deviceInfo.model : null;
-
-      $http({
-        // url: 'https://ub-www01.uio.no/realfagsbiblioteket-app/search',
-        url: 'https://bibapp.biblionaut.net/search.php',
-        method: 'GET',
-        cache: true,
-        params: {
-          platform: platform,
-          platform_version: deviceInfo.version,
-          app_version: appVersion,
-          device: device,
-          query: query,
-          start: start,
-          sort: sort
-        }
+      request('search', {
+        query: query,
+        start: start,
+        sort: sort,
       }).then(function(response) {
 
         var results = processSearchResults(response.data.results);
@@ -294,14 +300,8 @@
 
       var deferred = $q.defer();
 
-      var url = 'https://lsm.biblionaut.net/primo/groups/' + id;
-      // var url = 'https://ub-lsm.uio.no/primo/groups/' + id;
-
-      $http({
-        url: url,
-        method: 'GET',
-        cache: true,
-      }).then(function(response) {
+      request('groups/' + id)
+      .then(function(response) {
 
         var results = processSearchResults(response.data.result.records);
 
@@ -467,13 +467,10 @@
     function getBookDetails(id, config) {
       // Find details for the book(s) with given id
 
-      var url = 'https://lsm.biblionaut.net/primo/records/' + id;
-      // var url = 'https://ub-lsm.uio.no/primo/records/' + id;
-
       // We'll return a promise, which will resolve with a book if found, or with an error if not.
       var deferred = $q.defer();
 
-      $http.get(url)
+      request('records/' + id)
       .then(function(data) {
         var book = new Book(data.data.result);
 
@@ -527,7 +524,7 @@
 
       var deferred = $q.defer();
 
-      $http.get('https://app.uio.no/ub/bdi/bibsearch/loc2.php', {
+      $http.get('https://ub-www01.uio.no/realfagsbiblioteket-kart/loc.php', {
         params: {
           collection: holding.collection_code,
           callnumber: holding.callcode
@@ -544,7 +541,7 @@
         // If we have a floor_text, we can store map_position and map_url_image
         if (holding.floor_text!=="") {
           holding.map_position = data[0];
-          holding.map_url_image = encodeURI("https://app.uio.no/ub/bdi/bibsearch/new.php?collection=" + holding.collection_code + "&callnumber=" + holding.callcode);
+          holding.map_url_image = encodeURI("https://ub-www01.uio.no/realfagsbiblioteket-kart/map.php?collection=" + holding.collection_code + "&callnumber=" + holding.callcode);
         }else{
           holding.map_position = "";
           holding.map_url_image = "";
