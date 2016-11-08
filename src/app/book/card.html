@@ -23,8 +23,7 @@
       <div class="item" style="padding-bottom: 6px;">
         <span class="item-note">
           <a ng-click="vm.toggleFavorite(book)" style="font-size:2.8em;" class="energized">
-            <i ng-hide="book.isFavorite" class="ion-ios-star-outline"></i>
-            <i ng-show="book.isFavorite" class="ion-ios-star"></i>
+            <i ng-class="{'ion-ios-star-outline': !book.isFavorite, 'ion-ios-star': book.isFavorite}"></i>
           </a>
         </span>
 
