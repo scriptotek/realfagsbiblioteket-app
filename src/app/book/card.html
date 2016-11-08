@@ -48,6 +48,13 @@
         </div>
       </div>
 
+      <div ng-if="!book.urls.length && !book.holdings.length">
+        <div class="item item-icon-left assertive" >
+          <i class="icon ion-close-circled"></i>
+          Ikke tilgjengelig
+        </div>
+      </div>
+
       <!-- Available as ebook / online resource -->
       <div ng-if="book.urls && book.urls.length">
         <div class="item item-icon-left balanced" style="padding-top:0; padding-bottom: 0;">
