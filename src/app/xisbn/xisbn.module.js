@@ -20,7 +20,9 @@
 
       var deferred = $q.defer();
 
-      $http.get('http://xisbn.worldcat.org/webservices/xid/isbn/' + isbn + '?method=getMetadata&format=json&fl=*')
+      $http.get('https://ub-www01.uio.no/realfagsbiblioteket-app/xisbn', {
+        params: { isbn: isbn }
+      })
       .then(function(response) {
         deferred.resolve(response.data);
       }, function(response) {
