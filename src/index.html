@@ -48,26 +48,25 @@
     <!-- endinject -->
     <!-- endbuild -->
 
-    <!--
+
     <meta http-equiv="Content-Security-Policy" content="
-      default-src gap://ready file://*;
+      default-src 'self' gap://ready;
       connect-src *;
       img-src *;
       script-src 'self' 'unsafe-inline' 'unsafe-eval';
       style-src 'self' 'unsafe-inline'">
-    -->
 
     <!-- Use this while developing to allow livereload when using ionic serve: -->
     <!-- file://*-->
-    <meta http-equiv="Content-Security-Policy" content="
+    <!--<meta http-equiv="Content-Security-Policy" content="
       default-src 'self' gap://ready;
       connect-src *;
       img-src *;
       script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
       style-src 'self' 'unsafe-inline' *">
-
+    -->
     <!-- @TODO: Harden by limiting to specific domains
-    connect-src: 'self' ub-lsm.uio.no ub-www01.uio.no xisbn.worldcat.org;
+    connect-src: 'self' ub-www01.uio.no xisbn.worldcat.org;
     img-src: 'self' innhold.bibsys.no *.exlibrisgroup.com books.google.com
     -->
 
