@@ -31,7 +31,9 @@
         <config-file platform="ios" target="Realfagsbiblioteket-Info.plist" parent="NSCameraUsageDescription">
             <string>Kameratilgang trengs hvis du vil lese strekkoder.</string>
         </config-file>
-
+        <config-file parent="ITSAppUsesNonExemptEncryption" platform="ios" target="Realfagsbiblioteket-Info.plist">
+            <false/>
+        </config-file>
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
         <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
         <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
