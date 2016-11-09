@@ -1,8 +1,8 @@
 (function() {
 
   angular
-    .module('app.about', [])
-    .controller('AboutCtrl', Ctrl);
+    .module('app.directions', [])
+    .controller('DirectionsCtrl', Ctrl);
 
   // --------------------------------------------------------------------------
 

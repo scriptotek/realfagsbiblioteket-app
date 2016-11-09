@@ -63,7 +63,7 @@
   function BookCtrl($stateParams, $ionicLoading, $ionicPopup, $ionicModal, $scope, $cordovaSocialSharing, $cordovaNetwork, SearchFactory, FavoriteFactory) {
     var vm = this;
 
-    vm.book = null;
+    vm.books = [];
     vm.busy = true;
     vm.mapModal = mapModal;
     vm.shareBook = shareBook;
@@ -108,14 +108,14 @@
     /////
 
     function shareBook(book) {
-      var subject = "Hei!";
-      var message = "Sjekk ut denne boka: " +
-        book.title;
-
       if (vm.onDevice) {
-        $cordovaSocialSharing.share(message, subject, null, book.links.primo);
+        $cordovaSocialSharing.shareWithOptions({
+          message: 'Sjekk ut denne boka: ' + book.title,  // not supported on some apps (Facebook, Instagram)
+          subject: 'Sjekk ut denne boka',   // fi. for email
+          url: book.links.primo,
+        });
       } else {
-        alert('Not running on a device');
+        console.log('Not running on a device');
       }
     }
 
@@ -164,7 +164,7 @@
       $ionicLoading.show({
         template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> Henter...',
         noBackdrop: true,
-        delay: 1000,
+        delay: 300,
       });
 
       SearchFactory.getBookDetails($stateParams.id, config)

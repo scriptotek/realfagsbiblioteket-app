@@ -7,10 +7,12 @@
   .module('app', [
     'ionic',
     'ngCordova',
+    'ngAnimate',
 
     'app.core',
     'app.home',
     'app.about',
+    'app.directions',
     'app.favorites',
     'app.isbn',
     'app.search',
@@ -45,19 +47,6 @@
 
       if ($cordovaStatusbar.styleDefault) {
         $cordovaStatusbar.styleDefault();
-      }
-
-      // Give the user a warning if we can't see an internet connection
-      if (window.cordova && $cordovaNetwork.isOffline()) {
-        $ionicPopup.confirm({
-          title: "Ingen internettilgang",
-          content: "Denne appen krever en aktiv internett-tilkobling for å fungere."
-        })
-        .then(function(result) {
-          if(!result) {
-            ionic.Platform.exitApp();
-          }
-        });
       }
 
       FavoriteFactory.init();
@@ -109,7 +98,17 @@
       url: '/about',
       views: {
         'menuContent': {
-          templateUrl: 'app/about/about.html'
+          templateUrl: 'app/about/about.html',
+          controller: 'AboutCtrl',
+          controllerAs: 'vm'
+        }
+      }
+    })
+    .state('app.directions', {
+      url: '/directions',
+      views: {
+        'menuContent': {
+          templateUrl: 'app/directions/directions.html'
         }
       }
     })

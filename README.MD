@@ -1,14 +1,12 @@
 # realfagsbiblioteket-app
 
-Ionic-based app (Android, iOs) for searching and navigating the UiO Science Library. The code is licensed under the MIT license, but not the icons (See the credits section below for info about the icons).
-
+Ionic-based app (Android, iOs) for searching and navigating the UiO Science Library.
 Former https://github.com/saqimtiaz/BibSearch/
 
 ## Server dependencies
 
-- bibapp.biblionaut.net (just a proxy for lsm)
-- lsm.biblionaut.net
-- https://app.uio.no/ub/bdi/realfagsbiblioteket/status.php
+- https://ub-www01.uio.no/realfagsbiblioteket-kart/
+- https://ub-www01.uio.no/realfagsbiblioteket-app/
 
 ## Development
 
@@ -19,15 +17,17 @@ Former https://github.com/saqimtiaz/BibSearch/
   fetch a recent SDK. Remember to set the `ANDROID_HOME` environment variable.
 * To build for iOS, you need the latest XCode and `npm install -g ios-sim ios-deploy`.
 
+* Read https://github.com/brodybits/Avoiding-some-Cordova-pitfalls
+
 ### Setup
 
 * `npm install` to install deps
 * `gulp install` to install frontend deps
 * Install Scandit:
   * Since Scandit is not open source, we cannot distribute it on GitHub. Create an
-  account at Scandit, download `scandit-barcodescanner-community-phonegap_4.11.0.zip`
+  account at Scandit, download `scandit-barcodescanner-community-phonegap_5.0.0.zip`
   from https://ssl.scandit.com/account/sdk and unzip it in the root project folder.
-  * `ionic plugin add scandit-barcodescanner-community-phonegap_4.11.0`
+  * `cordova plugin add scandit-barcodescanner-community-phonegap_5.0.0`
   * `cp config/env.dist.json config/env.json` and add your API key to the file.
 * `gulp build` to build 'www/' from 'src/'.
 
@@ -35,12 +35,12 @@ Former https://github.com/saqimtiaz/BibSearch/
 
 * Run in browser:
   - `ionic serve` to start a dev server that serves files
-  from `src/` (meaning you don't need to `gulp build` first => fast)
+  from `src/` (meaning you don't need to `gulp build`)
 
 * Run on connected Android phone:
   - `adb devices` to check that device is found
   (remember to have USB debugging enabled)
-  - `ionic run android --device`
+  - `cordova run android --device`
   - Uninstall: `adb shell am start -a android.intent.action.DELETE -d package:no.uio.ub.realfagsbiblioteket`
   - Reset camera permission: `adb shell pm revoke no.uio.ub.realfagsbiblioteket android.permission.CAMERA`
 
@@ -59,14 +59,17 @@ Updating icons & splash screen: See https://github.com/driftyco/ionic-cli/issues
 
 Remember to
 
-- `config.xml`: Bump version.
-- `config.xml`: Remove this:
+- Bump "version" and build number ("android-versionCode" and "ios-CFBundleVersion") in `config.xml`
+    - Remember to also update the version on https://app.uio.no/ub/bdi/realfagsbiblioteket/
+- `config.xml`: Make sure to remove this:
   ```xml
     <gap:config-file parent="/manifest" platform="android">
       <application android:debuggable="true"/>
     </gap:config-file>
   ```
+- `config.xml`: Check that deployment target is still ok, or in need for bumping.
 - `index.html`: Switch to production Content Security Policy
+- `plugins/cordova-plugin-x-socialsharing/plugin.xml`: Remove WRITE_EXTERNAL_STORAGE if it's there :/
 
 ### Android
 
@@ -76,7 +79,7 @@ Remember to
 
 ### iOS
 
-* `ionic prepare ios`
+* `cordova prepare ios`
 * Open `platforms/ios/Realfagsbiblioteket.xcodeproj`
   * Select `Generic iOS Device` in the dropdown menu at the toolbar and `Target → Realfagsbiblioteket`.
   ![XCode 1](meta/xcode1.png)

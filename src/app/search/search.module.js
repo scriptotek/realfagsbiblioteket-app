@@ -42,6 +42,7 @@
     /////
 
     function activate() {
+      vm.noResults = false;
       vm.searchQuery = $stateParams.query;
       vm.search();
     }
@@ -183,7 +184,7 @@
 
   // --------------------------------------------------------------------------
 
-  function SearchFactory($http, $filter, $q, $sce, $ionicPopup, $ionicPlatform, $cordovaNetwork, _, FavoriteFactory, Book) {
+  function SearchFactory($http, $filter, $timeout, $q, $sce, $ionicPopup, $ionicPlatform, $cordovaNetwork, _, FavoriteFactory, Book) {
 
     var searchResult = {}; // Datastructure like:
     /*
@@ -439,27 +440,33 @@
       var promiseResolved = false;
       var deferred = $q.defer();
 
-      function resolve() {
+      function resolve(fromTimer) {
         if (!promiseResolved) {
+          if (fromTimer) {
+            console.log('Took more than 2 sec to load cover.');
+          } else {
+            console.log('Cover loaded.');
+          }
           promiseResolved = true;
           deferred.resolve();
         }
       }
 
-      // Don't wait more than a second
-      setTimeout(function() {
-        resolve();
-      }, 1000);
+      // Don't wait more than a short while
+      console.log('Caching cover...');
+      $timeout(function() {
+        resolve(true);
+      }, 2000);
 
       var img = new Image();
       img.src = url;
       img.onload = function() {
         // @TODO: We could test if we actually got a valid data, and
         // mark the cover as valid/invalid, see <http://stackoverflow.com/a/9809055/489916>
-        resolve();
+        $timeout(function() { resolve(); });
       };
       img.onerror = function() {
-        resolve();
+        $timeout(function() { resolve(); });
       };
       return deferred.promise;
     }
