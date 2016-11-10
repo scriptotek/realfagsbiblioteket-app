@@ -1,16 +1,7 @@
 <ion-view view-title="Realfagsbiblioteket">
   <ion-content padding="true">
 
-    <div class="card" ng-if="vm.status">
-      <div class="item item-icon-left item-text-wrap assertive">
-        <i class="icon ion-alert-circled"></i>
-        {{ vm.status }}
-      </div>
-    </div>
-
-
     <div class="card">
-
       <div class="item item-text-wrap">
         Finn en bok ved å søke eller skanne en ISBN-kode.
 
@@ -27,12 +18,12 @@
           </div>
         </div>
       </div>
-
     </div>
 
-    <div class="card">
-      <div class="item item-text-wrap">
-        Merk at informasjon om tilgjengelighet for e-bøker kan være feil.
+    <div class="card" ng-if="vm.status">
+      <div class="item item-icon-left item-text-wrap assertive">
+        <i class="icon ion-android-alert"></i>
+        {{ vm.status }}
       </div>
     </div>
 
