@@ -151,7 +151,11 @@
 
     function failure(error) {
       $scope.$apply(function() {
-        vm.error = 'Failed to scan barcode: ' + error;
+        if (error == 'Canceled') {
+          $ionicHistory.goBack();
+        } else {
+          vm.error = 'Failed to scan barcode: ' + error;
+        }
       });
     }
 
