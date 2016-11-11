@@ -39,6 +39,7 @@
           platform_version: platform_version,
           app_version: app_version,
           device: device_str,
+          language: window.navigator.language,
         }
       }).then(function(response) {
         if (response.data.status == 'ok') {

@@ -17,6 +17,7 @@
 
     function ready() {
 
+      vm.language = window.navigator.language;
       if (!window.navigator.appInfo) {
         vm.device = '(not running on a device)';
       } else {
