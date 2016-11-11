@@ -10,6 +10,7 @@
     'ngAnimate',
 
     'app.core',
+    'app.menu',
     'app.home',
     'app.about',
     'app.directions',
@@ -66,13 +67,15 @@
   function routes($stateProvider, $urlRouterProvider) {
 
     // set default route
-    $urlRouterProvider.otherwise('/app/home');
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider
     .state('app', {
-      url: '/app',
+      url: '',
       abstract: true,
       templateUrl: 'app/app.html',
+      controller: 'MenuController',
+      controllerAs: 'vm',
     })
     /*
     .state('app.intro', {
@@ -85,7 +88,7 @@
 
     })*/
     .state('app.home', {
-      url: '/home',
+      url: '/',
       views: {
         'menuContent': {
           templateUrl: 'app/home/home.html',
