@@ -18,6 +18,13 @@
     vm.search = search;
     vm.showEbooks = true;
     vm.searchQuerySort = "date";
+    vm.showOptions = false;
+    vm.searchScopes = [
+      {value: 'UREAL',  label: 'Realfagsbibl, Inf og Tøyen'},
+      {value: 'UBO',    label: 'Hele UiO'},
+      {value: 'BIBSYS', label: 'Alle norske fagbibliotek'},
+    ];
+    vm.searchScope = 'UREAL';
 
     // Total number of results (undefined until search carried out)
     vm.totalResults = undefined;
@@ -44,6 +51,7 @@
     function activate() {
       vm.noResults = false;
       vm.searchQuery = $stateParams.query;
+      vm.searchScope = $stateParams.scope || 'UREAL';
       vm.search();
     }
 
@@ -73,7 +81,7 @@
       // console.log('> loadMore, starting from ' + (vm.results.length+1));
 
       vm.error = null;
-      SearchFactory.search(vm.searchQuery, vm.results.length+1, vm.searchQuerySort)
+      SearchFactory.search(vm.searchQuery, vm.searchScope, null, vm.results.length+1, vm.searchQuerySort)
       .then(function(data) {
         vm.results = data.results;
         vm.totalResults = data.total_results;
@@ -107,9 +115,9 @@
       });
 
       // If the url is not currently set to this query, update it
-      if (vm.searchQuery !== $stateParams.query) {
+      if (vm.searchQuery !== $stateParams.query || vm.searchScope != $stateParams.scope) {
         // Update the url without reloading, so that the user can go back in history to this search.
-        $state.go('app.search', {query: vm.searchQuery}, {notify: false});
+        $state.go('app.search', {query: vm.searchQuery, scope: vm.searchScope}, {notify: false});
         $stateParams.query = vm.searchQuery; // Is this needed??
       }
 
@@ -122,7 +130,8 @@
       if (book.type === "group") {
         // Multiple editions for this book. Navigate to group (search)view
         $state.go('app.editions', {
-          id: book.id
+          id: book.id,
+          scope: vm.searchScope,
         });
       } else {
         // Just a single edition for this book. Navigate straight to it.
@@ -141,6 +150,7 @@
 
     // Variables
     vm.searchId = '';
+    vm.searchScope = '';
     vm.results = [];
     vm.showEbooks = true;
     // Functions
@@ -153,6 +163,7 @@
 
     function activate() {
       vm.searchId = $stateParams.id;
+      vm.searchScope = $stateParams.scope;
       vm.search();
     }
 
@@ -163,7 +174,7 @@
     function search() {
       if (!vm.searchId || 0 === vm.searchId.length) return;
 
-      SearchFactory.lookUpGroup(vm.searchId)
+      SearchFactory.lookUpGroup(vm.searchId, vm.searchScope)
       .then(function(data) {
         // console.log("got data in search controller");
         vm.results = data;
@@ -252,18 +263,22 @@
       });
     }
 
-    function search(query, start, sort) {
+    function search(query, scope, material, start, sort) {
       // Fetch records from API for the given query
 
       // Set default value for start
       start = typeof start !== 'undefined' ? start : 1;
       // Set default value for sortBy
       sort = typeof sort !== 'undefined' ? sort : "date";
+      // Set default value for material
+      material = typeof material !== 'undefined' ? material : "print-books";
 
       var deferred = $q.defer();
 
       request('search', {
         query: query,
+        scope: scope,
+        material: material,
         start: start,
         sort: sort,
       }).then(function(response) {
@@ -296,12 +311,12 @@
       return deferred.promise;
     }
 
-    function lookUpGroup(id) {
+    function lookUpGroup(id, scope) {
       // Fetch group records from API for the given id
 
       var deferred = $q.defer();
 
-      request('groups/' + id)
+      request('groups/' + id, {scope: scope})
       .then(function(response) {
 
         var results = processSearchResults(response.data.result.records);

@@ -126,7 +126,7 @@
       }
     })
     .state('app.search', {
-      url: '/search?query',
+      url: '/search?query&scope',
       views: {
         'menuContent': {
           templateUrl: 'app/search/search.html',
@@ -136,7 +136,7 @@
       }
     })
     .state('app.editions', {
-      url: '/editions/:id',
+      url: '/editions/:id?scope',
       views: {
         'menuContent': {
           templateUrl: 'app/search/editions.html',
