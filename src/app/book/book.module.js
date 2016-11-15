@@ -85,7 +85,7 @@
 
       if (this.type == 'group') {
         this.icon = 'ion-arrow-right-c balanced';
-        this.statusMessage = 'Flere utgaver';
+        this.statusMessage = bookData.number_of_editions + ' utgaver';
 
       } else if (this.holdings.length) {
         this.available = true;
