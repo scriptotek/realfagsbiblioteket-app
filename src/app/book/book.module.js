@@ -5,10 +5,44 @@
     .factory('Book', BookFactory)
     .controller('BookCtrl', BookCtrl);
 
-
   // --------------------------------------------------------------------------
 
-  function BookFactory() {
+  function BookFactory(_, $sce) {
+
+    function processHoldings(record) {
+      // console.log(' > processHoldings');
+      // Adds a view-friendly 'record.print' object based on
+      // data from 'record.components', for showing print availability.
+      if (record.holdings) {
+        record.holdings.forEach(function (holding) {
+          if (holding.status == 'available') {
+            holding.icon = 'ion-checkmark-circled balanced';
+            if (holding.library_zone == 'other') {
+              holding.statusMessage = 'Kan bestilles fra annet bibliotek';
+              holding.icon = 'ion-cube balanced';
+            } else {
+              holding.statusMessage = 'På hylla i ' + holding.library_name;
+            }
+            holding.available = true;
+
+          } else {
+            holding.icon = 'ion-close-circled assertive';
+            holding.statusMessage = 'Utlånt fra ' + holding.library_name;
+            holding.available = false;
+          }
+        });
+      }
+    }
+
+    function processElectronicAvailability(record) {
+      // console.log(' > processElectronicAvailability');
+      if (record.urls && record.urls.length) {
+        // Trust for use in iframe
+        // @TODO: Do we ever need more than the first URL?
+        record.urls[0].url = $sce.trustAsResourceUrl(record.urls[0].url);
+      }
+    }
+
 
     // Constructor
     function Book(data) {
@@ -29,29 +63,57 @@
         if (book.type == 'group') {
           return 'flere utgaver';
         }
-        if (book.material.indexOf('e-books') !== -1) {
+        if (book.material == 'e-books') {
           return 'e-bok';
         }
-        if (book.material.indexOf('print-books') !== -1) {
+        if (book.material == 'print-books') {
           return 'trykt bok';
         }
       }
 
-      if (typeof bookData.material == 'object') {
-        bookData.material = reduceMaterial(bookData);
-      }
+      bookData.material = reduceMaterial(bookData);
 
       var that = this;
       Object.keys(bookData).forEach(function(key) {
         that[key] = bookData[key];
       });
+
+      processHoldings(this);
+      processElectronicAvailability(this);
+
+      // console.log(this.holdings);
+
+      if (this.type == 'group') {
+        this.icon = 'ion-arrow-right-c balanced';
+        this.statusMessage = 'Flere utgaver';
+
+      } else if (this.holdings.length) {
+        this.available = true;
+        this.icon = this.holdings[0].icon;
+        this.statusMessage = this.holdings[0].statusMessage;
+
+      } else if (this.urls.length) {
+        this.available = true;
+        this.icon = 'ion-checkmark-circled';
+        this.statusMessage = 'Tilgjengelig som e-bok';
+
+      } else if (this.material == 'e-bok') {
+        this.available = false;
+        this.icon = 'ion-close-circled';
+        this.statusMessage = 'E-bok (ingen tilgang)';
+      }
+
       // console.log(this);
     }
+
     // Define the "instance" methods using the prototype
     // and standard prototypal inheritance.
     Book.prototype = {
       getData: function() {
         return JSON.parse(this._data);
+      },
+      hasLocalHolding: function() {
+        return (this.holdings.length && this.holdings[0].available && this.holdings[0].library_zone == 'local');
       }
     };
 
@@ -69,37 +131,6 @@
     vm.shareBook = shareBook;
     vm.retry = retry;
     vm.onDevice = false;
-
-    // List of local libraries in preferred order.
-    // @TODO: Get from some global config
-    var config = {
-      libraries: {
-        local: {
-          code: 'UBO1030310',
-          name: 'Realfagsbiblioteket',
-          openStackCollections: [  // sorted in order of increasing preference ('Pensum' is less preferred than the rest)
-            'k00471',  // UREAL Pensum
-            'k00460',  // UREAL Laveregrad
-            'k00413',  // UREAL Astr.
-            'k00421',  // UREAL Biol.
-            'k00447',  // UREAL Geo.
-            'k00449',  // UREAL Geol.
-            'k00426',  // UREAL Farm.
-            'k00457',  // UREAL Kjem.
-            'k00440',  // UREAL Fys.
-            'k00465',  // UREAL Mat.
-            'k00475',  // UREAL Samling 42
-            'k00477',  // UREAL SciFi
-            'k00423',  // UREAL Boksamling
-          ]
-        },
-        satellites: [
-          {code: 'UBO1030317', name: 'Informatikkbiblioteket'},
-          {code: 'UBO1030500', name: 'Naturhistorisk museum'}
-        ]
-      }
-    };
-    vm.config = config;
 
     vm.toggleFavorite = toggleFavorite;
 
@@ -167,7 +198,7 @@
         delay: 300,
       });
 
-      SearchFactory.getBookDetails($stateParams.id, config)
+      SearchFactory.getBookDetails($stateParams.id)
       .then(function(data) {
         $ionicLoading.hide();
         vm.busy = false;

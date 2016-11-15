@@ -2,8 +2,8 @@
   <ion-content>
     <ion-list>
 
-      <div ng-show="vm.results.length" class="item item-divider">
-        Utgaver av «{{ vm.results[0].title }}»:
+      <div ng-show="vm.results.length" class="item item-divider item-text-wrap">
+        «{{ vm.results[0].title }}»
         <!--
         <div ng-click="vm.toggleEbooks()" class="text-right" style="float:right">
           Show E-books
@@ -19,26 +19,15 @@
 
       <!-- The ng-hide will hide any book from the results if the viewmodel variable showEbooks is set to false AND the book.material property has the word "electronic" in it. -->
       <!-- <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}" ng-hide="book.material.indexOf('electronic') !== -1 && vm.showEbooks === false"> -->
-      <ion-item ng-repeat="book in vm.results" ui-sref="app.book({id: book.id})">
-        <div>
-          <h2>{{book.date}} <span ng-if="book.edition"> : {{book.edition}}</span></h2>
-          <p>
-            <span>{{book.material}}</span>
-          </p>
+      <ion-item ng-repeat="book in vm.results" ui-sref="app.book({id: book.id})" class="item-icon-left" ng-class="{'balanced': book.available, 'assertive': !book.available}">
 
-        <!--
-          <div class="col col-30">
-            <p class="text-right">
-              <img ng-show="book.type === 'group'" src="img/icon-books.jpg" width="35px" height="35px" alt="Multiple editions">
-              <img ng-repeat="icon in book.icons" ng-src="img/icon-{{icon}}.jpg" width="35px" height="35px" style="margin-right:10px;"/>
-            </p>
-          </div>
-          <i class="icon ion-ios-arrow-right"></i>
-          -->
-        </div>
+        <i class="icon {{book.icon}}"></i>
 
+        <h2>{{book.date}} <span ng-if="book.edition"> : {{book.edition}}</span></h2>
+        <p>
+          {{ book.statusMessage}}
+        </p>
       </ion-item>
-
 
       <div class="item item-icon-left item-text-wrap assertive" ng-if="vm.error">
         <i class="icon ion-close-circled"></i>

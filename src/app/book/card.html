@@ -67,16 +67,29 @@
       <div ng-repeat="holding in book.holdings">
 
         <div class="item item-icon-left item-text-wrap balanced" ng-if="holding.available">
-          <i class="icon ion-checkmark-circled"></i>
+          <i class="icon {{holding.icon}}"></i>
           {{ holding.statusMessage }}
         </div>
         <div class="item item-icon-left item-text-wrap assertive" ng-if="!holding.available">
-          <i class="icon ion-close-circled"></i>
+          <i class="icon {{holding.icon}}"></i>
           {{ holding.statusMessage }}
         </div>
 
         <!-- Help locating the item -->
-        <div ng-if="holding.available">
+        <div ng-if="holding.available && holding.library_zone == 'other'" style="margin: 0 8px 8px 54px;">
+          <p>
+            For å bestille må du åpne boka i Oria (lenke under).
+            Oria-grensesnittet er ikke superenkelt å bruke fra mobil enda,
+            så hvis du heller vil gjøre bestillingen fra en PC kan du bruke
+            «Del denne boka» under for å sende Oria-lenken til deg selv.
+          </p>
+        </div>
+        <div ng-if="!holding.available && book.holdings.length == 1" style="margin: 0 8px 8px 54px;">
+          <p>
+            Du kan reservere boka i Oria.
+          </p>
+        </div>
+        <div ng-if="holding.available && holding.library_zone != 'other'">
 
           <dl class="dl-horizontal">
             <dt class="label" ng-if="holding.lib_label">Bibliotek:</dt>
@@ -89,7 +102,7 @@
             <dd><tt>{{holding.callcode}}</tt></dd>
           </dl>
 
-          <div ng-if="holding.closed_stack"style="margin: 8px 8px 8px 40px;">
+          <div ng-if="holding.closed_stack" style="margin: 8px 8px 8px 40px;">
             <i class="ion-alert-circled energized"></i>
             OBS: Må hentes frem fra magasin e.l.
           </div>
@@ -111,6 +124,10 @@
 
         </div>
 -->
+      <a class="item item-footer item-icon-left" ng-href="{{book.links.primo}}" ubo-ext-link ng-if="book.holdings.length">
+        <i class="icon ion-link"></i>
+        Åpne i Oria
+      </a>
 
       <div class="item item-footer item-icon-left" ng-click="vm.shareBook(book)">
         <i class="icon ion-share"></i>

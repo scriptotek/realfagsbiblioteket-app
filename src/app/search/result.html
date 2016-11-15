@@ -1,13 +1,19 @@
 <div>
   <h2>{{book.title}}</h2>
-    <span class="item-note">
-      {{book.date}}
-    </span>
+  <span class="item-note">
+    {{book.date}}
+  </span>
 
-  <p ng-if="book.edition && book.type != 'group'">{{book.edition}}</p>
   <p>
-    <span>{{book.material}} av </span>
+    <span ng-if="book.edition && book.type != 'group'">
+      {{book.edition}} /
+    </span>
     {{book.creator_string || book.publisher}}
+  </p>
+
+  <p ng-if="!vm.hideAvailability">
+    <i class="{{book.icon}}"></i>
+    {{ book.statusMessage }}
   </p>
 
 <!--

@@ -9,6 +9,7 @@
 
   function FavoritesCtrl($scope, FavoriteFactory) {
     var vm = this;
+    vm.hideAvailability = true;
     vm.results = [];
 
     $scope.$on('$ionicView.enter', activate);

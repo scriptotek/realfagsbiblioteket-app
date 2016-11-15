@@ -242,6 +242,7 @@
     function request(endpoint, params) {
       var device = deviceInfo.manufacturer ? deviceInfo.manufacturer + ' ' + deviceInfo.model : null;
       params = params ? params : {};
+      params.apiVersion = 2;
       if (device) {
         params.platform = platform;
         params.platform_version = deviceInfo.version;
@@ -259,7 +260,9 @@
 
     function processSearchResults(results) {
       return results.map(function(bookData) {
-        return new Book(bookData);
+        var book = new Book(bookData);
+
+        return book;
       });
     }
 
@@ -336,121 +339,6 @@
       return deferred.promise;
     }
 
-    function getBestHoldings(holdings, config) {
-      var localLibrary = config.libraries.local.code;
-      var satelliteLibraries = _.map(config.libraries.satellites, 'code');
-
-      var partitioned = _.partition(holdings, {status: 'available'});
-      var available = partitioned[0];
-      var unavailable = partitioned[1];
-      var sel = [];
-      var out = [];
-      var avaCount = 0;
-
-      if (!holdings.length) {
-        return out;
-      }
-      // console.log(holdings);
-
-      // 1.1 Available at local library
-      sel = _.filter(available, {library: localLibrary});
-      if (sel.length) {
-
-        // - Open collections are preferred over closed ones
-        // - 'UREAL Pensum' is less preferred than other open collections
-        var oc = config.libraries.local.openStackCollections;
-        sel.sort(function(a, b) {
-          return oc.indexOf(b.collection_code) - oc.indexOf(a.collection_code);
-        });
-
-        sel[0].closed_stack = (oc.indexOf(sel[0].collection_code) == -1);
-        sel[0].statusMessage = 'På hylla i ' + config.libraries.local.name;
-        sel[0].available = true;
-
-        out.push(sel[0]);
-        avaCount += 1;
-      } else {
-
-        // 1.2 At local library, but not available
-        if (!avaCount) {
-          sel = _.find(unavailable, {library: localLibrary});
-          if (sel) {
-            sel.statusMessage = 'Utlånt fra ' + config.libraries.local.name;
-            sel.available = false;
-            out.push(sel);
-          }
-        }
-      }
-
-      // 2.1 Available at satellite library
-      sel = _.filter(available, function(x) { return satelliteLibraries.indexOf(x.library) != -1; });
-      if (sel.length) {
-        sel[0].statusMessage = 'På hylla i ' + _.find(config.libraries.satellites, {code: sel[0].library}).name;
-        sel[0].available = true;
-        out.push(sel[0]);
-        avaCount += 1;
-      } else {
-
-        // 2.2 At satellite library, but not available
-        sel = _.find(unavailable, function(x) { return satelliteLibraries.indexOf(x.library) != -1; });
-        if (sel) {
-          sel.statusMessage = 'Utlånt fra ' + _.find(config.libraries.satellites, {code: sel.library}).name;
-          sel.available = false;
-          out.push(sel);
-        }
-      }
-
-      // 3.1 Available at other UBO library
-      if (!avaCount) {
-        sel = _.find(available, {alma_instance: '47BIBSYS_UBO'});
-        if (sel) {
-          sel.statusMessage = 'På hylla i et annet UiO-bibliotek';
-          sel.available = true;
-          sel.lib_label = sel.library;
-          out.push(sel);
-        }
-      } else {
-
-        // 3.2 At other UBO library, but not available
-        if (!out.length) {
-          sel = _.find(unavailable, {alma_instance: '47BIBSYS_UBO'});
-          if (sel) {
-            sel.statusMessage = 'Utlånt fra et annet UiO-bibliotek';
-            sel.available = false;
-            out.push(sel);
-          }
-        }
-      }
-
-      // 4 Whatever
-      if (!out.length) {
-        holdings[0].statusMessage = 'Ikke tilgjengelig ved UiO';
-        holdings[0].available = false;
-        out.push(holdings[0]);
-      }
-
-      return out;
-    }
-
-    function processPrintAvailability(record, config) {
-      // Adds a view-friendly 'record.print' object based on
-      // data from 'record.components', for showing print availability.
-
-
-      // Make a flat list of holdings
-      var holdings = _.filter(_.flatten(_.map(record.components, 'holdings')), 'library');
-
-      record.holdings = getBestHoldings(holdings, config);
-    }
-
-    function processElectronicAvailability(record) {
-      if (record.urls && record.urls.length) {
-        // Trust for use in iframe
-        // @TODO: Do we ever need more than the first URL?
-        record.urls[0].url = $sce.trustAsResourceUrl(record.urls[0].url);
-      }
-    }
-
     function cacheBookCover(url) {
       var promiseResolved = false;
       var deferred = $q.defer();
@@ -486,7 +374,7 @@
       return deferred.promise;
     }
 
-    function getBookDetails(id, config) {
+    function getBookDetails(id) {
       // Find details for the book(s) with given id
 
       // We'll return a promise, which will resolve with a book if found, or with an error if not.
@@ -495,10 +383,6 @@
       request('records/' + id)
       .then(function(data) {
         var book = new Book(data.data.result);
-
-        // Add display-friendly variables for displaying availability
-        processPrintAvailability(book, config);
-        processElectronicAvailability(book);
 
         FavoriteFactory.get(book.id).then(function(res) {
           if (res) {
@@ -510,7 +394,7 @@
 
         cacheBookCover(book.links.cover).then(function() {
           // Get location
-          if (book.holdings.length && book.holdings[0].available && book.holdings[0].library == config.libraries.local.code) {
+          if (book.hasLocalHolding()) {
             factory.addHoldingLocation(book.holdings[0])
             .then(function() {
               // We got a holding location
