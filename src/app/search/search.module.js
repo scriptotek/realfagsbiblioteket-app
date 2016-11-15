@@ -17,7 +17,7 @@
     vm.results = [];
     vm.search = search;
     vm.showEbooks = true;
-    vm.searchQuerySort = "date";
+    vm.searchQuerySort = "relevance";
     vm.showOptions = false;
     vm.searchScopes = [
       {value: 'UREAL',  label: 'Realfagsbibl, Inf og Tøyen'},
