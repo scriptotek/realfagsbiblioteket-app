@@ -126,7 +126,7 @@
       }
     })
     .state('app.search', {
-      url: '/search?query&scope',
+      url: '/search?query&scope&sort',
       views: {
         'menuContent': {
           templateUrl: 'app/search/search.html',

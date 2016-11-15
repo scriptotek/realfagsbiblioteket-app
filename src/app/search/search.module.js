@@ -117,7 +117,11 @@
       // If the url is not currently set to this query, update it
       if (vm.searchQuery !== $stateParams.query || vm.searchScope != $stateParams.scope) {
         // Update the url without reloading, so that the user can go back in history to this search.
-        $state.go('app.search', {query: vm.searchQuery, scope: vm.searchScope}, {notify: false});
+        $state.go('app.search', {
+          query: vm.searchQuery,
+          scope: vm.searchScope,
+          sort: vm.searchQuerySort,
+        }, {notify: false});
         $stateParams.query = vm.searchQuery; // Is this needed??
       }
 
