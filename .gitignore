@@ -6,6 +6,7 @@ platforms/
 plugins/
 www/
 src/lib/
+src/.tmp/
 scandit-barcodescanner-community-phonegap*
 yarn.lock
 *.mobileprovision
