@@ -7,7 +7,7 @@
 
         <!-- Form needed to search on enter keypress -->
         <form ng-submit="vm.search()">
-          <ion-item class="item-button-right" style="padding: 0;">
+          <ion-item class="item-button-right" style="padding: 0; padding-right: 40px;">
             <label class="item-input">
 
               <!--<i class="icon ion-search placeholder-icon"></i>
@@ -19,6 +19,7 @@
                 ng-model="vm.searchQuery"
                 ng-change="vm.searchQueryUpdated()">
             </label>
+            <button type="button" class="button button-clear button-stable icon ion-android-close" ng-click="vm.clearSearch()" style="top: 0; right: 32px;"></button>
             <button type="button" class="button button-clear button-stable icon ion-android-more-vertical" ng-click="vm.showOptions = !vm.showOptions" style="top: 0; right: 0;"></button>
               <!-- For showing more options -->
           </ion-item>

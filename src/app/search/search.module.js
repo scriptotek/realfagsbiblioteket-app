@@ -44,6 +44,7 @@
     vm.searchQueryUpdated = searchQueryUpdated;
     vm.sortBy = sortBy;
     vm.setScope = setScope;
+    vm.clearSearch = clearSearch;
 
     activate();
 
@@ -54,6 +55,16 @@
       vm.searchQuery = $stateParams.query;
       vm.searchScope = $stateParams.scope || 'UREAL';
       vm.search();
+    }
+
+    function clearSearch() {
+      vm.searchQuery = '';
+      vm.totalResults = undefined;
+      vm.results = [];
+
+      $timeout(function() {
+        document.getElementById('searchInputField').focus();
+      });
     }
 
     function setScope(scope) {
