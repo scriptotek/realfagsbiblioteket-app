@@ -2,50 +2,72 @@
   <ion-content>
     <ion-list>
 
-      <!-- Form needed to search on enter keypress -->
-      <form ng-submit="vm.search()">
-        <ion-item class="item-button-right" style="padding: 0;">
-          <label class="item-input">
+      <!-- Search input -->
+      <div class="card">
 
-            <i class="icon ion-search placeholder-icon"></i>
-            <input
-              ubo-focus="!vm.searchQuery.length"
-              type="text"
-              placeholder="Tittel, forfatter eller ISBN"
-              ng-model="vm.searchQuery"
-              ng-change="vm.searchQueryUpdated()">
-          </label>
-          <button type="button" class="button button-clear button-stable icon ion-android-more-vertical" ng-click="vm.showOptions = !vm.showOptions" style="top: 0; right: 0;"></button>
-            <!-- For showing more options -->
-        </ion-item>
-      </form>
+        <!-- Form needed to search on enter keypress -->
+        <form ng-submit="vm.search()">
+          <ion-item class="item-button-right" style="padding: 0;">
+            <label class="item-input">
 
-      <!-- Options start -->
-      <label class="item item-input item-select" ng-show="vm.showOptions">
-        <div class="input-label">
-          Søk i
+              <!--<i class="icon ion-search placeholder-icon"></i>
+              --><input
+                id="searchInputField"
+                ubo-focus="!vm.searchQuery.length"
+                type="text"
+                placeholder="Tittel, forfatter eller ISBN"
+                ng-model="vm.searchQuery"
+                ng-change="vm.searchQueryUpdated()">
+            </label>
+            <button type="button" class="button button-clear button-stable icon ion-android-more-vertical" ng-click="vm.showOptions = !vm.showOptions" style="top: 0; right: 0;"></button>
+              <!-- For showing more options -->
+          </ion-item>
+        </form>
+
+        <!-- Options start -->
+        <label class="item item-input item-select" ng-show="vm.showOptions">
+          <div class="input-label">
+            Søk i
+          </div>
+          <select ng-model="vm.searchScope" ng-change="vm.search()">
+            <option ng-repeat="(option, label) in vm.searchScopes" value="{{option}}">{{label.menuName}}</option>
+          </select>
+        </label>
+        <!--
+        <div class="item" ng-show="vm.showOptions">
+          <div class="button-bar">
+              <a class="button button-small" ng-class="{'button-positive': !isActive('breakfast')}" ng-click="setActive('breakfast')">Trykte bøker</a>
+              <a class="button button-small" ng-class="{'button-positive': isActive('lunch')}" ng-click="setActive('lunch')">E-bøker</a>
+          </div>
         </div>
-        <select ng-model="vm.searchScope" ng-change="vm.search()">
-          <option ng-repeat="option in vm.searchScopes" value="{{option.value}}">{{option.label}}</option>
-        </select>
-      </label>
-      <!--
-      <div class="item" ng-show="vm.showOptions">
-        <div class="button-bar">
-            <a class="button button-small" ng-class="{'button-positive': !isActive('breakfast')}" ng-click="setActive('breakfast')">Trykte bøker</a>
-            <a class="button button-small" ng-class="{'button-positive': isActive('lunch')}" ng-click="setActive('lunch')">E-bøker</a>
+        -->
+        <!-- Options end -->
+      </div>
+    </ion-list>
+
+    <div class="card" ng-show="vm.totalResults === 0">
+      <div class="item item-text-wrap">
+        Ingen treff i {{ vm.searchScopes[vm.searchScope].name }}.
+        <div>
+
+          <button style="margin-top:16px;" ng-show="vm.searchScope == 'UREAL'" class="button button-clear button-balanced icon ion-chevron-right" ng-click="vm.setScope('UBO')"> Utvid til hele UiO</button>
+
+          <button style="margin-top:16px;" ng-show="vm.searchScope != 'BIBSYS'" class="button button-clear button-balanced icon ion-chevron-right" ng-click="vm.setScope('BIBSYS')"> Utvid til alle norske fagbibliotek</button>
+
         </div>
       </div>
-      -->
-      <!-- Options end -->
+    </div>
+
+      <!-- The ng-hide will hide any book from the results if the viewmodel variable showEbooks is set to false AND the book.material property has the word "electronic" in it. -->
+      <!-- <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}" ng-hide="book.material.indexOf('electronic') !== -1 && vm.showEbooks === false"> -->
 
 
-      <div ng-show="vm.totalResults !== undefined">
+    <div class="list card" ng-show="vm.totalResults > 0">
 
         <div class="item item-divider">
-          <div ng-show="vm.totalResults != 0">
+          <div>
             {{vm.totalResults}} treff
-            <div class="text-right sortBy">Sortering:
+            <div class="text-right sortBy" ng-show="vm.totalResults != 0">Sortering:
               <span ng-click="vm.sortBy('date')" ng-class="{true: 'sortBySelected'}[vm.searchQuerySort == 'date']">
                 dato
               </span>
@@ -62,9 +84,6 @@
               </span>
             </div>
           </div>
-          <div ng-show="!vm.totalResults">
-            Ingen treff
-          </div>
         </div>
 
         <!-- TODO: Toggle ebooks for v2.0
@@ -77,10 +96,6 @@
             </div>
           </label>
         </div> -->
-      </div>
-
-      <!-- The ng-hide will hide any book from the results if the viewmodel variable showEbooks is set to false AND the book.material property has the word "electronic" in it. -->
-      <!-- <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}" ng-hide="book.material.indexOf('electronic') !== -1 && vm.showEbooks === false"> -->
 
       <ion-item ng-repeat="book in vm.results" ng-click="vm.clickResult(book)" ng-include src="'app/search/result.html'">
       </ion-item>
@@ -102,6 +117,6 @@
         <button class="button button-full button-balanced" ng-click="vm.loadMore()">Prøv på nytt</button>
       </div>
 
-    </ion-list>
+    </div>
   </ion-content>
 </ion-view>
