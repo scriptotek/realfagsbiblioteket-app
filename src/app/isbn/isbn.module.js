@@ -21,7 +21,8 @@
 
       // Source: https://github.com/driftyco/ionic/issues/1287#issuecomment-67752210
       // @TODO: Remove if https://github.com/driftyco/ionic/pull/3811 get merged
-      $ionicHistory.currentView($ionicHistory.backView());
+      $ionicHistory.removeBackView();
+      // $ionicHistory.currentView($ionicHistory.backView());
 
       $state.go('app.search', {query: vm.title + ' ' + vm.author});
     }
@@ -166,7 +167,7 @@
         delay: 500,
       });
 
-      SearchFactory.search(isbn)
+      SearchFactory.search(isbn, 'BIBSYS')
       .then(function(data) {
         $ionicLoading.hide();
 
