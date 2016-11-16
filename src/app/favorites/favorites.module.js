@@ -10,13 +10,15 @@
   function FavoritesCtrl($scope, FavoriteFactory) {
     var vm = this;
     vm.hideAvailability = true;
+    vm.ready = false;
     vm.results = [];
 
-    $scope.$on('$ionicView.enter', activate);
+    $scope.$on('$ionicView.beforeEnter', activate);
 
     function activate() {
       FavoriteFactory.ls().then(function(results) {
         vm.results = results.map(function(row) { return row.book; });
+        vm.ready = true;
       });
     }
   }

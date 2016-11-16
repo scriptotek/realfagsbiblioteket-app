@@ -1,12 +1,14 @@
 <ion-view view-title="Favoritter">
-  <ion-content>
-    <ion-list>
+
+  <ion-content ng-show="vm.ready && vm.results.length">
+    <div class="card list">
       <ion-item ng-repeat="book in vm.results track by book.id" ui-sref="app.book({id: book.id})">
         <div ng-include src="'app/search/result.html'"></div>
       </ion-item>
-    </ion-list>
+    </div>
   </ion-content>
-  <ion-content padding="true" ng-hide="vm.results.length">
+
+  <ion-content padding="true" ng-show="vm.ready && !vm.results.length">
 
     <div class="card">
 
@@ -18,4 +20,5 @@
     </div>
 
   </ion-content>
+
 </ion-view>
