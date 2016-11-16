@@ -205,7 +205,7 @@
 
   // ------------------------------------------------------------------------
 
-  function EditionsCtrl(SearchFactory, $stateParams, $cordovaNetwork) {
+  function EditionsCtrl(SearchFactory, $stateParams, $cordovaNetwork, $ionicLoading) {
     var vm = this;
 
     // Variables
@@ -222,6 +222,12 @@
     /////
 
     function activate() {
+      $ionicLoading.show({
+        template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> Henter...',
+        noBackdrop: true,
+        delay: 300,
+      });
+
       vm.searchId = $stateParams.id;
       vm.searchScope = $stateParams.scope;
       vm.search();
@@ -237,8 +243,10 @@
       SearchFactory.lookUpGroup(vm.searchId, vm.searchScope)
       .then(function(data) {
         // console.log("got data in search controller");
+        $ionicLoading.hide();
         vm.results = data;
       }, function(error) {
+        $ionicLoading.hide();
         console.log("error in group search ctrl: ", error.status);
         if (window.cordova && $cordovaNetwork.isOffline()) {
           vm.error = 'Ingen internettforbindelse.';
