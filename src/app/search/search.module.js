@@ -9,24 +9,28 @@
   // --------------------------------------------------------------------------
 
   function SearchCtrl(SearchFactory, $state, $stateParams, $ionicLoading, $scope, $timeout, $cordovaNetwork, $ionicHistory) {
-    var vm = this;
 
+    var vm = this;
     var helpCards = [
       'Som standard søker du i samlingene til Realfagsbiblioteket (inkludert Informatikkbiblioteket og Naturhistorisk museum), men du kan utvide søket til å gå mot alle bibliotek ved UiO eller alle fagbibliotek i Norge.',
       'Selv om du bare søker i Realfagsbiblioteket vil appen vise tilgjengelige eksemplarer fra andre bibliotek hvis eksemplarene i Realfagsbiblioteket er utlånt.',
     ];
 
-    // Variables
+    /**
+     * Variables
+     * Note: Variables that need to be reset each time the view is activated
+     *        (e.g. when going back) should rather be set in `activate()`.
+     */
     vm.showOptions = false;
-
     vm.searchScopes = {
       UREAL: {menuName: 'Realfagsbibl, Inf og Tøyen', name: 'Realfagsbiblioteket, Informatikkbiblioteket eller Naturhistorisk museum'},
       UBO: {menuName: 'Hele UiO', name: 'bibliotek ved UiO'},
       BIBSYS: {menuName: 'Alle norske fagbibliotek', name: 'norske fagbibliotek'},
     };
-    vm.searchScope = 'UREAL';
 
-    // Functions
+    /**
+     * Functions
+     */
     vm.clickResult = clickResult;
     vm.loadMore = loadMore;
     vm.searchQueryUpdated = searchQueryUpdated;
@@ -36,7 +40,7 @@
     vm.cardDestroyed = cardDestroyed;
     vm.clearSearch = clearSearch;
 
-    // activate();
+
     $scope.$on('$ionicView.beforeEnter', activate);
 
     /////
@@ -102,7 +106,6 @@
     }
 
     function setScope(scope) {
-      console.log('setScope');
       vm.searchScope = scope;
       vm.search();
     }
@@ -113,7 +116,6 @@
       // parameter updates
       if (vm.searchQuerySort !== sort) {
         vm.searchQuerySort = sort;
-        console.log('sortby');
         vm.search();
       }
     }
@@ -135,7 +137,7 @@
         return;
       }
 
-      console.log('> loadMore, starting from ' + (vm.results.length+1));
+      // console.log('> loadMore, starting from ' + (vm.results.length+1));
 
       vm.error = null;
       SearchFactory.search(vm.searchQuery, vm.searchScope, null, vm.results.length+1, vm.searchQuerySort)
@@ -190,7 +192,6 @@
 
       vm.totalResults = undefined;
       vm.results = [];
-      console.log('start search');
       loadMore();
     }
 

@@ -19,9 +19,7 @@
     ////
 
     function link(scope, elem) {
-      console.log('linking');
       var reportEvent = function (e) {
-        console.log('touchh');
         if (e.target.tagName.toLowerCase() === 'input') {
           $ionicSlideBoxDelegate.enableSlide(false);
           $ionicScrollDelegate.freezeAllScrolls(false);
