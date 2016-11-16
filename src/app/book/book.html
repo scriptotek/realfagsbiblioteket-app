@@ -12,9 +12,9 @@
     <div ng-repeat="book in vm.books" ng-include src="'app/book/card.html'"></div>
 
 
-    <div class="book card" ng-if="!vm.busy && !vm.books">
+    <div class="book card" ng-if="!vm.busy && !vm.books.length">
       <div class="item item-icon-left assertive">
-        <i class="icon ion-close-circled"></i>
+        <i class="icon ion-heart-broken"></i>
         {{ vm.error || 'Det oppsto en ukjent feil.' }}
       </div>
 

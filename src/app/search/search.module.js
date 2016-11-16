@@ -26,7 +26,7 @@
     vm.searchQuerySort = "relevance";
     vm.showOptions = false;
     vm.searchScopes = {
-      UREAL: {menuName: 'Realfagsbibl, Inf og Tøyen', name: 'Realfagsbiblioteket (inkl. Informatikkbiblioteket og Naturhistorik museum)'},
+      UREAL: {menuName: 'Realfagsbibl, Inf og Tøyen', name: 'Realfagsbiblioteket, Informatikkbiblioteket eller Naturhistorisk museum'},
       UBO: {menuName: 'Hele UiO', name: 'bibliotek ved UiO'},
       BIBSYS: {menuName: 'Alle norske fagbibliotek', name: 'norske fagbibliotek'},
     };
@@ -67,9 +67,12 @@
     }
 
     function clearSearch() {
+      vm.canLoadMoreResults = false;
       vm.searchQuery = '';
       vm.totalResults = undefined;
       vm.results = [];
+      vm.showHelpCards = true;
+      vm.error = null;
 
       $timeout(function() {
         document.getElementById('searchInputField').focus();
@@ -95,6 +98,7 @@
     }
 
     function setScope(scope) {
+      console.log('setScope');
       vm.searchScope = scope;
       vm.search();
     }
@@ -105,6 +109,7 @@
       // parameter updates
       if (vm.searchQuerySort !== sort) {
         vm.searchQuerySort = sort;
+        console.log('sortby');
         vm.search();
       }
     }
@@ -122,7 +127,11 @@
     }
 
     function loadMore() {
-      // console.log('> loadMore, starting from ' + (vm.results.length+1));
+      if (!vm.searchQuery) {
+        return;
+      }
+
+      console.log('> loadMore, starting from ' + (vm.results.length+1));
 
       vm.error = null;
       SearchFactory.search(vm.searchQuery, vm.searchScope, null, vm.results.length+1, vm.searchQuerySort)
@@ -135,11 +144,11 @@
       }, function(error) {
         console.log("error in search ctrl: ", error);
         if (window.cordova && $cordovaNetwork.isOffline()) {
-          vm.error = 'Ingen internettforbindelse :(';
+          vm.error = 'Ingen internettforbindelse.';
         } else if (error.status == -1) {
-          vm.error = 'Mistet forbindelsen :(';
+          vm.error = 'Mistet internettforbindelsen.';
         } else {
-          vm.error = error.statusText ? error.statusText : 'Det oppsto en ukjent feil :(';
+          vm.error = error.statusText ? error.statusText : 'Det oppsto en ukjent feil.';
         }
         searchCompleted();
       });
@@ -173,6 +182,7 @@
 
       vm.totalResults = undefined;
       vm.results = [];
+      console.log('start search');
       loadMore();
     }
 
@@ -231,11 +241,11 @@
       }, function(error) {
         console.log("error in group search ctrl: ", error.status);
         if (window.cordova && $cordovaNetwork.isOffline()) {
-          vm.error = 'Ingen internettforbindelse :(';
+          vm.error = 'Ingen internettforbindelse.';
         } else if (error.status == -1) {
-          vm.error = 'Mistet forbindelsen :(';
+          vm.error = 'Mistet internettforbindelsen.';
         } else {
-          vm.error = 'Det oppsto en ukjent feil :(';
+          vm.error = 'Det oppsto en ukjent feil.';
         }
       });
     }
@@ -462,9 +472,9 @@
       }, function(response) {
         console.log("Error in getBookDetails factory: ", response.status);
         if (window.cordova && $cordovaNetwork.isOffline()) {
-          deferred.reject('Ingen internettforbindelse :(');
+          deferred.reject('Ingen internettforbindelse.');
         } else if (response.status == -1) {
-          deferred.reject('Mistet forbindelsen :(');
+          deferred.reject('Mistet internettforbindelsen.');
         } else if (response.data && response.data.error) {
           deferred.reject(response.data.error);
         } else {

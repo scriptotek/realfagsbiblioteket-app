@@ -214,7 +214,7 @@
         vm.busy = false;
 
         if (window.cordova && $cordovaNetwork.isOffline()) {
-          vm.error = 'Ingen internettforbindelse :(';
+          vm.error = 'Ingen internettforbindelse.';
         } else {
           vm.error = error;
         }

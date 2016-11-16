@@ -63,23 +63,31 @@
     <div class="card" ng-show="vm.totalResults === 0">
       <div class="item item-text-wrap">
         Ingen treff i {{ vm.searchScopes[vm.searchScope].name }}.
-        <div>
-
-          <button style="margin-top:16px;" ng-show="vm.searchScope == 'UREAL'" class="button button-clear button-balanced icon ion-chevron-right" ng-click="vm.setScope('UBO')"> Utvid til hele UiO</button>
-
-          <button style="margin-top:16px;" ng-show="vm.searchScope != 'BIBSYS'" class="button button-clear button-balanced icon ion-chevron-right" ng-click="vm.setScope('BIBSYS')"> Utvid til alle norske fagbibliotek</button>
-
-        </div>
+        Finner du ikke det du leter etter kan du alltids sende oss en epost.
       </div>
-    </div>
+      <a ng-show="vm.searchScope == 'UREAL'" class="item item-icon-left balanced" ng-click="vm.setScope('UBO')">
+        <i class="icon ion-ios-search"></i>
+        Søk i hele UiO
+      </a>
 
+      <a ng-show="vm.searchScope != 'BIBSYS'" class="item item-icon-left balanced" ng-click="vm.setScope('BIBSYS')">
+        <i class="icon ion-ios-search"></i>
+        Søk i alle norske fagbibliotek
+      </a>
+
+      <a ng-show="vm.searchScope == 'BIBSYS'" class="item item-icon-left balanced" href="mailto:realfagsbiblioteket@ub.uio.no" ubo-ext-link>
+        <i class="icon ion-paper-airplane"></i>
+        realfagsbiblioteket@ub.uio.no
+      </a>
+
+    </div>
       <!-- The ng-hide will hide any book from the results if the viewmodel variable showEbooks is set to false AND the book.material property has the word "electronic" in it. -->
       <!-- <ion-item ng-repeat="book in vm.results" href="#/app/view/{{book.id}}" ng-hide="book.material.indexOf('electronic') !== -1 && vm.showEbooks === false"> -->
 
 
-    <div class="list card" ng-show="vm.totalResults > 0">
+    <div class="list card" ng-show="vm.totalResults > 0 || vm.error">
 
-        <div class="item item-divider">
+        <div class="item item-divider" ng-show="vm.totalResults > 0">
           <div>
             {{vm.totalResults}} treff
             <div class="text-right sortBy" ng-show="vm.totalResults != 0">Sortering:
@@ -123,7 +131,7 @@
       </ion-infinite-scroll>
 
       <div class="item item-icon-left item-text-wrap assertive" ng-if="vm.error">
-        <i class="icon ion-close-circled"></i>
+        <i class="icon ion-heart-broken"></i>
         Kunne ikke hente resultater:
         {{ vm.error || 'Det oppsto en ukjent feil.' }}
       </div>
