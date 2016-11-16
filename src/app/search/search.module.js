@@ -8,7 +8,7 @@
 
   // --------------------------------------------------------------------------
 
-  function SearchCtrl(SearchFactory, $state, $stateParams, $ionicLoading, $scope, $timeout, $cordovaNetwork) {
+  function SearchCtrl(SearchFactory, $state, $stateParams, $ionicLoading, $scope, $timeout, $cordovaNetwork, $ionicHistory) {
     var vm = this;
 
     var helpCards = [
@@ -17,32 +17,14 @@
     ];
 
     // Variables
-    vm.error = null;
-    vm.showHelpCards = true;
-    vm.searchQuery = '';
-    vm.results = [];
-    vm.search = search;
-    vm.showEbooks = true;
-    vm.searchQuerySort = "relevance";
     vm.showOptions = false;
+
     vm.searchScopes = {
       UREAL: {menuName: 'Realfagsbibl, Inf og Tøyen', name: 'Realfagsbiblioteket, Informatikkbiblioteket eller Naturhistorisk museum'},
       UBO: {menuName: 'Hele UiO', name: 'bibliotek ved UiO'},
       BIBSYS: {menuName: 'Alle norske fagbibliotek', name: 'norske fagbibliotek'},
     };
     vm.searchScope = 'UREAL';
-
-    // Total number of results (undefined until search carried out)
-    vm.totalResults = undefined;
-
-    // Helper variable to show/hide "no results" error message
-    vm.noResults = false;
-
-    // Helper variable for ionic-infinite-scroll. Set to false when there are no new books.
-    vm.canLoadMoreResults = false;
-
-    // On android loadMore() fires instantly even though immediate-check="false" on the ion-infinite-scroll element. Therefore use this helper variable:
-    vm.initialSearchCompleted = false;
 
     // Functions
     vm.clickResult = clickResult;
@@ -54,11 +36,33 @@
     vm.cardDestroyed = cardDestroyed;
     vm.clearSearch = clearSearch;
 
-    activate();
+    // activate();
+    $scope.$on('$ionicView.beforeEnter', activate);
 
     /////
 
     function activate() {
+      // Variables
+      vm.error = null;
+      vm.showHelpCards = true;
+      vm.searchQuery = '';
+      vm.results = [];
+      vm.search = search;
+      vm.showEbooks = true;
+      vm.searchQuerySort = "relevance";
+
+      // Total number of results (undefined until search carried out)
+      vm.totalResults = undefined;
+
+      // Helper variable to show/hide "no results" error message
+      vm.noResults = false;
+
+      // Helper variable for ionic-infinite-scroll. Set to false when there are no new books.
+      vm.canLoadMoreResults = false;
+
+      // On android loadMore() fires instantly even though immediate-check="false" on the ion-infinite-scroll element. Therefore use this helper variable:
+      vm.initialSearchCompleted = false;
+
       vm.noResults = false;
       vm.searchQuery = $stateParams.query;
       vm.searchScope = $stateParams.scope || 'UREAL';
@@ -172,12 +176,16 @@
       // If the url is not currently set to this query, update it
       if (vm.searchQuery !== $stateParams.query || vm.searchScope != $stateParams.scope) {
         // Update the url without reloading, so that the user can go back in history to this search.
-        $state.go('app.search', {
+
+        $ionicHistory.nextViewOptions({
+          disableAnimate: true,
+        });
+
+        $state.go('.', {
           query: vm.searchQuery,
           scope: vm.searchScope,
           sort: vm.searchQuerySort,
-        }, {notify: false});
-        $stateParams.query = vm.searchQuery; // Is this needed??
+        });
       }
 
       vm.totalResults = undefined;
