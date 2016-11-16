@@ -196,11 +196,12 @@
               vm.author = author;
               vm.title = metadata.list[0].title;
             } else {
-              vm.error = 'Boka ble ikke funnet.';
+              vm.error = 'Fant ikke boka.';
             }
           }, function(error) {
             console.log('XisbnFactory error: ', error);
-            vm.error = error;
+            // vm.error = error;
+            vm.error = 'Fant ikke boka.';
           });
         }
       }, function() {

@@ -20,9 +20,7 @@
 
       var deferred = $q.defer();
 
-      $http.get('https://ub-www01.uio.no/realfagsbiblioteket-app/xisbn', {
-        params: { isbn: isbn }
-      })
+      $http.get('https://ub-www01.uio.no/realfagsbiblioteket-app/xisbn/' + isbn)
       .then(function(response) {
         deferred.resolve(response.data);
       }, function(response) {
