@@ -8,22 +8,28 @@
 
   // --------------------------------------------------------------------------
 
-  function SearchCtrl(SearchFactory, $state, $stateParams, $ionicLoading, $scope, $cordovaNetwork) {
+  function SearchCtrl(SearchFactory, $state, $stateParams, $ionicLoading, $scope, $timeout, $cordovaNetwork) {
     var vm = this;
+
+    var helpCards = [
+      'Som standard søker du i samlingene til Realfagsbiblioteket (inkludert Informatikkbiblioteket og Naturhistorisk museum), men du kan utvide søket til å gå mot alle bibliotek ved UiO eller alle fagbibliotek i Norge.',
+      'Selv om du bare søker i Realfagsbiblioteket vil appen vise tilgjengelige eksemplarer fra andre bibliotek hvis eksemplarene i Realfagsbiblioteket er utlånt.',
+    ];
 
     // Variables
     vm.error = null;
+    vm.showHelpCards = true;
     vm.searchQuery = '';
     vm.results = [];
     vm.search = search;
     vm.showEbooks = true;
     vm.searchQuerySort = "relevance";
     vm.showOptions = false;
-    vm.searchScopes = [
-      {value: 'UREAL',  label: 'Realfagsbibl, Inf og Tøyen'},
-      {value: 'UBO',    label: 'Hele UiO'},
-      {value: 'BIBSYS', label: 'Alle norske fagbibliotek'},
-    ];
+    vm.searchScopes = {
+      UREAL: {menuName: 'Realfagsbibl, Inf og Tøyen', name: 'Realfagsbiblioteket (inkl. Informatikkbiblioteket og Naturhistorik museum)'},
+      UBO: {menuName: 'Hele UiO', name: 'bibliotek ved UiO'},
+      BIBSYS: {menuName: 'Alle norske fagbibliotek', name: 'norske fagbibliotek'},
+    };
     vm.searchScope = 'UREAL';
 
     // Total number of results (undefined until search carried out)
@@ -44,6 +50,8 @@
     vm.searchQueryUpdated = searchQueryUpdated;
     vm.sortBy = sortBy;
     vm.setScope = setScope;
+    vm.cardSwiped = nextCard;
+    vm.cardDestroyed = cardDestroyed;
     vm.clearSearch = clearSearch;
 
     activate();
@@ -54,6 +62,7 @@
       vm.noResults = false;
       vm.searchQuery = $stateParams.query;
       vm.searchScope = $stateParams.scope || 'UREAL';
+      firstCard();
       vm.search();
     }
 
@@ -65,6 +74,24 @@
       $timeout(function() {
         document.getElementById('searchInputField').focus();
       });
+    }
+
+    function firstCard() {
+      vm.activeCardIndex = -1;
+      vm.cards = [];
+      nextCard();
+    }
+
+    function cardDestroyed(index) {
+      vm.cards.splice(index, 1);
+    }
+
+    function nextCard() {
+      vm.activeCardIndex++;
+      if (helpCards[vm.activeCardIndex] === undefined) {
+        vm.activeCardIndex = 0;
+      }
+      vm.cards.push({id: Math.random(), text: helpCards[vm.activeCardIndex]});
     }
 
     function setScope(scope) {
@@ -124,6 +151,8 @@
 
       // Unfocus the input field to hide keyboard
       document.activeElement.blur();
+
+      vm.showHelpCards = false;
 
       $ionicLoading.show({
         template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> Søker...',

@@ -165,7 +165,7 @@ gulp.task('inject', ['vet', 'styles'], function() {
     log('Inject css and js into index');
 
     // It's not necessary to read the files (will speed up things), we're only after their paths.
-    var sources = ['./src/app/**/*.js']; //, '!./src/app/constants.js', './www/build/js/constants.js'];
+    var sources = ['./src/app/**/*.js', './src/contrib/**/*.js']; //, '!./src/app/constants.js', './www/build/js/constants.js'];
 
     var jsOrder = [
       '**/app.js',

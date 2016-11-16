@@ -5,9 +5,34 @@
     .directive('uboIframeOnload', ['$parse', iframeOnloadDirective])
     .directive('uboFocus', uboFocusDirective)
     .directive('uboExtLink', uboExtLinkDirective)
-    .directive('uboGeoLink', uboGeoLinkDirective);
+    .directive('uboGeoLink', uboGeoLinkDirective)
+    .directive('uboPreventDrag', uboPreventDrag);
 
   // --------------------------------------------------------------------------
+
+  function uboPreventDrag($ionicGesture, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
+    return {
+      restrict: 'A',
+      link    : link,
+    };
+
+    ////
+
+    function link(scope, elem) {
+      console.log('linking');
+      var reportEvent = function (e) {
+        console.log('touchh');
+        if (e.target.tagName.toLowerCase() === 'input') {
+          $ionicSlideBoxDelegate.enableSlide(false);
+          $ionicScrollDelegate.freezeAllScrolls(false);
+        } else {
+          $ionicScrollDelegate.freezeScroll(true);
+          $ionicSlideBoxDelegate.enableSlide(true);
+        }
+      };
+      $ionicGesture.on('touch', reportEvent, elem);
+    }
+  }
 
   function iframeOnloadDirective($parse) {
     var directive = {

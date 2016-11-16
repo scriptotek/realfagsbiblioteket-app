@@ -1,3 +1,4 @@
+
 .platform-android .ion-share:before {
   content: '\f2f8';
 }
@@ -154,3 +155,88 @@ ion-item.activated, ion-item .activated {
   transition-delay: 300ms;
   -webkit-transition-delay: 300ms;
 }
+
+
+
+
+/* BEGIN SWIPE CARDS --------------------------------------------------------*/
+
+
+.swipe-cards {
+  position: fixed;
+}
+
+swipe-card {
+  display: none;
+  position: fixed;
+  -webkit-transform: scale(1,1);
+  box-sizing: border-box;
+  background-color: rgb(255,255,255);
+  border-radius: 4px;
+  overflow: hidden;
+  -webkit-animation-fill-mode: forwards;
+  transition: opacity .3s ease-in-out;   opacity: 1;
+
+}
+
+swipe-card .title {
+  height: 40px;
+  padding: 5px;
+  line-height: 30px;
+  color: #444;
+}
+swipe-card .image {
+  overflow: hidden;
+  max-height: 210px;
+}
+swipe-card .button {
+  border: none;
+}
+swipe-card .image img {
+  width: 100%;
+  border-radius: 0px 0px 4px 4px;
+}
+
+#start-card {
+  color: #fff;
+  background-color: #30BD8A;
+  line-height: 300px;
+  word-wrap: break-word;
+  border: 6px solid #4CD68E;
+  text-align: center;
+}
+#start-card span {
+  display: inline-block;
+  line-height: 40px;
+  width: 200px;
+  font-size: 30px;
+  vertical-align: middle;
+}
+
+#footer .button {
+  color: #fff;
+}
+
+@-webkit-keyframes bounceIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0.8,0.8);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1,1);
+  }
+}
+
+swipe-card.pop-in-start {
+  -webkit-transform: scale(0,0);
+  opacity: 0;
+}
+swipe-card.pop-in {
+  -webkit-animation: bounceIn 0.4s ease-out;
+}
+
+
+/* END SWIPE CARDS ---------------------------------------------------------*/
+
+

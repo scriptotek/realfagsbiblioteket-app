@@ -6,6 +6,7 @@
   angular
   .module('app', [
     'ionic',
+    'ionic.contrib.ui.cards',
     'ngCordova',
     'ngAnimate',
 

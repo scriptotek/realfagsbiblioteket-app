@@ -46,6 +46,20 @@
       </div>
     </ion-list>
 
+
+    <div ng-show="vm.showHelpCards">
+      <swipe-cards>
+        <swipe-card ng-repeat="card in vm.cards" class="card" ubo-prevent-drag on-destroy="vm.cardDestroyed($index)" on-card-swipe="vm.cardSwiped($index)">
+          <!--<div class="item item-divider">
+          Tips
+          </div>-->
+          <div class="item item-text-wrap">
+            {{card.text}}
+          </div>
+        </swipe-card>
+      </swipe-cards>
+    </div>
+
     <div class="card" ng-show="vm.totalResults === 0">
       <div class="item item-text-wrap">
         Ingen treff i {{ vm.searchScopes[vm.searchScope].name }}.
