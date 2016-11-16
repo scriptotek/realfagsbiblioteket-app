@@ -192,6 +192,7 @@
     }
 
     function activate() {
+      vm.busy = true;
       $ionicLoading.show({
         template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> Henter...',
         noBackdrop: true,
