@@ -6,6 +6,7 @@ var fs = require('fs');
 var plugins = require('gulp-load-plugins')();
 var del = require('del');
 var lazypipe = require('lazypipe');
+var angularProtractor = require('gulp-angular-protractor');
 
 // Largely influenced by https://github.com/flavordaaave/ionic-better-structure
 
@@ -269,6 +270,22 @@ var minifyCss = lazypipe()
   .pipe(plugins.cssUrlAdjuster, {
     replace: ['../lib/ionic/fonts','../fonts'],
   });
+
+
+
+gulp.task('test', [], function(callback) {
+    log('Starting Protractor tests');
+
+    gulp.src(['./spec/*.spec.js'])
+    .pipe(angularProtractor({
+        configFile: './spec/protractor.config.js',
+        args: ['--baseUrl', 'http://127.0.0.1:8100'],
+        autoStartStopServer: false,
+        debug: false,
+    }))
+    .on('error', function(e) { throw e })
+    .on('end', function() { callback(); });
+});
 
 
 /**

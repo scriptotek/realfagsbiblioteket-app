@@ -1,14 +1,22 @@
 (function() {
 
   angular
-    .module('app.search', ['app.favorites', 'app.book'])
+    .module('app.search', ['app.favorites', 'app.book', 'app.services.memorystorage'])
     .factory('SearchFactory', SearchFactory)
     .controller('SearchCtrl', SearchCtrl)
     .controller('EditionsCtrl', EditionsCtrl);
 
   // --------------------------------------------------------------------------
 
-  function SearchCtrl(SearchFactory, $state, $stateParams, $ionicLoading, $scope, $timeout, $cordovaNetwork, $ionicHistory) {
+  function SearchCtrl(SearchFactory, $state, $stateParams, $ionicLoading, $scope, $timeout, $cordovaNetwork, $ionicHistory, MemoryStorage) {
+
+    /**
+     * Note that
+     * - the controller *is* re-initialized when a new search is carried out.
+     * - the controller is *not* re-initialized when the view is reached using the back button.
+     */
+
+    console.log('>>> SearchCtrl.init(query=' + $stateParams.query +')');
 
     var vm = this;
     var helpCards = [
@@ -16,75 +24,107 @@
       'Selv om du bare søker i Realfagsbiblioteket vil appen vise tilgjengelige eksemplarer fra andre bibliotek hvis eksemplarene i Realfagsbiblioteket er utlånt.',
     ];
 
-    /**
-     * Variables
-     * Note: Variables that need to be reset each time the view is activated
-     *        (e.g. when going back) should rather be set in `activate()`.
-     */
-    vm.showOptions = false;
+    // State variables : default values
+    var defaultValues = {
+      sort: MemoryStorage.get('search.defaultSort', 'relevance'),
+      query: '',
+      scope: 'UREAL',
+    };
+    vm.state = {};
+
+    // View variables
+    vm.showOptions = MemoryStorage.get('search.showOptions', false);
+    vm.error = null;
+    vm.showHelpCards = true;
+    vm.showEbooks = true;
+
+    // Helper variable for ionic-infinite-scroll. Set to false when there are no new books.
+    vm.canLoadMoreResults = false;
+
     vm.searchScopes = {
       UREAL: {menuName: 'Realfagsbibl, Inf og Tøyen', name: 'Realfagsbiblioteket, Informatikkbiblioteket eller Naturhistorisk museum'},
       UBO: {menuName: 'Hele UiO', name: 'bibliotek ved UiO'},
       BIBSYS: {menuName: 'Alle norske fagbibliotek', name: 'norske fagbibliotek'},
     };
 
-    /**
-     * Functions
-     */
+    // Functions
     vm.clickResult = clickResult;
-    vm.loadMore = loadMore;
+    vm.loadMoreResults = loadMoreResults;
     vm.searchQueryUpdated = searchQueryUpdated;
     vm.sortBy = sortBy;
     vm.setScope = setScope;
     vm.cardSwiped = nextCard;
     vm.cardDestroyed = cardDestroyed;
     vm.clearSearch = clearSearch;
+    vm.submitSearchForm = submitSearchForm;
+    vm.toggleShowOptions = toggleShowOptions;
 
-
-    $scope.$on('$ionicView.beforeEnter', activate);
+    // Init
+    $scope.$on('$ionicView.beforeEnter', beforeEnter);
+    $scope.$on('$ionicView.enter', enter);
+    activate();
 
     /////
 
     function activate() {
-      // Variables
-      vm.error = null;
-      vm.showHelpCards = true;
-      vm.searchQuery = '';
-      vm.results = [];
-      vm.search = search;
-      vm.showEbooks = true;
-      vm.searchQuerySort = "relevance";
 
-      // Total number of results (undefined until search carried out)
-      vm.totalResults = undefined;
+      // Set state defaults
+      Object.keys(defaultValues).forEach(function(k) {
+        console.log(k);
+        vm.state[k] = defaultValues[k];
+      });
 
-      // Helper variable to show/hide "no results" error message
-      vm.noResults = false;
+      // We need to get the state params injected early.
+      // No problem if this method is called twice, since
+      // it should be idempotent.
+      beforeEnter();
 
-      // Helper variable for ionic-infinite-scroll. Set to false when there are no new books.
-      vm.canLoadMoreResults = false;
-
-      // On android loadMore() fires instantly even though immediate-check="false" on the ion-infinite-scroll element. Therefore use this helper variable:
-      vm.initialSearchCompleted = false;
-
-      vm.noResults = false;
-      vm.searchQuery = $stateParams.query;
-      vm.searchScope = $stateParams.scope || 'UREAL';
       firstCard();
-      vm.search();
+    }
+
+    function getStateParam(name) {
+      return $stateParams[name] || defaultValues[name];
+    }
+
+    function beforeEnter() {
+      // beforeEnter() is called after activate()
+
+      console.log('>>> SearchCtrl.beforeEnter()', $stateParams.query, vm.state.query);
+
+      // console.log($stateParams);
+      if (getStateParam('query') != vm.state.query || getStateParam('scope') != vm.state.scope || getStateParam('sort') != vm.state.sort) {
+
+        console.log('    Params changed, do new search: ', getStateParam('query'), vm.state.query, ' -- ', getStateParam('scope'), vm.state.scope, ' -- ', getStateParam('sort'), vm.state.sort);
+
+        vm.state.query = getStateParam('query');
+        vm.state.scope = getStateParam('scope');
+        vm.state.sort = getStateParam('sort');
+
+        startNewSearch();
+      }
+    }
+
+    function enter() {
+      var h = $ionicHistory.viewHistory();
+      console.log($stateParams);
+      console.log(h.currentView.index, h.histories.ion1.stack);
     }
 
     function clearSearch() {
       vm.canLoadMoreResults = false;
-      vm.searchQuery = '';
+      vm.state.query = '';
       vm.totalResults = undefined;
       vm.results = [];
       vm.showHelpCards = true;
       vm.error = null;
 
+      // Setting focus sometimes fails... Let's make two attempts
       $timeout(function() {
         document.getElementById('searchInputField').focus();
       });
+      $timeout(function() {
+        document.getElementById('searchInputField').focus();
+      }, 350);
     }
 
     function firstCard() {
@@ -106,7 +146,7 @@
     }
 
     function setScope(scope) {
-      vm.searchScope = scope;
+      vm.state.scope = scope;
       vm.search();
     }
 
@@ -114,38 +154,44 @@
       // Let's the user sort search results. This does not mean sorting the
       // results already displayed. This performs a new search with the sort
       // parameter updates
-      if (vm.searchQuerySort !== sort) {
-        vm.searchQuerySort = sort;
-        vm.search();
+      if (vm.state.sort !== sort) {
+        vm.state.sort = sort;
+        MemoryStorage.put('search.defaultSort', vm.state.sort);
+        vm.submitSearchForm();
       }
     }
 
+    function toggleShowOptions() {
+      vm.showOptions = !vm.showOptions;
+      MemoryStorage.put('search.showOptions', vm.showOptions);
+    }
+
     function searchQueryUpdated() {
-      vm.noResults = false;
+      // Perhaps hide "no results" message
     }
 
     function searchCompleted() {
       // Can we load more books?
-      // console.log('::', SearchFactory.searchResult.total_results, vm.results.length, SearchFactory.searchResult.total_results);
       vm.canLoadMoreResults = vm.totalResults === undefined || vm.results.length < SearchFactory.searchResult.total_results;
+      console.log('    .searchCompleted() ', vm.results.length, '/', SearchFactory.searchResult.total_results, vm.totalResults, vm.canLoadMoreResults);
       $ionicLoading.hide();
       $scope.$broadcast('scroll.infiniteScrollComplete');
     }
 
-    function loadMore() {
-      if (!vm.searchQuery) {
+    function loadMoreResults() {
+      if (!vm.state.query) {
         return;
       }
 
-      // console.log('> loadMore, starting from ' + (vm.results.length+1));
+      console.log('... loadMore, starting from ' + (vm.results.length+1));
 
       vm.error = null;
-      SearchFactory.search(vm.searchQuery, vm.searchScope, null, vm.results.length+1, vm.searchQuerySort)
+      SearchFactory.search(vm.state.query, vm.state.scope, null, vm.results.length+1, vm.state.sort)
       .then(function(data) {
+        // console.log(data.results);
         vm.results = data.results;
         vm.totalResults = data.total_results;
 
-        vm.noResults = (vm.results.length===0);
         searchCompleted();
       }, function(error) {
         console.log("error in search ctrl: ", error);
@@ -161,11 +207,23 @@
 
     }
 
-    function search() {
-      if (!vm.searchQuery) return;
+    function submitSearchForm() {
+      if (!vm.state.query) return;
 
       // Unfocus the input field to hide keyboard
       document.activeElement.blur();
+
+      if (vm.state.query == getStateParam('query') && vm.state.scope == getStateParam('scope') && vm.state.sort == getStateParam('sort')) {
+        // This can happen if 
+        // 1. I search for some term "test"
+        // 2. I clear the search field
+        // 3. I search for exactly the same test
+        // The state has now not changed, but we need to get the results back 
+        // that was cleared when we pressed the clear button.
+        console.log('submitSearchForm: No changes to state.');
+        startNewSearch();
+        return;
+      }
 
       vm.showHelpCards = false;
 
@@ -175,24 +233,32 @@
         delay: 0,
       });
 
-      // If the url is not currently set to this query, update it
-      if (vm.searchQuery !== $stateParams.query || vm.searchScope != $stateParams.scope) {
-        // Update the url without reloading, so that the user can go back in history to this search.
+      // Update the url so that the user can go back in history to this search,
+      // but without a transition animation
 
-        $ionicHistory.nextViewOptions({
-          disableAnimate: true,
-        });
+      $ionicHistory.nextViewOptions({
+        disableAnimate: true,
+      });
 
-        $state.go('.', {
-          query: vm.searchQuery,
-          scope: vm.searchScope,
-          sort: vm.searchQuerySort,
-        });
+      $state.go('.', {
+        query: vm.state.query,
+        scope: vm.state.scope,
+        sort: vm.state.sort,
+      });
+    }
+
+    function startNewSearch() {
+      if (!vm.state.query) {
+        vm.showHelpCards = true;
+        return;
       }
 
+      console.log('    .startNewSearch(' + vm.state.query + ', ' + vm.state.scope + ', ' + vm.state.sort + ')');
+
+      vm.showHelpCards = false;
       vm.totalResults = undefined;
       vm.results = [];
-      loadMore();
+      loadMoreResults();
     }
 
     function clickResult(book) {
@@ -200,7 +266,7 @@
         // Multiple editions for this book. Navigate to group (search)view
         $state.go('app.editions', {
           id: book.id,
-          scope: vm.searchScope,
+          scope: vm.state.scope,
         });
       } else {
         // Just a single edition for this book. Navigate straight to it.
@@ -218,10 +284,13 @@
     var vm = this;
 
     // Variables
-    vm.searchId = '';
-    vm.searchScope = '';
+    vm.state = {
+      id: '',
+      scope: '',
+    };
     vm.results = [];
     vm.showEbooks = true;
+
     // Functions
     vm.retry = retry;
     vm.search = search;
@@ -237,8 +306,8 @@
         delay: 300,
       });
 
-      vm.searchId = $stateParams.id;
-      vm.searchScope = $stateParams.scope;
+      vm.state.id = $stateParams.id;
+      vm.state.scope = $stateParams.scope;
       vm.search();
     }
 
@@ -247,9 +316,9 @@
     }
 
     function search() {
-      if (!vm.searchId || 0 === vm.searchId.length) return;
+      if (!vm.state.id || 0 === vm.state.id.length) return;
 
-      SearchFactory.lookUpGroup(vm.searchId, vm.searchScope)
+      SearchFactory.lookUpGroup(vm.state.id, vm.state.scope)
       .then(function(data) {
         // console.log("got data in search controller");
         $ionicLoading.hide();
