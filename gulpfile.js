@@ -285,6 +285,7 @@ gulp.task('optimize', ['inject', 'templatecache'], function() {
         .pipe(plugins.useref())
 
         .pipe(plugins.if('**/app.js', injectScanditKey()))
+        .pipe(plugins.if('**/app.js', plugins.stripDebug()))
         .pipe(plugins.if('*.css', minifyCss()))
 
         // .pipe(plugins.if('**/app.js', plugins.ngAnnotate({add: true})))
