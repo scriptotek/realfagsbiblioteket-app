@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="no.uio.ub.realfagsbiblioteket"
     version="2.3.0"
-    android-versionCode="2030030"
-    ios-CFBundleVersion="2.3.0.3"
+    android-versionCode="2030040"
+    ios-CFBundleVersion="2.3.0.4"
     xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Realfagsbiblioteket</name>
     <description>
