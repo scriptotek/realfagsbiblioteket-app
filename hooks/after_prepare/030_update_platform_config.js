@@ -96,10 +96,10 @@ var platformConfig = (function(){
             'android-manifest-hardwareAccelerated': {target: 'AndroidManifest.xml', parent: './', destination: 'android:hardwareAccelerated'},
             'android-installLocation': {target: 'AndroidManifest.xml', parent: './', destination: 'android:installLocation'},
             'android-activity-hardwareAccelerated': {target: 'AndroidManifest.xml', parent: 'application', destination: 'android:hardwareAccelerated'},
-            'android-configChanges': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'CordovaApp\']', destination: 'android:configChanges'},
-            'android-launchMode': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'CordovaApp\']', destination: 'android:launchMode'},
-            'android-theme': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'CordovaApp\']', destination: 'android:theme'},
-            'android-windowSoftInputMode': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'CordovaApp\']', destination: 'android:windowSoftInputMode'}
+            'android-configChanges': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'MainActivity\']', destination: 'android:configChanges'},
+            'android-launchMode': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'MainActivity\']', destination: 'android:launchMode'},
+            'android-theme': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'MainActivity\']', destination: 'android:theme'},
+            'android-windowSoftInputMode': {target: 'AndroidManifest.xml', parent: 'application/activity[@android:name=\'MainActivity\']', destination: 'android:windowSoftInputMode'}
         },
         'ios': {}
     };
