@@ -1,0 +1,522 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Dan Michael O. Heggø <d.m.heggo@ub.uio.no>\n"
+"Language-Team: \n"
+"Language: nb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: search/search.module.js:598
+msgid "1. mezzanine"
+msgstr "1. messanin"
+
+#: app.html:38
+msgid "About the app"
+msgstr "Om appen"
+
+#: search/search.module.js:212 search/search.module.js:343
+msgid "An unknown error occured."
+msgstr "Det oppsto en ukjent feil."
+
+#: about/about.html:14
+msgid "App version"
+msgstr "App-versjon"
+
+#: book/book.module.js:98
+msgid "Available as e-book"
+msgstr "Tilgjengelig som e-bok"
+
+#: book/card.html:62
+msgid "Available online"
+msgstr "Tilgjengelig online"
+
+#: search/search.module.js:23
+msgid ""
+"By default you search the collections of the Science Library (including the "
+"Informatics Library and the Natural History Museum Library), but you can "
+"extend the scope to all UiO libraries or all research libraries in Norway."
+msgstr ""
+"Som standard søker du i samlingene til Realfagsbiblioteket (inkludert "
+"Informatikkbiblioteket og Naturhistorisk museum), men du kan utvide søket "
+"til å gå mot alle bibliotek ved UiO eller alle fagbibliotek i Norge."
+
+#: book/book.module.js:21
+msgid "Can be requested from another library"
+msgstr "Kan bestilles fra et annet bibliotek"
+
+#: book/book.module.js:145
+msgid "Check out this book"
+msgstr "Bok-tips"
+
+#: book/book.module.js:144
+msgid "Check out this book: {{title}} by {{author}}"
+msgstr "{{title}} av {{author}}"
+
+#: book/card.html:96
+msgid "Collection:"
+msgstr "Samling:"
+
+#: isbn/isbn.module.js:201 isbn/isbn.module.js:206
+msgid "Couldn't find the book."
+msgstr "Fant ikke boka."
+
+#: about/about.html:16
+msgid "Device"
+msgstr "Enhet"
+
+#: directions/directions.html:32 directions/directions.html:65
+msgid "Directions"
+msgstr "Veibeskrivelse"
+
+#: book/book.module.js:103
+msgid "E-book (no access)"
+msgstr "E-bok (ingen tilgang)"
+
+#: book/card.html:39
+msgid "Edition:"
+msgstr "Utgave:"
+
+#: about/about.module.js:16
+msgid "English"
+msgstr "engelsk"
+
+#: search/search.module.js:24
+msgid ""
+"Even if you just search the collection of the Science Library, the app will "
+"show available items at other UiO libraries if all items at the Science "
+"Library are on loan."
+msgstr ""
+"Selv om du bare søker i Realfagsbiblioteket vil appen vise tilgjengelige "
+"eksemplarer fra andre bibliotek hvis eksemplarene i Realfagsbiblioteket er "
+"utlånt."
+
+#: search/editions.html:34 search/search.html:123
+msgid "Failed getting results. {{ vm.error }}"
+msgstr "Klarte ikke hente resultater. {{ vm.error }}"
+
+#: app.html:32
+msgid "Favorites"
+msgstr "Favoritter"
+
+#: book/book.module.js:197 search/search.module.js:313
+msgid "Fetching data..."
+msgstr "Henter data…"
+
+#: home/home.html:6
+msgid "Find a book by searching for it or scanning an ISBN code."
+msgstr "Finn en bok ved å søke etter den eller skanne en ISBN-kode."
+
+#: book/card.html:94
+msgid "Floor:"
+msgstr "Etasje:"
+
+#: isbn/isbn.html:21
+msgid "Grant permission"
+msgstr "Gi tilgang"
+
+#: about/about.module.js:62
+msgid "Here it is:"
+msgstr "Her er den:"
+
+#: app.html:24
+msgid "Home"
+msgstr "Hjem"
+
+#: directions/directions.html:45
+msgid "Hours"
+msgstr "Åpningstider"
+
+#: home/home.html:20
+msgid "ISBN"
+msgstr "ISBN"
+
+#: directions/directions.html:37
+msgid "Informatics Library"
+msgstr "Informatikkbiblioteket"
+
+#: about/about.html:17
+msgid "Language"
+msgstr "Språk"
+
+#: about/about.html:24
+msgid "Language:"
+msgstr "Språk:"
+
+#: book/card.html:92
+msgid "Library:"
+msgstr "Bibliotek:"
+
+#: search/search.module.js:210 search/search.module.js:341
+#: search/search.module.js:572
+msgid "Lost the internet connection."
+msgstr "Mistet internettforbindelsen."
+
+#: search/search.module.js:599
+msgid "Main room (2. floor)"
+msgstr "«Hangaren» (2. etasje)"
+
+#: app.html:35
+msgid "Map and hours"
+msgstr "Kart og åpningstider"
+
+#: app.html:19
+msgid "Menu"
+msgstr "Meny"
+
+#: home/home.html:35
+msgid ""
+"Missing something here? Feel free to request features at <a ubo-ext-link="
+"\"\" href=\"https://github.com/scriptotek/realfagsbiblioteket-app\">GitHub</"
+"a> or <a ubo-ext-link=\"\" href=\"mailto:bib-lab-drift@ub.uio.no\">bib-lab-"
+"drift@ub.uio.no</a>."
+msgstr ""
+"Savner du noe her? Send gjerne inn forslag på <a ubo-ext-link href=\"https://"
+"github.com/scriptotek/realfagsbiblioteket-app\">GitHub</a> eller til <a ubo-"
+"ext-link href=\"mailto:bib-lab-drift@ub.uio.no\">bib-lab-drift@ub.uio.no</a>."
+
+#: directions/directions.html:14
+msgid ""
+"Mon-Fri: 08.00–22.00<br>\n"
+"        Sat-Sun: 10.00–18.00"
+msgstr ""
+"mandag til fredag: 08.00–22.00<br>\n"
+"        lørdag og søndag: 10.00–18.00"
+
+#: directions/directions.html:46
+msgid ""
+"Mon-Thu: 08.30–19.00<br>\n"
+"        Fri: 08.30–17.00<br>\n"
+"        Sat-Sun: stengt"
+msgstr ""
+"mandag til torsdag: 08.30–19.00<br>\n"
+"        fredag: 08.30–17.00<br>\n"
+"        lørdag og søndag: stengt"
+
+#: book/card.html:142
+msgid "More books about"
+msgstr "Flere bøker om"
+
+#: isbn/isbn.module.js:51
+msgid "No camera found on this device."
+msgstr "Fant ikke noe kamera på denne enheten."
+
+#: book/book.module.js:218 search/search.module.js:339
+#: search/search.module.js:570
+msgid "No internet connection."
+msgstr "Ingen internettforbindelse."
+
+#: search/search.html:66
+msgid ""
+"No items found in {{ vm.searchScopes[vm.state.scope].name }}. If you can't "
+"find what you need, please feel free to send us an e-mail."
+msgstr ""
+"Ingen treff i {{ vm.searchScopes[vm.state.scope].name }}. Finner du ikke det "
+"du er ute etter kan du alltids sende oss en epost."
+
+#: about/about.module.js:15
+msgid "Norwegian Bokmål"
+msgstr "norsk bokmål"
+
+#: search/search.module.js:54
+msgid "Norwegian research libraries"
+msgstr "norske fagbibliotek"
+
+#: book/card.html:104
+msgid ""
+"Note: This item is stored in a non-public location, but can most likely be "
+"fetched for you if you ask."
+msgstr ""
+"Merk: Dokumentet befinner seg i en lukket samling, men hvis du spør etter "
+"det kan sannsynligvis nok finne det til deg."
+
+#: book/book.module.js:30
+msgid "On loan from {{library}}"
+msgstr "Utlånt fra {{library}}"
+
+#: book/book.module.js:24
+msgid "On shelf in {{library}}"
+msgstr "På hylla i {{library}}"
+
+#: book/card.html:128
+msgid "Open in Oria"
+msgstr "Vis i Oria"
+
+#: book/card.html:38
+msgid "Publisher:"
+msgstr "Utgiver:"
+
+#: about/about.html:45
+msgid "Read more"
+msgstr "Les mer"
+
+#: book/book.html:22 isbn/isbn.html:17 search/editions.html:40
+#: search/search.html:129
+msgid "Retry"
+msgstr "Prøv igjen"
+
+#: about/about.html:41
+msgid "Rights"
+msgstr "Rettigheter"
+
+#: app.html:29
+msgid "Scan ISBN"
+msgstr "Skann ISBN"
+
+#: search/search.module.js:46
+msgid "Science Library"
+msgstr "Realfagsbiblioteket"
+
+#: directions/directions.html:5
+msgid "Science Library in Vilhelm Bjerknes' hus"
+msgstr "Realfagsbiblioteket i Vilhelm Bjerknes' hus"
+
+#: app.html:26 home/home.html:14 search/search.html:30
+msgid "Search"
+msgstr "Søk i"
+
+#: search/search.html:76
+msgid "Search all Norwegian research libraries"
+msgstr "Søk i alle norske fagbibliotek"
+
+#: search/search.html:71
+msgid "Search all UiO libraries"
+msgstr "Søk i hele UiO"
+
+#: isbn/isbn.html:34
+msgid "Search for title + author"
+msgstr "Søk etter tittel + forfatter"
+
+#: isbn/isbn.module.js:166 search/search.module.js:240
+msgid "Searching..."
+msgstr "Søker…"
+
+#: book/card.html:40
+msgid "Series:"
+msgstr "Serie:"
+
+#: about/about.html:34
+msgid "Share app"
+msgstr "Del appen"
+
+#: book/card.html:133
+msgid "Share this book"
+msgstr "Del denne boka"
+
+#: book/card.html:4 book/card.html:98
+msgid "Shelf code:"
+msgstr "Hylleplass:"
+
+#: search/search.html:92
+msgid "Sort by:"
+msgstr "Sortering:"
+
+#: about/about.html:15
+msgid "System"
+msgstr "System"
+
+#: directions/directions.html:42
+msgid ""
+"The <strong>Informatics Library</strong> is a satellite library to the "
+"Science Library located in Ole-Johan Dahls hus."
+msgstr ""
+"<strong>Informatikkbiblioteket</strong> er et satelittbibliotek til "
+"Realfagsbiblioteket som holder til i første etasje i Ole-Johan Dahls hus."
+
+#: directions/directions.html:71
+msgid ""
+"The <strong>Natural History Museum Library</strong> is a satellite library "
+"to the Science Library located in Brøggers hus which is currently closed. "
+"It's still possible to order books from there."
+msgstr ""
+"<strong>Naturhistorisk museums bibliotek</strong> er et satelittbibliotek "
+"til Realfagsbiblioteket som for tiden er stengt. Du kan fremdeles bestille "
+"bøker derfra."
+
+#: directions/directions.html:10
+msgid ""
+"The <strong>Science Library</strong> is located in Vilhelm Bjerknes’ hus."
+msgstr ""
+"<strong>Realfagsbiblioteket</strong> holder til i Vilhelm Bjerknes’ hus."
+
+#: about/about.html:43
+msgid ""
+"The app is developed by the Science Library Scriptotek. The icon and related "
+"graphics were designed by Yvonne Edvartsen."
+msgstr ""
+"Appen er laget av Realfagsbibliotekets Scriptotek. Ikonet og tilhørende "
+"grafikkelementer er designet av Yvonne Edvartsen."
+
+#: about/about.html:54
+msgid ""
+"The app uses components available the MIT and Apache licenses listed below, "
+"in addition to the Scandit Community SDK, used under the terms of the "
+"<em>Community License Agreement for Scandit Barcode Scanner</em>. "
+"OpenStreetMap maps are © OpenStreetMap contributors (CC-BY-SA)."
+msgstr ""
+"Appen benytter rammeverk og komponenter tilgjengelig under MIT- og Apache-"
+"lisensene, samt Scandit Community SDK, som benyttes under vilkårene "
+"<em>Community License Agreement for Scandit Barcode Scanner</em>. Kart er © "
+"OpenStreetMap-bidragsyterne (CC-BY-SA)."
+
+#: isbn/isbn.module.js:211
+msgid "The search failed."
+msgstr "Søket gikk ut i feil."
+
+#: about/about.html:52
+msgid "Third party licenses"
+msgstr "Tredjepartslisenser"
+
+#: search/search.html:14
+msgid "Title, author or ISBN"
+msgstr "Tittel, forfatter eller ISBN"
+
+#: book/card.html:80
+msgid ""
+"To request the book, you must open it in Oria (link below). Note that the "
+"Oria interface isn't optimized for mobile yet, so you might instead want to "
+"use “Share this book” to send a link to your email and then make the actual "
+"request from a computer."
+msgstr ""
+"For å bestille må du åpne boka i Oria (lenke under). Oria-grensesnittet er "
+"ikke superenkelt å bruke fra mobil enda, så hvis du heller vil gjøre "
+"bestillingen fra en PC kan du bruke «Del denne boka» under for å sende Oria-"
+"lenken til deg selv."
+
+#: about/about.module.js:63
+msgid "Try the UiO Science Library app 🤓"
+msgstr "Prøv Realfagsbiblioteket-appen 🤓"
+
+#: about/about.html:12
+msgid "UiO : Realfagsbiblioteket"
+msgstr "UiO : Realfagsbiblioteket"
+
+#: search/search.module.js:50
+msgid "UiO libraries"
+msgstr "UiO"
+
+#: book/card.html:54
+msgid "Unavailable"
+msgstr "Utilgjengelig"
+
+#: isbn/isbn.html:5
+msgid "Waiting for the camera..."
+msgstr "Venter på kamera…"
+
+#: isbn/isbn.html:26
+msgid ""
+"We don't have an edition with ISBN {{vm.isbn}}, but it could be that we have "
+"other editions of the same book."
+msgstr ""
+"Vi har ikke utgaven med ISBN-nummeret {{vm.isbn}}, men det kan hende vi har "
+"andre utgaver av den samme boka."
+
+#: book/card.html:37
+msgid "Year:"
+msgstr "År:"
+
+#: book/card.html:85
+msgid "You can request the book in Oria."
+msgstr "Du kan reservere boka i Oria."
+
+#: isbn/isbn.html:29
+msgid ""
+"You can try a search for the book title («{{ vm.title }}») and author ({{ vm."
+"author }})."
+msgstr ""
+"Du kan prøve et søk etter bokas tittel («{{ vm.title }}») og forfatter "
+"({{ vm.author }})."
+
+#: favorites/favorites.html:17
+msgid ""
+"You have no favorites yet. Why not search for a book and press the <i class="
+"\"ion-ios-star-outline\"></i> icon to make one?"
+msgstr ""
+"Ingen favoritter enda. Søk opp en bok og trykk på <i class=\"ion-ios-star-"
+"outline\"></i> for å lagre den som favoritt."
+
+#: isbn/isbn.module.js:41
+msgid ""
+"You must grant the app permission to use the camera if you want to read "
+"barcodes."
+msgstr ""
+"Du må gi appen tilgang til å bruke kameraet hvis du ønsker å lese strekkoder."
+
+#: search/search.module.js:55
+msgid "any Norwegian research library (Bibsys consortium)"
+msgstr "norske forskningsbibliotek (Bibsys-konsortiet)"
+
+#: search/search.module.js:51
+msgid "any UiO library"
+msgstr "UiO-bibliotek"
+
+#: search/search.html:93
+msgid "date"
+msgstr "dato"
+
+#: book/book.module.js:67
+msgid "e-book"
+msgstr "e-bok"
+
+#: book/book.module.js:64
+msgid "multiple editions"
+msgstr "flere utgaver"
+
+#: book/book.module.js:70
+msgid "print book"
+msgstr "trykt bok"
+
+#: search/search.html:104
+msgid "relevance"
+msgstr "relevans"
+
+#: search/search.module.js:47
+msgid ""
+"the Science Library (including Informatics Library and the Natural History "
+"Museum Library)"
+msgstr ""
+"Realfagsbiblioteket (inkl. Informatikkbiblioteket og Naturhistorisk museum)"
+
+#: book/book.module.js:88
+msgid "{{numberOfEditions}} editions"
+msgstr "{{numberOfEditions}} utgaver"
+
+#: search/search.html:91
+msgid "{{vm.totalResults}} results"
+msgstr "{{vm.totalResults}} treff"
+
+#~ msgid ""
+#~ "By default you search the collections of the Science Library (including "
+#~ "the Informatics Library and the Natural History Museum Library), but you "
+#~ "can extend the scope to all libraries at UiO or all research libraries in "
+#~ "Norway."
+#~ msgstr ""
+#~ "Som standard søker du i samlingene til Realfagsbiblioteket (inkludert "
+#~ "Informatikkbiblioteket og Naturhistorisk museum), men du kan utvide søket "
+#~ "til å gå mot alle bibliotek ved UiO eller alle fagbibliotek i Norge."
+
+#~ msgid "Hi, here is the UiO Science Library app:"
+#~ msgstr "Hei, her er Realfagsbiblioteket-appen:"
+
+#~ msgid "Try the UiO Science Library app"
+#~ msgstr "Prøv Realfagsbiblioteket-appen"
+
+#~ msgid "Norwegian research libraries (Bibsys consortium)"
+#~ msgstr "Norwegian research libraries (Bibsys-konsortiet)"
+
+#~ msgid "Sort order:"
+#~ msgstr "Sortering:"
+
+#~ msgid "libraries at University of Oslo"
+#~ msgstr "bibliotek ved UiO"
+
+#~ msgid "App verion"
+#~ msgstr "App versjon"
+
+#~ msgid "Check out this book: {{title}}"
+#~ msgstr "{{title}} av {{author}}"

@@ -15,11 +15,11 @@
     <div class="book card" ng-if="!vm.busy && !vm.books.length">
       <div class="item item-icon-left assertive">
         <i class="icon ion-heart-broken"></i>
-        {{ vm.error || 'Det oppsto en ukjent feil.' }}
+        {{ vm.error || 'An unknown error occured.' }}
       </div>
 
       <div class="item" ng-if="vm.error">
-        <button class="button button-full button-balanced" ng-click="vm.retry()">Prøv på nytt</button>
+        <button class="button button-full button-balanced" ng-click="vm.retry()" translate>Retry</button>
       </div>
 
     </div>

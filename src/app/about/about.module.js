@@ -6,8 +6,24 @@
 
   // --------------------------------------------------------------------------
 
-  function Ctrl($ionicPlatform, $cordovaSocialSharing) {
+  function Ctrl($ionicPlatform, $cordovaSocialSharing, $window, $ionicHistory, gettextCatalog, localStorageService) {
     var vm = this;
+    this.lang = gettextCatalog.getCurrentLanguage();
+    console.log('Lang: ' + this.lang);
+
+    // Register for translation
+    gettextCatalog.getString('Norwegian Bokmål');
+    gettextCatalog.getString('English');
+
+    this.languages = {
+      nb: {
+        name: 'Norwegian Bokmål',
+      },
+      en: {
+        name: 'English',
+      },
+    };
+    this.setLang = setLang;
 
     vm.share = share;
 
@@ -15,9 +31,16 @@
 
     /////
 
+    function setLang() {
+      console.log('Set lang: ', vm.lang);
+      localStorageService.set('lang', vm.lang);
+      gettextCatalog.setCurrentLanguage(vm.lang);
+      $ionicHistory.clearCache();
+    }
+
     function ready() {
 
-      vm.language = window.navigator.language;
+      vm.language = $window.navigator.language;
       if (!window.navigator.appInfo) {
         vm.device = '(not running on a device)';
       } else {
@@ -37,8 +60,8 @@
         return;
       }
       $cordovaSocialSharing.shareWithOptions({
-        message: 'Hei, her er Realfagsbiblioteket-appen:',   // not supported on some apps (Facebook, Instagram)
-        subject: 'Prøv Realfagsbiblioteket-appen',   // fi. for email
+        message: gettextCatalog.getString('Here it is: '),   // not supported on some apps (Facebook, Instagram)
+        subject: gettextCatalog.getString('Try the UiO Science Library app 🤓'),   // fi. for email
         url: 'https://app.uio.no/ub/bdi/realfagsbiblioteket/',
       });
     }

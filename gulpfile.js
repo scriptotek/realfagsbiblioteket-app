@@ -8,6 +8,13 @@ var del = require('del');
 var lazypipe = require('lazypipe');
 var angularProtractor = require('gulp-angular-protractor');
 
+var transifex = require('gulp-transifex').createClient({
+    user: process.env.TRANSIFEX_USERNAME,  // From .env
+    password: process.env.TRANSIFEX_PASSWORD,  // From .env
+    project: 'realfagsbiblioteket-app',
+    local_path: 'po'
+});
+
 // Largely influenced by https://github.com/flavordaaave/ionic-better-structure
 
 // var args = require('yargs').argv;
@@ -162,11 +169,11 @@ gulp.task('styles', [/*'clean-styles'*/], function(done) {
 
 
 
-gulp.task('inject', ['vet', 'styles'], function() {
+gulp.task('inject', ['vet', 'styles', 'compile-translations'], function() {
     log('Inject css and js into index');
 
     // It's not necessary to read the files (will speed up things), we're only after their paths.
-    var sources = ['./src/app/**/*.js', './src/contrib/**/*.js']; //, '!./src/app/constants.js', './www/build/js/constants.js'];
+    var sources = ['./src/.tmp/translations.js', './src/app/**/*.js', './src/contrib/**/*.js']; //, '!./src/app/constants.js', './www/build/js/constants.js'];
 
     var jsOrder = [
       '**/app.js',
@@ -336,3 +343,44 @@ gulp.task('build', ['optimize', 'images', 'fonts'], function() {
     log(msg);
 });
 
+
+
+/**
+ * ----------------------------------------------------------------------------
+ * Translation
+ */
+
+// Extracts translatable strings into emnesok.pot
+gulp.task('extract-translations', [], function () {
+  return gulp.src(['./src/app/**/*.html', './src/app/**/*.js'])
+    .pipe(plugins.angularGettext.extract('messages.pot', {
+      // options to pass to angular-gettext-tools...
+      attributes: ['placeholder'],  // https://angular-gettext.rocketeer.be/dev-guide/custom-annotations/
+    }))
+    .pipe(gulp.dest('./src/po/'));
+});
+
+// Builds javascript translation files from .po files
+gulp.task('compile-translations', [], function () {
+  return gulp.src('./src/po/**/*.po')
+    .pipe(plugins.angularGettext.compile({
+      // options to pass to angular-gettext-tools...
+      format: 'javascript'
+    }))
+    .pipe(plugins.concat('translations.js'))
+    .pipe(gulp.dest('./src/.tmp'))
+    // .pipe(size({showFiles:true, gzip:true, title: 'vendor-scripts'}))
+    ;
+});
+
+// Pushes the pot file to Transifex
+gulp.task('transifex-push', ['pot'], function(){
+    return gulp.src('./src/po/*.pot')
+        .pipe(transifex.pushResource());
+});
+
+// Pulls po files from Transifex
+gulp.task('transifex-pull', [], function(){
+    return gulp.src('./src/po/*.pot')
+        .pipe(transifex.pullResource());
+});

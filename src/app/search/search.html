@@ -15,7 +15,7 @@
               id="searchInputField"
               ubo-focus="!vm.state.query.length"
               type="text"
-              placeholder="Tittel, forfatter eller ISBN"
+              placeholder="Title, author or ISBN"
               ng-model="vm.state.query"
               ng-change="vm.searchQueryUpdated()">
           </label>
@@ -27,8 +27,8 @@
 
       <!-- Options start -->
       <label class="item item-input item-select" ng-show="vm.showOptions">
-        <div class="input-label">
-          Søk i
+        <div class="input-label" translate>
+          Search
         </div>
         <select ng-model="vm.state.scope" ng-change="vm.submitSearchForm()">
           <option ng-repeat="(option, label) in vm.searchScopes" value="{{option}}">{{label.menuName}}</option>
@@ -63,18 +63,17 @@
 
     <!-- Help for the no results case -->
     <div class="card" ng-show="vm.totalResults === 0">
-      <div class="item item-text-wrap">
-        Ingen treff i {{ vm.searchScopes[vm.state.scope].name }}.
-        Finner du ikke det du leter etter kan du alltids sende oss en epost.
+      <div class="item item-text-wrap" translate>
+        No items found in {{ vm.searchScopes[vm.state.scope].name }}. If you can't find what you need, please feel free to send us an e-mail.
       </div>
       <a ng-show="vm.state.scope == 'UREAL'" class="item item-icon-left balanced" ng-click="vm.setScope('UBO')">
         <i class="icon ion-ios-search"></i>
-        Søk i hele UiO
+        <span translate>Search all UiO libraries</span>
       </a>
 
       <a ng-show="vm.state.scope != 'BIBSYS'" class="item item-icon-left balanced" ng-click="vm.setScope('BIBSYS')">
         <i class="icon ion-ios-search"></i>
-        Søk i alle norske fagbibliotek
+        <span translate>Search all Norwegian research libraries</span>
       </a>
 
       <a ng-show="vm.state.scope == 'BIBSYS'" class="item item-icon-left balanced" href="mailto:realfagsbiblioteket@ub.uio.no" ubo-ext-link>
@@ -89,10 +88,10 @@
 
         <div class="item item-divider" ng-show="vm.totalResults > 0">
           <div>
-            {{vm.totalResults}} treff
-            <div class="text-right sortBy" ng-show="vm.totalResults != 0">Sortering:
-              <span ng-click="vm.sortBy('date')" ng-class="{true: 'sortBySelected'}[vm.state.sort == 'date']">
-                dato
+            <span translate>{{vm.totalResults}} results</span>
+            <div class="text-right sortBy" ng-show="vm.totalResults != 0"><span translate>Sort by:</span>
+              <span ng-click="vm.sortBy('date')" ng-class="{true: 'sortBySelected'}[vm.state.sort == 'date']" translate>
+                date
               </span>
               /
               <!--<span ng-click="vm.sortBy('title')" ng-class="{true: 'sortBySelected'}[vm.state.sort == 'title']">
@@ -102,8 +101,8 @@
                 forfatter
               </span> -
               -->
-              <span ng-click="vm.sortBy('relevance')" ng-class="{true: 'sortBySelected'}[vm.state.sort == 'relevance']">
-                relevans
+              <span ng-click="vm.sortBy('relevance')" ng-class="{true: 'sortBySelected'}[vm.state.sort == 'relevance']" translate>
+                relevance
               </span>
             </div>
           </div>
@@ -121,12 +120,13 @@
 
       <div class="item item-icon-left item-text-wrap assertive" ng-if="vm.error">
         <i class="icon ion-heart-broken"></i>
-        Kunne ikke hente resultater:
-        {{ vm.error || 'Det oppsto en ukjent feil.' }}
+        <span translate>
+          Failed getting results. {{ vm.error }}
+        </span>
       </div>
 
       <div class="item" ng-if="vm.error">
-        <button class="button button-full button-balanced" ng-click="vm.loadMore()">Prøv på nytt</button>
+        <button class="button button-full button-balanced" ng-click="vm.loadMore()" translate>Retry</button>
       </div>
     </div>
 

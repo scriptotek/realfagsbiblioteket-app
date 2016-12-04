@@ -1,55 +1,58 @@
 <ion-view view-title="Om appen">
   <ion-content padding="true">
 
-
   <div class="book card">
     <div class="card-content">
 
-
-    <div style="display:flex;">
-      <div style="flex: 0 1 25%; padding-right:1em;">
-        <img src="images/icon-512.png" style="width:100%;">
-      </div>
-      <div style="flex: 1 1 auto">
-        <h2 style="padding-top:0;">Realfagsbiblioteket</h2>
-        <p>
-          App-versjon: {{ vm.app_version }} ({{ vm.app_build }})<br>
-          System: {{ vm.platform }}<br>
-          Enhet: {{ vm.device }}<br>
-          Språk: {{ vm.language }}<br>
-        </p>
+      <div style="display:flex;">
+        <div style="flex: 0 1 25%; padding-right:1em;">
+          <img src="images/icon-512.png" style="width:100%;">
+        </div>
+        <div style="flex: 1 1 auto">
+          <h2 style="padding-top:0;" translate>UiO : Realfagsbiblioteket</h2>
+          <p>
+            <span translate>App version</span>: {{ vm.app_version }} ({{ vm.app_build }})<br>
+            <span translate>System</span>: {{ vm.platform }}<br>
+            <span translate>Device</span>: {{ vm.device }}<br>
+            <span translate>Language</span>: {{ vm.language }}<br>
+          </p>
+        </div>
       </div>
     </div>
-  </div>
 
-
+    <label class="item item-input item-select">
+      <div class="input-label" translate>
+        Language:
+      </div>
+      <select ng-model="vm.lang" ng-change="vm.setLang()">
+        <option ng-repeat="(option, label) in vm.languages" value="{{option}}">{{label.name | translate}}</option>
+      </select>
+    </label>
 
     <div class="item item-footer item-icon-left" ng-click="vm.share()">
       <i class="icon ion-share"></i>
-      Del appen
+      <span translate>Share app</span>
     </div>
 
   </div>
 
   <div class="book card">
     <div class="card-content">
-      <h2 style="padding-top:0;">Rettigheter</h2>
-      <p>
-        Appen er laget av Realfagsbibliotekets <a ubo-ext-link href="https://github.com/scriptotek">Scriptotek</a>.
-        Ikonet og tilhørende grafikkelementer er designet av <a ubo-ext-link href="https://github.com/trekkoppmus">Yvonne Edvartsen</a>.
-      </p>
-      <p><a ubo-ext-link href="https://app.uio.no/ub/bdi/realfagsbiblioteket/">Mer info</a></p>
+      <h2 style="padding-top:0;" translate>Rights</h2>
+
+      <p translate>The app is developed by the Science Library Scriptotek. The icon and related graphics were designed by Yvonne Edvartsen.</p>
+
+      <p><a ubo-ext-link href="https://app.uio.no/ub/bdi/realfagsbiblioteket/" translate>Read more</a></p>
     </div>
   </div>
 
   <div class="book card">
     <div class="card-content">
-      <h2>Tredjepartslisenser</h2>
-      <p>
-        Appen benytter rammeverk og komponenter tilgjengelig under MIT- og
-        Apache-lisensene, samt Scandit Community SDK, som benyttes under vilkårene
-        <em>Community License Agreement for Scandit Barcode Scanner</em>.
-        Kart er © OpenStreetMap-bidragsyterne (CC-BY-SA).
+
+      <h2 translate>Third party licenses</h2>
+
+      <p translate>
+        The app uses components available the MIT and Apache licenses listed below, in addition to the Scandit Community SDK, used under the terms of the <em>Community License Agreement for Scandit Barcode Scanner</em>. OpenStreetMap maps are © OpenStreetMap contributors (CC-BY-SA).
       </p>
 
       <ul>
@@ -62,6 +65,7 @@
         <li><a href="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin">PhoneGap Social Sharing plugin for Android, iOS and Windows Phone</a> (MIT)</li>
         <li><a href="https://github.com/driftyco/ng-cordova">ngCordova</a> (MIT)</li>
       </ul>
+
     </div>
   </div>
 

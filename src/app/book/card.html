@@ -1,7 +1,7 @@
 <script id="book-map-modal.html" type="text/ng-template">
   <ion-modal-view class="image-modal" ng-click="closeModal()">
     <div class="map-tag">
-      Plass: {{vm.callcode}}
+      <span translate>Shelf code:</span> {{vm.callcode}}
     </div>
     <ion-scroll
           zooming="true"
@@ -34,10 +34,10 @@
       <!-- Cover + metadata -->
       <div class="row" style="padding-bottom: 0;">
         <div class="col">
-          <p ng-show="book.date"><span class="label">År:</span> {{book.date}}</p>
-          <p ng-show="book.publisher"><span class="label">Utgiver:</span> {{book.publisher}}</p>
-          <p ng-show="book.edition"><span class="label">Utgave:</span> {{book.edition}}</p>
-          <p ng-show="book.series"><span class="label">Serie:</span> {{book.series}}</p>
+          <p ng-show="book.date"><span class="label" translate>Year:</span> {{book.date}}</p>
+          <p ng-show="book.publisher"><span class="label" translate>Publisher:</span> {{book.publisher}}</p>
+          <p ng-show="book.edition"><span class="label" translate>Edition:</span> {{book.edition}}</p>
+          <p ng-show="book.series"><span class="label" translate>Series:</span> {{book.series}}</p>
           <!--
           can be confusing for deduped records…
           <p ng-show="book.bib_format"><span class="label">Format:</span> {{book.bib_format}}</p>
@@ -51,7 +51,7 @@
       <div ng-if="!book.urls.length && !book.holdings.length">
         <div class="item item-icon-left assertive" >
           <i class="icon ion-close-circled"></i>
-          Ikke tilgjengelig
+          <span translate>Unavailable</span>
         </div>
       </div>
 
@@ -59,7 +59,7 @@
       <div ng-if="book.urls && book.urls.length">
         <div class="item item-icon-left balanced" style="padding-top:0; padding-bottom: 0;">
           <i class="icon ion-checkmark-circled"></i>
-          <a ubo-ext-link href="{{ book.urls[0].url }}" class="button button-clear button-positive" style="padding-left:0;">Tilgjengelig online</a>
+          <a ubo-ext-link href="{{ book.urls[0].url }}" class="button button-clear button-positive" style="padding-left:0;" translate>Available online</a>
         </div>
       </div>
 
@@ -77,38 +77,37 @@
 
         <!-- Help locating the item -->
         <div ng-if="holding.available && holding.library_zone == 'other'" style="margin: 0 8px 8px 54px;">
-          <p>
-            For å bestille må du åpne boka i Oria (lenke under).
-            Oria-grensesnittet er ikke superenkelt å bruke fra mobil enda,
-            så hvis du heller vil gjøre bestillingen fra en PC kan du bruke
-            «Del denne boka» under for å sende Oria-lenken til deg selv.
+          <p translate>
+            To request the book, you must open it in Oria (link below). Note that the Oria interface isn't optimized for mobile yet, so you might instead want to use “Share this book” to send a link to your email and then make the actual request from a computer.
           </p>
         </div>
         <div ng-if="!holding.available && book.holdings.length == 1" style="margin: 0 8px 8px 54px;">
-          <p>
-            Du kan reservere boka i Oria.
+          <p translate>
+            You can request the book in Oria.
           </p>
         </div>
         <div ng-if="holding.available && holding.library_zone != 'other'">
 
           <dl class="dl-horizontal">
-            <dt class="label" ng-if="holding.lib_label">Bibliotek:</dt>
+            <dt class="label" ng-if="holding.lib_label" translate>Library:</dt>
             <dd ng-if="holding.lib_label">{{holding.lib_label}}</dd>
-            <dt class="label" ng-if="holding.floor_text">Etasje:</dt>
+            <dt class="label" ng-if="holding.floor_text" translate>Floor:</dt>
             <dd ng-if="holding.floor_text">{{holding.floor_text}}</dd>
-            <dt class="label">Samling:</dt>
+            <dt class="label" translate>Collection:</dt>
             <dd>{{holding.collection_name}}</dd>
-            <dt class="label">Plass:</dt>
+            <dt class="label" translate>Shelf code:</dt>
             <dd><tt>{{holding.callcode}}</tt></dd>
           </dl>
 
           <div ng-if="holding.closed_stack" style="margin: 8px 8px 8px 40px;">
             <i class="ion-alert-circled energized"></i>
-            OBS: Må hentes frem fra magasin e.l.
+            <span translate>
+              Note: This item is stored in a non-public location, but can most likely be fetched for you if you ask.
+            </span>
           </div>
 
           <div class="item" ng-if="holding.map_url_image">
-              <img ng-click="vm.mapModal(holding)" ng-src="{{holding.map_url_image}}" alt="Kart" class="full-image">
+            <img ng-click="vm.mapModal(holding)" ng-src="{{holding.map_url_image}}" alt="Kart" class="full-image">
           </div>
 
         </div>
@@ -126,12 +125,12 @@
 -->
       <a class="item item-footer item-icon-left" ng-href="{{book.links.primo}}" ubo-ext-link ng-if="book.holdings.length">
         <i class="icon ion-link"></i>
-        Åpne i Oria
+        <span translate>Open in Oria</span>
       </a>
 
       <div class="item item-footer item-icon-left" ng-click="vm.shareBook(book)">
         <i class="icon ion-share"></i>
-        Del denne boka
+        <span translate>Share this book</span>
       </div>
 
     </div><!-- End of card -->
@@ -140,7 +139,7 @@
     <div class="card" ng-if="book.subjects.realfagstermer && book.subjects.realfagstermer.length">
       <div class="item item-text-wrap">
         <p>
-          <div class="label" style="padding-bottom:.6em;">Flere bøker om</div>
+          <div class="label" style="padding-bottom:.6em;" translate>More books about</div>
           <span ng-repeat="subject in book.subjects.realfagstermer">
             <a ui-sref="app.search({query: subject})" class="button button-small button-clear button-positive ion-ios-pricetag">
                {{ subject }}

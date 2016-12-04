@@ -6,7 +6,7 @@
 
   // --------------------------------------------------------------------------
 
-  function IsbnCtrl($scope, $state, $ionicLoading, $ionicHistory, _, SearchFactory, XisbnFactory, scanditKey) {
+  function IsbnCtrl($scope, $state, $ionicLoading, $ionicHistory, _, SearchFactory, XisbnFactory, scanditKey, gettextCatalog) {
     var vm = this;
 
     vm.authorTitleSearch = authorTitleSearch;
@@ -38,7 +38,8 @@
 
     function notAuthorized() {
       vm.cameraDenied = true;
-      $scope.$apply(setError('Du må gi appen tilgang til å bruke kameraet hvis du ønsker å lese strekkoder.'));
+      var msg = gettextCatalog.getString('You must grant the app permission to use the camera if you want to read barcodes.');
+      $scope.$apply(setError(msg));
     }
 
     function checkCamera() {
@@ -47,7 +48,7 @@
         if (present) {
           checkPermissions();
         } else {
-          $scope.$apply(setError('No camera found on this device.'));
+          $scope.$apply(setError(gettextCatalog.getString('No camera found on this device.')));
         }
       }, diagnosticError);
     }
@@ -162,7 +163,7 @@
 
     function search(isbn) {
       $ionicLoading.show({
-        template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> Søker...',
+        template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> ' + gettextCatalog.getString('Searching...'),
         noBackdrop: true,
         delay: 500,
       });
@@ -197,17 +198,17 @@
               vm.author = author;
               vm.title = metadata.list[0].title;
             } else {
-              vm.error = 'Fant ikke boka.';
+              vm.error = gettextCatalog.getString('Couldn\'t find the book.');
             }
           }, function(error) {
             console.log('XisbnFactory error: ', error);
             // vm.error = error;
-            vm.error = 'Fant ikke boka.';
+            vm.error = gettextCatalog.getString('Couldn\'t find the book.');
           });
         }
       }, function() {
         $ionicLoading.hide();
-        vm.error = 'Søket gikk ut i feil';
+        vm.error = gettextCatalog.getString('The search failed.');
       });
     }
 

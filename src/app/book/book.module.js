@@ -7,7 +7,7 @@
 
   // --------------------------------------------------------------------------
 
-  function BookFactory(_, $sce) {
+  function BookFactory(_, $sce, gettextCatalog) {
 
     function processHoldings(record) {
       // console.log(' > processHoldings');
@@ -18,16 +18,16 @@
           if (holding.status == 'available') {
             holding.icon = 'ion-checkmark-circled balanced';
             if (holding.library_zone == 'other') {
-              holding.statusMessage = 'Kan bestilles fra annet bibliotek';
+              holding.statusMessage = gettextCatalog.getString('Can be requested from another library');
               holding.icon = 'ion-cube balanced';
             } else {
-              holding.statusMessage = 'På hylla i ' + holding.library_name;
+              holding.statusMessage = gettextCatalog.getString('On shelf in {{library}}', {library: holding.library_name});
             }
             holding.available = true;
 
           } else {
             holding.icon = 'ion-close-circled assertive';
-            holding.statusMessage = 'Utlånt fra ' + holding.library_name;
+            holding.statusMessage = gettextCatalog.getString('On loan from {{library}}', {library: holding.library_name});
             holding.available = false;
           }
         });
@@ -61,13 +61,13 @@
 
       function reduceMaterial(book) {
         if (book.type == 'group') {
-          return 'flere utgaver';
+          return gettextCatalog.getString('multiple editions');
         }
         if (book.material == 'e-books') {
-          return 'e-bok';
+          return gettextCatalog.getString('e-book');
         }
         if (book.material == 'print-books') {
-          return 'trykt bok';
+          return gettextCatalog.getString('print book');
         }
       }
 
@@ -85,7 +85,7 @@
 
       if (this.type == 'group') {
         this.icon = 'ion-arrow-right-c balanced';
-        this.statusMessage = bookData.number_of_editions + ' utgaver';
+        this.statusMessage = gettextCatalog.getString('{{numberOfEditions}} editions', {numberOfEditions: bookData.number_of_editions});
 
       } else if (this.holdings.length) {
         this.available = true;
@@ -95,12 +95,12 @@
       } else if (this.urls.length) {
         this.available = true;
         this.icon = 'ion-checkmark-circled';
-        this.statusMessage = 'Tilgjengelig som e-bok';
+        this.statusMessage = gettextCatalog.getString('Available as e-book');
 
       } else if (this.material == 'e-bok') {
         this.available = false;
         this.icon = 'ion-close-circled';
-        this.statusMessage = 'E-bok (ingen tilgang)';
+        this.statusMessage = gettextCatalog.getString('E-book (no access)');
       }
 
       // console.log(this);
@@ -122,7 +122,7 @@
 
   // ------------------------------------------------------------------------
 
-  function BookCtrl($stateParams, $ionicLoading, $ionicPopup, $ionicModal, $scope, $cordovaSocialSharing, $cordovaNetwork, SearchFactory, FavoriteFactory) {
+  function BookCtrl($stateParams, $ionicLoading, $ionicPopup, $ionicModal, $scope, $cordovaSocialSharing, $cordovaNetwork, SearchFactory, FavoriteFactory, gettextCatalog) {
     var vm = this;
 
     vm.books = [];
@@ -141,8 +141,8 @@
     function shareBook(book) {
       if (vm.onDevice) {
         $cordovaSocialSharing.shareWithOptions({
-          message: 'Sjekk ut denne boka: ' + book.title,  // not supported on some apps (Facebook, Instagram)
-          subject: 'Sjekk ut denne boka',   // fi. for email
+          message: gettextCatalog.getString('Check out this book: {{title}} by {{author}}', {title: book.title, author: book.authors}),  // not supported on some apps (Facebook, Instagram)
+          subject: gettextCatalog.getString('Check out this book'),   // fi. for email
           url: book.links.primo,
         });
       } else {
@@ -194,7 +194,7 @@
     function activate() {
       vm.busy = true;
       $ionicLoading.show({
-        template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> Henter...',
+        template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> ' + gettextCatalog.getString('Fetching data...'),
         noBackdrop: true,
         delay: 300,
       });
@@ -215,7 +215,7 @@
         vm.busy = false;
 
         if (window.cordova && $cordovaNetwork.isOffline()) {
-          vm.error = 'Ingen internettforbindelse.';
+          vm.error = gettextCatalog.getString('No internet connection.');
         } else {
           vm.error = error;
         }

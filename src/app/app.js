@@ -9,6 +9,8 @@
     'ionic.contrib.ui.cards',
     'ngCordova',
     'ngAnimate',
+    'gettext',
+    'LocalStorageModule',
 
     'app.core',
     'app.menu',
@@ -32,9 +34,24 @@
 
   // --------------------------------------------------------------------------
 
-  function runBlock($ionicPlatform, $ionicPopup, $cordovaKeyboard, $cordovaStatusbar, $cordovaNetwork, $http, $rootScope, FavoriteFactory) {
+  function runBlock($ionicPlatform, $ionicPopup, $cordovaKeyboard, $cordovaStatusbar, $cordovaNetwork, $http, $rootScope, FavoriteFactory, gettextCatalog, gettextFallbackLanguage, $window, localStorageService) {
 
     console.log('$$ app.run()');
+
+    // gettextCatalog.debug = true;
+    // gettextCatalog.showTranslatedMarkers = true;
+
+    // 'nb-no' => 'nb'
+    // 'nb_NO' => 'nb'
+    var navLang = $window.navigator.language.split(/[_-]/)[0].toLowerCase();
+    if (navLang == 'no') {
+      navLang = 'nb';
+    }
+    var lang = localStorageService.get('lang') || navLang;
+    console.log($window.navigator.language);
+    console.log('[app] lang: ' + lang);
+
+    gettextCatalog.setCurrentLanguage(lang);
 
     $ionicPlatform.ready(function() {
 

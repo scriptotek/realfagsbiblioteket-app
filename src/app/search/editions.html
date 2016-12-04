@@ -31,12 +31,13 @@
 
       <div class="item item-icon-left item-text-wrap assertive" ng-if="vm.error">
         <i class="icon ion-close-circled"></i>
-        Kunne ikke hente resultater:
-        {{ vm.error || 'Det oppsto en ukjent feil.' }}
+        <span translate>
+          Failed getting results. {{ vm.error }}
+        </span>
       </div>
 
       <div class="item" ng-if="vm.error">
-        <button class="button button-full button-balanced" ng-click="vm.retry()">Prøv på nytt</button>
+        <button class="button button-full button-balanced" ng-click="vm.retry()" translate>Retry</button>
       </div>
 
     </ion-list>

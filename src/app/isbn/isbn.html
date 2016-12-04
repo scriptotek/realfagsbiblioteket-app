@@ -2,39 +2,36 @@
   <ion-content>
 
     <div class="card" ng-show="!vm.error && !vm.title">
-      <div class="item">
-        Venter på strekkodeleser…
+      <div class="item" translate>
+        Waiting for the camera...
       </div>
     </div>
 
     <div class="book card" ng-if="vm.error">
       <div class="item item-icon-left item-text-wrap assertive">
         <i class="icon ion-close-circled"></i>
-        {{ vm.error || 'Det oppsto en ukjent feil.' }}
+        {{ vm.error || 'An unknown error occured.' }}
       </div>
 
       <div class="item" ng-if="!vm.cameraDenied">
-        <button class="button button-full button-balanced" ng-click="vm.scan()">Prøv på nytt</button>
+        <button class="button button-full button-balanced" ng-click="vm.scan()" translate>Retry</button>
       </div>
 
       <div class="item" ng-if="vm.cameraDenied">
-        <button class="button button-full button-balanced" ng-click="vm.openPermissionSettings()">Gi tilgang</button>
+        <button class="button button-full button-balanced" ng-click="vm.openPermissionSettings()" translate>Grant permission</button>
       </div>
     </div>
 
     <div class="book card" ng-if="vm.title">
-      <div class="item item-text-wrap">
-        Vi har ikke utgaven med ISBN-nummeret {{vm.isbn}},
-        men det kan hende vi har andre utgaver av den samme boka.
-      </div>
+      <div class="item item-text-wrap" translate>
+        We don't have an edition with ISBN {{vm.isbn}}, but it could be that we have other editions of the same book.</div>
 
-      <div class="item item-text-wrap">
-        Du kan forsøke et søk etter bokas tittel («{{ vm.title }}»)
-        og forfatter ({{ vm.author }}).
+      <div class="item item-text-wrap" translate>
+        You can try a search for the book title («{{ vm.title }}») and author ({{ vm.author }}).
       </div>
 
       <div class="item">
-        <button class="button button-full button-balanced icon ion-ios-search" ng-click="vm.authorTitleSearch()">Søk etter forfatter + tittel</button>
+        <button class="button button-full button-balanced icon ion-ios-search" ng-click="vm.authorTitleSearch()" translate>Search for title + author</button>
       </div>
     </div>
 

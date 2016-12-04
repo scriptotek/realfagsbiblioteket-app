@@ -6,7 +6,8 @@
     .directive('uboFocus', uboFocusDirective)
     .directive('uboExtLink', uboExtLinkDirective)
     .directive('uboGeoLink', uboGeoLinkDirective)
-    .directive('uboPreventDrag', uboPreventDrag);
+    .directive('uboPreventDrag', uboPreventDrag)
+    .directive('placeholder', placeholderDirective);
 
   // --------------------------------------------------------------------------
 
@@ -144,6 +145,24 @@
         }
         window.open(encodeURI(url), '_system');
       });
+    }
+  }
+
+  // --------------------------------------------------------------------------
+
+  /**
+   * https://angular-gettext.rocketeer.be/dev-guide/custom-annotations/
+   */
+  function placeholderDirective(gettextCatalog) {
+    var directive = {
+      link: link,
+      restrict: 'A',
+    };
+    return directive;
+
+    function link(scope, element, attrs){
+      var translatedPlaceholder = gettextCatalog.getString(attrs.placeholder);
+      element.attr('placeholder', translatedPlaceholder);
     }
   }
 

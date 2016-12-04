@@ -16,27 +16,27 @@
 
   <ion-side-menu side="left">
     <ion-header-bar class="bar-energized">
-      <h1 class="title">Meny</h1>
+      <h1 class="title" translate>Menu</h1>
     </ion-header-bar>
     <ion-content>
       <ion-list>
         <ion-item menu-close ui-sref="app.home">
-          Hjem
+          <span translate>Home</span><!-- todo: replace ui-sref instead-->
         </ion-item>
-        <ion-item menu-close ng-click="vm.go('app.search')">
-          Søk
+        <ion-item menu-close ng-click="vm.go('app.search')" translate>
+          Search
         </ion-item>
-        <ion-item menu-close ng-click="vm.go('app.isbn')">
-          Skann ISBN
+        <ion-item menu-close ng-click="vm.go('app.isbn')" translate>
+          Scan ISBN
         </ion-item>
-        <ion-item menu-close ng-click="vm.go('app.favorites')">
-          Favoritter
+        <ion-item menu-close ng-click="vm.go('app.favorites')" translate>
+          Favorites
         </ion-item>
-        <ion-item menu-close ng-click="vm.go('app.directions')">
-          Sted og åpningstider
+        <ion-item menu-close ng-click="vm.go('app.directions')" translate>
+          Map and hours
         </ion-item>
-        <ion-item menu-close ng-click="vm.go('app.about')">
-          Om appen
+        <ion-item menu-close ng-click="vm.go('app.about')" translate>
+          About the app
         </ion-item>
       </ion-list>
     </ion-content>

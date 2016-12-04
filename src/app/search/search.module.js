@@ -8,7 +8,7 @@
 
   // --------------------------------------------------------------------------
 
-  function SearchCtrl(SearchFactory, $state, $stateParams, $ionicLoading, $scope, $timeout, $cordovaNetwork, $ionicHistory, MemoryStorage) {
+  function SearchCtrl(SearchFactory, $state, $stateParams, $ionicLoading, $scope, $timeout, $cordovaNetwork, $ionicHistory, MemoryStorage, gettextCatalog) {
 
     /**
      * Note that
@@ -20,8 +20,8 @@
 
     var vm = this;
     var helpCards = [
-      'Som standard søker du i samlingene til Realfagsbiblioteket (inkludert Informatikkbiblioteket og Naturhistorisk museum), men du kan utvide søket til å gå mot alle bibliotek ved UiO eller alle fagbibliotek i Norge.',
-      'Selv om du bare søker i Realfagsbiblioteket vil appen vise tilgjengelige eksemplarer fra andre bibliotek hvis eksemplarene i Realfagsbiblioteket er utlånt.',
+      gettextCatalog.getString('By default you search the collections of the Science Library (including the Informatics Library and the Natural History Museum Library), but you can extend the scope to all UiO libraries or all research libraries in Norway.'),
+      gettextCatalog.getString('Even if you just search the collection of the Science Library, the app will show available items at other UiO libraries if all items at the Science Library are on loan.'),
     ];
 
     // State variables : default values
@@ -42,9 +42,18 @@
     vm.canLoadMoreResults = false;
 
     vm.searchScopes = {
-      UREAL: {menuName: 'Realfagsbibl, Inf og Tøyen', name: 'Realfagsbiblioteket, Informatikkbiblioteket eller Naturhistorisk museum'},
-      UBO: {menuName: 'Hele UiO', name: 'bibliotek ved UiO'},
-      BIBSYS: {menuName: 'Alle norske fagbibliotek', name: 'norske fagbibliotek'},
+      UREAL: {
+        menuName: gettextCatalog.getString('Science Library'),
+        name: gettextCatalog.getString('the Science Library (including Informatics Library and the Natural History Museum Library)'),
+      },
+      UBO: {
+        menuName: gettextCatalog.getString('UiO libraries'),
+        name: gettextCatalog.getString('any UiO library'),
+      },
+      BIBSYS: {
+        menuName: gettextCatalog.getString('Norwegian research libraries'),
+        name: gettextCatalog.getString('any Norwegian research library (Bibsys consortium)'),
+      },
     };
 
     // Functions
@@ -198,9 +207,9 @@
         if (window.cordova && $cordovaNetwork.isOffline()) {
           vm.error = 'Ingen internettforbindelse.';
         } else if (error.status == -1) {
-          vm.error = 'Mistet internettforbindelsen.';
+          vm.error = gettextCatalog.getString('Lost the internet connection.');
         } else {
-          vm.error = error.statusText ? error.statusText : 'Det oppsto en ukjent feil.';
+          vm.error = error.statusText ? error.statusText : gettextCatalog.getString('An unknown error occured.');
         }
         searchCompleted();
       });
@@ -228,7 +237,7 @@
       vm.showHelpCards = false;
 
       $ionicLoading.show({
-        template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> Søker...',
+        template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> ' + gettextCatalog.getString('Searching...'),
         noBackdrop: true,
         delay: 0,
       });
@@ -280,7 +289,7 @@
 
   // ------------------------------------------------------------------------
 
-  function EditionsCtrl(SearchFactory, $stateParams, $cordovaNetwork, $ionicLoading) {
+  function EditionsCtrl(SearchFactory, $stateParams, $cordovaNetwork, $ionicLoading, gettextCatalog) {
     var vm = this;
 
     // Variables
@@ -301,7 +310,7 @@
 
     function activate() {
       $ionicLoading.show({
-        template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> Henter...',
+        template: '<ion-spinner icon="ripple" class="spinner-energized"></ion-spinner> ' + gettextCatalog.getString('Fetching data...'),
         noBackdrop: true,
         delay: 300,
       });
@@ -327,11 +336,11 @@
         $ionicLoading.hide();
         console.log("error in group search ctrl: ", error.status);
         if (window.cordova && $cordovaNetwork.isOffline()) {
-          vm.error = 'Ingen internettforbindelse.';
+          vm.error = gettextCatalog.getString('No internet connection.');
         } else if (error.status == -1) {
-          vm.error = 'Mistet internettforbindelsen.';
+          vm.error = gettextCatalog.getString('Lost the internet connection.');
         } else {
-          vm.error = 'Det oppsto en ukjent feil.';
+          vm.error = gettextCatalog.getString('An unknown error occured.');
         }
       });
     }
@@ -341,7 +350,7 @@
 
   // --------------------------------------------------------------------------
 
-  function SearchFactory($http, $filter, $timeout, $q, $sce, $ionicPopup, $ionicPlatform, $cordovaNetwork, _, FavoriteFactory, Book) {
+  function SearchFactory($http, $filter, $timeout, $q, $sce, $ionicPopup, $ionicPlatform, $cordovaNetwork, _, FavoriteFactory, Book, gettextCatalog) {
 
     var searchResult = {}; // Datastructure like:
     /*
@@ -558,9 +567,9 @@
       }, function(response) {
         console.log("Error in getBookDetails factory: ", response.status);
         if (window.cordova && $cordovaNetwork.isOffline()) {
-          deferred.reject('Ingen internettforbindelse.');
+          deferred.reject(gettextCatalog.getString('No internet connection.'));
         } else if (response.status == -1) {
-          deferred.reject('Mistet internettforbindelsen.');
+          deferred.reject(gettextCatalog.getString('Lost the internet connection.'));
         } else if (response.data && response.data.error) {
           deferred.reject(response.data.error);
         } else {
@@ -586,8 +595,8 @@
         data = data.data.split("\t");
 
         // data[1] is either 1, 2, or undefined. Set floor_text:
-        if (data[1]=="1") holding.floor_text = "1. messanin";
-        else if (data[1]=="2") holding.floor_text = "Hangaren (2. etasje)";
+        if (data[1]=="1") holding.floor_text = gettextCatalog.getString('1. mezzanine');
+        else if (data[1]=="2") holding.floor_text = gettextCatalog.getString('Main room (2. floor)');
         else holding.floor_text = "";
 
         // If we have a floor_text, we can store map_position and map_url_image

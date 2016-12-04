@@ -3,17 +3,21 @@
 
     <div class="card">
       <div class="item item-text-wrap">
-        Finn en bok ved å søke eller skanne en ISBN-kode.
+        <span translate>
+          Find a book by searching for it or scanning an ISBN code.
+        </span>
 
         <div class="row no-padding">
           <div class="col">
-            <a ui-sref="app.search" class="button button-full button-balanced icon ion-ios-search">
-                Søk
+            <a ui-sref="app.search" class="button button-full button-balanced">
+              <em class="icon ion-ios-search"></em>
+              <span translate>Search</span>
             </a>
           </div>
           <div class="col">
-            <button ui-sref="app.isbn" class="button button-full button-balanced icon ion-ios-barcode-outline">
-              ISBN
+            <button ui-sref="app.isbn" class="button button-full button-balanced">
+              <em class="icon ion-ios-barcode-outline"></em>
+              <span translate>ISBN</span>
             </button>
           </div>
         </div>
@@ -28,8 +32,8 @@
     </div>
 
     <div class="card">
-      <div class="item item-text-wrap">
-        Savner du noe her? Send gjerne inn forslag på <a ubo-ext-link href="https://github.com/scriptotek/realfagsbiblioteket-app">GitHub</a> eller til <a ubo-ext-link href="mailto:bib-lab-drift@ub.uio.no">bib-lab-drift@ub.uio.no</a>.
+      <div class="item item-text-wrap" translate>
+        Missing something here? Feel free to request features at <a ubo-ext-link href="https://github.com/scriptotek/realfagsbiblioteket-app">GitHub</a> or <a ubo-ext-link href="mailto:bib-lab-drift@ub.uio.no">bib-lab-drift@ub.uio.no</a>.
       </div>
       <!--
       <div class="item item-text-wrap">

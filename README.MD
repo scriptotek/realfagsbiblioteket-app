@@ -31,6 +31,15 @@ Former https://github.com/saqimtiaz/BibSearch/
   * `cp config/env.dist.json config/env.json` and add your API key to the file.
 * `gulp build` to build 'www/' from 'src/'.
 
+### Translation workflow
+
+* `gulp extract-translations` extracts translatable strings from the source code
+  into `src/po/messages.pot`
+* `cd src/po && msgmerge en.po messages.pot --update --verbose`
+  to update the English translation based on the updated `messages.pot` file.
+* Translate `src/po/en.po` using your favourite translation tool (like Poedit).
+* `gulp compile-translations` to compile `translations.js`
+
 ### Some useful commands
 
 * Run in browser:
@@ -73,13 +82,15 @@ Remember to
 
 ### Android
 
+* `gulp`
 * `cordova build --release android`
 * `jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore realfagsbiblioteket-release-key.keystore platforms/android/build/outputs/apk/android-release-unsigned.apk realfagsbiblkey`
 * `$ANDROID_HOME/build-tools/23.0.1/zipalign -v 4 platforms/android/build/outputs/apk/android-release-unsigned.apk realfagsbiblioteket.apk`
 
 ### iOS
 
-* `cordova prepare ios`
+* `gulp`
+* `cordova prepare ios --device`
 * Open `platforms/ios/Realfagsbiblioteket.xcodeproj`
   * Select `Generic iOS Device` in the dropdown menu at the toolbar and `Target → Realfagsbiblioteket`.
   ![XCode 1](meta/xcode1.png)
