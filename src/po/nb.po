@@ -120,7 +120,7 @@ msgstr "Etasje:"
 msgid "Grant permission"
 msgstr "Gi tilgang"
 
-#: about/about.module.js:62
+#: about/about.module.js:63
 msgid "Here it is:"
 msgstr "Her er den:"
 
@@ -128,7 +128,7 @@ msgstr "Her er den:"
 msgid "Home"
 msgstr "Hjem"
 
-#: directions/directions.html:45
+#: directions/directions.html:13 directions/directions.html:45
 msgid "Hours"
 msgstr "Åpningstider"
 
@@ -180,14 +180,6 @@ msgstr ""
 "github.com/scriptotek/realfagsbiblioteket-app\">GitHub</a> eller til <a ubo-"
 "ext-link href=\"mailto:bib-lab-drift@ub.uio.no\">bib-lab-drift@ub.uio.no</a>."
 
-#: directions/directions.html:14
-msgid ""
-"Mon-Fri: 08.00–22.00<br>\n"
-"        Sat-Sun: 10.00–18.00"
-msgstr ""
-"mandag til fredag: 08.00–22.00<br>\n"
-"        lørdag og søndag: 10.00–18.00"
-
 #: directions/directions.html:46
 msgid ""
 "Mon-Thu: 08.30–19.00<br>\n"
@@ -197,6 +189,14 @@ msgstr ""
 "mandag til torsdag: 08.30–19.00<br>\n"
 "        fredag: 08.30–17.00<br>\n"
 "        lørdag og søndag: stengt"
+
+#: directions/directions.html:14
+msgid ""
+"Mon–Fri: 08.00–22.00<br>\n"
+"        Sat–Sun: 10.00–18.00"
+msgstr ""
+"mandag til fredag: 08.00–22.00<br>\n"
+"        lørdag og søndag: 10.00–18.00"
 
 #: book/card.html:142
 msgid "More books about"
@@ -276,9 +276,15 @@ msgstr "Realfagsbiblioteket"
 msgid "Science Library in Vilhelm Bjerknes' hus"
 msgstr "Realfagsbiblioteket i Vilhelm Bjerknes' hus"
 
-#: app.html:26 home/home.html:14 search/search.html:30
+#. Can be translated as 'Search in' or 'Search scope'
+#: search/search.html:30
+msgctxt "Search scope"
 msgid "Search"
 msgstr "Søk i"
+
+#: app.html:26 home/home.html:14
+msgid "Search"
+msgstr "Søk"
 
 #: search/search.html:76
 msgid "Search all Norwegian research libraries"
@@ -388,7 +394,7 @@ msgstr ""
 "bestillingen fra en PC kan du bruke «Del denne boka» under for å sende Oria-"
 "lenken til deg selv."
 
-#: about/about.module.js:63
+#: about/about.module.js:64
 msgid "Try the UiO Science Library app 🤓"
 msgstr "Prøv Realfagsbiblioteket-appen 🤓"
 
@@ -489,6 +495,13 @@ msgstr "{{numberOfEditions}} utgaver"
 #: search/search.html:91
 msgid "{{vm.totalResults}} results"
 msgstr "{{vm.totalResults}} treff"
+
+#~ msgid ""
+#~ "Mon-Fri: 08.00–22.00<br>\n"
+#~ "        Sat-Sun: 10.00–18.00"
+#~ msgstr ""
+#~ "mandag til fredag: 08.00–22.00<br>\n"
+#~ "        lørdag og søndag: 10.00–18.00"
 
 #~ msgid ""
 #~ "By default you search the collections of the Science Library (including "

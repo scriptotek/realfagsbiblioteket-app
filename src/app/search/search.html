@@ -27,7 +27,7 @@
 
       <!-- Options start -->
       <label class="item item-input item-select" ng-show="vm.showOptions">
-        <div class="input-label" translate>
+        <div class="input-label" translate-context="Search scope" translate-comment="Can be translated as 'Search in' or 'Search scope'" translate>
           Search
         </div>
         <select ng-model="vm.state.scope" ng-change="vm.submitSearchForm()">

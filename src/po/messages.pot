@@ -105,7 +105,7 @@ msgstr ""
 msgid "Grant permission"
 msgstr ""
 
-#: about/about.module.js:62
+#: about/about.module.js:63
 msgid "Here it is:"
 msgstr ""
 
@@ -113,6 +113,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
+#: directions/directions.html:13
 #: directions/directions.html:45
 msgid "Hours"
 msgstr ""
@@ -159,17 +160,17 @@ msgstr ""
 msgid "Missing something here? Feel free to request features at <a ubo-ext-link=\"\" href=\"https://github.com/scriptotek/realfagsbiblioteket-app\">GitHub</a> or <a ubo-ext-link=\"\" href=\"mailto:bib-lab-drift@ub.uio.no\">bib-lab-drift@ub.uio.no</a>."
 msgstr ""
 
-#: directions/directions.html:14
-msgid ""
-"Mon-Fri: 08.00–22.00<br>\n"
-"        Sat-Sun: 10.00–18.00"
-msgstr ""
-
 #: directions/directions.html:46
 msgid ""
 "Mon-Thu: 08.30–19.00<br>\n"
 "        Fri: 08.30–17.00<br>\n"
 "        Sat-Sun: stengt"
+msgstr ""
+
+#: directions/directions.html:14
+msgid ""
+"Mon–Fri: 08.00–22.00<br>\n"
+"        Sat–Sun: 10.00–18.00"
 msgstr ""
 
 #: book/card.html:142
@@ -245,9 +246,14 @@ msgstr ""
 msgid "Science Library in Vilhelm Bjerknes' hus"
 msgstr ""
 
+#. Can be translated as 'Search in' or 'Search scope'
+#: search/search.html:30
+msgctxt "Search scope"
+msgid "Search"
+msgstr ""
+
 #: app.html:26
 #: home/home.html:14
-#: search/search.html:30
 msgid "Search"
 msgstr ""
 
@@ -329,7 +335,7 @@ msgstr ""
 msgid "To request the book, you must open it in Oria (link below). Note that the Oria interface isn't optimized for mobile yet, so you might instead want to use “Share this book” to send a link to your email and then make the actual request from a computer."
 msgstr ""
 
-#: about/about.module.js:63
+#: about/about.module.js:64
 msgid "Try the UiO Science Library app 🤓"
 msgstr ""
 
