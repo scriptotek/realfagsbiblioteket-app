@@ -147,7 +147,7 @@
 
     function setScope(scope) {
       vm.state.scope = scope;
-      vm.search();
+      vm.submitSearchForm();
     }
 
     function sortBy(sort) {
