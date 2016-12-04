@@ -180,7 +180,7 @@
           var result = data.results[0];
 
           if (result.type == 'group') {
-            $state.go('app.editions', {id: result.id});
+            $state.go('app.editions', {id: result.id, scope: 'BIBSYS'});
           } else {
             $state.go('app.book', {id: result.id});
           }
